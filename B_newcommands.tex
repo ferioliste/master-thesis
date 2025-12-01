@@ -1,0 +1,48 @@
+% math sets
+\newcommand{\N}{\mathbb N}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\R}{\mathbb R}
+\newcommand{\C}{\mathbb C}
+
+% define commands
+\newcommand{\E}{\mathbb E}
+\renewcommand{\Pr}{\mathbb P}
+\newcommand{\var}{\mathbb{V}\mathrm{ar}}
+\newcommand{\Cov}{\mathbb{C}\mathrm{ov}}
+\newcommand{\I}{\mathbf{I}}
+\newcommand{\tr}{\top}
+\newcommand{\de}{\mathrm{d}}
+\newcommand{\p}{\mathrm{p}}
+\newcommand{\indep}{\perp\!\!\!\!\perp}
+\newcommand{\bigo}{\mathcal{O}}
+
+\DeclareMathOperator*{\argmin}{\mathrm{argmin}}
+\DeclareMathOperator*{\argmax}{\mathrm{argmax}}
+
+\usepackage{amsthm}
+
+% Define a new theorem style: upright text + newline after heading
+\newtheoremstyle{break}               % name
+  {.5\baselineskip}                  % space above
+  {.5\baselineskip}                  % space below
+  {\normalfont}                       % body font (non-italic)
+  {}                                  % indent amount
+  {\bfseries}                         % theorem head font
+  {}                                  % punctuation after theorem head
+  {\newline}                          % space after theorem head (newline)
+  {\thmname{#1}\ \thmnumber{#2}\thmnote{: #3}}                                  % theorem head spec
+
+% Use the new style
+\theoremstyle{break}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\newtheorem{corollary}{Corollary}
+\newtheorem{definition}{Definition}
+
+\renewcommand*{\theoremautorefname}{Theorem}
+\newcommand*{\lemmaautorefname}{Lemma}
+\newcommand*{\propositionautorefname}{Proposition}
+\newcommand*{\corollaryautorefname}{Corollary}
+\newcommand*{\definitionautorefname}{Definition}
