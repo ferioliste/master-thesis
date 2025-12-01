@@ -35,11 +35,11 @@
 
 % Use the new style
 \theoremstyle{break}
-\newtheorem{theorem}{Theorem}
-\newtheorem{lemma}{Lemma}
-\newtheorem{proposition}{Proposition}
-\newtheorem{corollary}{Corollary}
-\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}[subsection]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
 
 \renewcommand*{\theoremautorefname}{Theorem}
 \newcommand*{\lemmaautorefname}{Lemma}

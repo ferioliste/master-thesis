@@ -1,0 +1,112 @@
+\subsection{Penalized spline estimators}
+In this section we introduce the main statistical framework of this thesis. The material of this section is taken and integrated from \cite{huang2021}, except when stated otherwise.
+
+We consider a continuous random variable or vector $\mathbf W$, that takes value in $\mathbb V=\R^\tau$, with density function $f_0:\mathbb V\rightarrow [0,\infty)$. We are interested in estimating a function $W^p[a,b]\ni\eta_0: [a,b] \rightarrow \R$ that depends on the distribution of $\mathbf W$. With $W^p[a,b]$ we denote the Sobolev space of order $p$ on $[a,b]$, that is
+\begin{equation*}
+    W^p[a,b] = \{h: h^{(p-1)}\text{ is absolutely continuous and }h^{(p)}\in L_2[a,b]\}.
+\end{equation*}
+For the ease of notation, from now on we will denote $W^p[a,b]$ as $W^p$.
+
+We assume to have available $n$ iid copies of $\mathbf{W}$, denoted as $\mathbf{W}_1 , \ldots, \mathbf{W}_n$. The idea is to approximate $\eta_0$ with a function $\hat\eta_n\in\mathbb G\subseteq W^p[a,b]$, where $\mathbb G$ is a finite-dimensional function space that we will define later. 
+
+We consider the utility function $\ell: W^p\times \big(\bigcup_{i=1}^\infty \mathbb V^i\big)\rightarrow\R$ defined as
+\begin{equation*}
+    \ell(h; \mathbf{W}_1 , \ldots, \mathbf{W}_n) = \frac{1}{n}\sum_{i=1}^n l(h; \mathbf{W}_i)
+\end{equation*}
+where $h\in W^p$ and $l(h; \mathbf{W}_i)$ is the contribution of $\mathbf{W}_i$ to the utility.
+
+We define the expected utility as
+\begin{equation*}
+    \Lambda(h) = \E\big[\ell(h; \mathbf{W}_1 , \ldots, \mathbf{W}_n)\big] = \E\big[l(h; \mathbf{W})\big].
+\end{equation*}
+We say that $\ell$ is a valid utility function if
+\begin{enumerate}[label=\roman*)]
+    \item $\displaystyle \min_{h\in W^p} \Lambda(h) = \Lambda(\eta_0)$;
+    
+    \item $\ell(h; \mathbf{W}_1, \ldots, \mathbf{W}_n)$ is concave in $h$, that is
+    \begin{align*}
+        &\ell(\alpha h_1 + (1-\alpha)h_2; \mathbf{W}_1, \ldots, \mathbf{W}_n) \\
+        &\geq \alpha \ell(h_1; \mathbf{W}_1, \ldots, \mathbf{W}_n) + (1-\alpha)\ell(h_2; \mathbf{W}_1, \ldots, \mathbf{W}_n),
+    \end{align*}
+    for all $h_1, h_2\in\mathbb G$, for all $0 \leq \alpha \leq 1$, for all possible values of $\mathbf{W}_1, \ldots, \mathbf{W}_n$;
+    
+    \item $\Lambda(h)$ is strictly concave in $h$, that is
+    \begin{equation*}
+        \Lambda(\alpha h_1 + (1-\alpha)h_2) 
+        > \alpha \Lambda(h_1) + (1-\alpha)\Lambda(h_2),
+    \end{equation*}
+    for all $h_1, h_2\in\mathbb G$ with $h_1 \neq h_2$, for all $0 \leq \alpha \leq 1$.
+\end{enumerate}
+
+We define the penalized utility as
+\begin{equation*}
+    \p\ell(h; \mathbf{W}_1 , \ldots, \mathbf{W}_n) = \ell(h; \mathbf{W}_1 , \ldots, \mathbf{W}_n) - \lambda_n J_q(h)
+\end{equation*}
+where $\lambda_n$ is a positive penalty parameter and $J_q(h)$ is a penalty term defined as
+\begin{equation*}
+    J_q(h) = \int_{\mathcal U} \big(h^{(q)}(x)\big)^2 \de x = \|h^{(q)}\|_2^2
+\end{equation*}
+where the integer $q$ is the order of the penalty and $h^{(q)}$ is the $q$-th derivative of $h$.
+
+Similarly, we define the penalized expected utility as
+\begin{equation*}
+    \p\Lambda(h) = \Lambda(h) - \lambda_n J_q(h).
+\end{equation*}
+
+Now, let $\mathbb G$ be the space of spline functions of degree $m$ on $k$ inner knots. Given a partition of $[a,b]$, $a=t_0<t_1<\cdots<t_k<t_{k+1}=b$, a spline function $f$ is piecewise defined by polynomials of degree at most $m$ on each interval $[t_i, t_{i+1}]$, so that $f$ globally is continuous and has $m-1$ continuous derivatives. Since there are $(k+1)(m+1)$ polynomial coefficients and $k\,m$ continuity constraints, $\mathbb G$ is a linear vector space of order $N = m+k+1$.
+
+Note that $\mathbb G$ is univocally identified by the knots vector $t\in\R^{k+2}$ and the degree $m$. In general, $t$ and so $\mathbb G$ and $N$ can change with $n$, but $m$ must remain constant. When we write $\mathbb G_n$ and $N_n$ we explicit the dependence on $n$.
+
+We further assume that the knot sequence has bounded mesh ratio, that is
+\begin{equation*}
+    C_1 \leq \frac{\max_{j}(t_{j+1}-t_j)}{\min_{j}(t_{j+1}-t_j)} \leq C_2\quad\text{for some positive constants }C_1\text{ and }C_2.
+\end{equation*}
+
+\begin{definition}
+Given two positive sequences $(a_n)_n, (b_n)_n$, we say $(a_n)_n$ asymptotically dominates $(b_n)_n$ if $b_n/a_n \leq C$ for some positive constant $C$. In this case, we write $b_n\lesssim a_n$ and $a_n\gtrsim b_n$. If $b_n\lesssim a_n$ and $a_n\lesssim b_n$, we say $(a_n)_n$ and $(b_n)_n$ are asymptotically equivalent and write $a_n \asymp b_n$.
+\end{definition}
+
+\begin{proposition}
+Let
+\begin{equation*}
+    \delta_n = \max_{j}(t_{j+1}-t_j),
+\end{equation*}
+then, if $k\rightarrow\infty$ and $m/k\rightarrow 0$ as $n\rightarrow\infty$, $\delta_n$ is asymptotically equivalent to $1/N_n$, that is $\delta_n \asymp 1/N_n$.
+\end{proposition}
+\begin{proof}
+We have that
+\begin{equation*}
+    \delta_n=\max_{j}(t_{j+1}-t_j) \geq \frac{b-a}{k+1}\qquad\text{and}\qquad \min_{j}(t_{j+1}-t_j) \leq \frac{b-a}{k+1}.
+\end{equation*}
+Then, since the knot sequence has bounded mesh ratio,
+\begin{equation*}
+    \frac{b-a}{k+1}\leq \delta_n\leq C_2\min_{j}(t_{j+1}-t_j)\leq C_2\frac{(b-a)}{k+1}
+\end{equation*}
+Since
+\begin{equation*}
+    N_n/(k+1)=k/(k+1)+m/(k+1)+1/(k+1)\rightarrow 1,
+\end{equation*}
+for $n$ large enough we have $\tfrac12\le N_n/(k+1)\le2$, hence
+\begin{equation*}
+\frac{b-a}{2N_n}\leq \delta_n\leq 2C_2\frac{b-a}{N_n}
+\end{equation*}
+so $\delta_n\asymp 1/N_n$.
+\end{proof}
+
+In this framework, a specific estimation problem is fully specified once the following objects are fixed:
+\begin{itemize}
+    \item the density $f_0$ of the random variable or vector $\mathbf W$;
+    \item the smoothness order $p$, which determines the Sobolev space $W^p$ where $\eta_0$ lives;
+    \item a valid utility function $\ell$;
+    \item the spline degree $m$;
+    \item the sequence of knot vectors $(t_{(n)})_{n\in\N}$, where for each $n$ the vector $t_{(n)}\in \bigcup_{i=1}^\infty [a,b]^i$ is a partition of $[a,b]$ with $a = (t_{(n)})_0 < \cdots < (t_{(n)})_{k_n} = b$ and bounded mesh ratio;
+    \item the sequence of penalty parameters $(\lambda_n)_{n\in\N}\subset (0,\infty)$.
+    \item the penalty order $q$.
+\end{itemize}
+Note that $m$ together with $(t_{(n)})_{n\in\N}$ allows to define the sequence of spline spaces $(\mathbb G_n)_{n\in\N}$. For the ease of notation, we will keep writing $\mathbb G$ instead of $\mathbb G_n$, $t$ instead of $t_{(n)}$, and $k$ instead of $k_n$, keeping in mind that they all still depend on $n$.
+
+Given these components, the penalized spline estimator $\hat\eta_n$ is defined as
+\begin{equation*}
+    \hat\eta_n = \argmax_{h\in \mathbb G} \p\ell(h; \mathbf{W}_1 , \ldots, \mathbf{W}_n).
+\end{equation*}
+In general $\hat\eta_n$ is also a random variable.

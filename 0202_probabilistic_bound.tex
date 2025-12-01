@@ -1,0 +1,119 @@
+\subsection{Probabilistic bound}
+In this section, we construct a probabilistic bound of the quantity $\|\hat\eta_n-\eta_0\|_2^2 + \lambda_n J(\hat\eta_n)$. This gives both the $L_2$ convergence rate of $\hat\eta_n$ to $\eta_0$ and a bound on $J_q(\hat\eta_n)$.
+
+We define
+\begin{equation*}
+    \bar\eta_n = \argmax_{h\in \mathbb G} \p\Lambda(h),
+\end{equation*}
+so that we can decompose the error as
+\begin{equation*}
+\hat\eta_n - \eta_0
+= 
+\overbrace{(\hat\eta_n - \bar\eta_n)}^{\mathclap{\text{estimation error}}}
++ 
+\underbrace{(\bar\eta_n - \eta_0)}_{\mathclap{\text{approximation error}}}
+\end{equation*}
+with the first and the second term referred as estimation error and approximation error, respectively.
+
+\begin{definition}
+    We define the quantity
+    \begin{equation*}
+        A_n = \sup_{g \in\mathbb G,\, \|g\|_2 \neq 0} \frac{\|g\|_\infty}{\|g\|_2}
+        = \sup_{g \in \mathbb G, \|g\|_2 = 1} \|g\|_\infty,
+    \end{equation*}
+    that measures the irregularity of the approximating space $\mathbb G$.
+\end{definition}
+
+\begin{definition}[empirical and theoretical norms]
+    We define the empirical and theoretical inner products, respectively, as
+    \begin{gather*}
+        \langle g_1, g_2 \rangle_{\E_n} = \E_n[g_1(\mathbf X) g_2(\mathbf X)] 
+        = \frac{1}{n} \sum_{i=1}^{n} g_1(\mathbf X_i) g_2(\mathbf X_i)\quad\text{and} \\
+        \langle g_1, g_2 \rangle_\E = \E[g_1(\mathbf X) g_2(\mathbf X)].
+    \end{gather*}
+    These two inner products induce the norms
+    \begin{equation*}
+        \| g \|_{\E_n}^2 = \E_n[g(\mathbf X)^2] 
+        = \frac{1}{n} \sum_{i=1}^{n} g(\mathbf X_i)^2\quad\text{and}\quad \| g \|_\E^2 = \E[g(\mathbf X)^2].
+    \end{equation*}
+\end{definition}
+
+\begin{definition}[Big-O and small-o in probability]
+    Let $(X_n)_{n\in\N}$ be a sequence of random variables and $(a_n)_{n\in\N}$ a positive sequence of real numbers.  
+    We write
+    \begin{equation*}
+        X_n = O_P(a_n)
+    \end{equation*}
+    if for every $\varepsilon > 0$ there exist constants $M < \infty$ and $N < \infty$ such that
+    \begin{equation*}
+        \Pr\big( |X_n| > M a_n \big) \le \varepsilon 
+        \quad \text{for all } n \ge N.
+    \end{equation*}
+    On the other hand, we write
+    \begin{equation*}
+        X_n = o_P(a_n)
+    \end{equation*}
+    if $X_n/a_n \rightarrow 0$ in probability, that is, for every $\varepsilon > 0$ and every $\delta > 0$, there exists $N < \infty$ such that
+    \begin{equation*}
+        \Pr\big( |X_n| > \varepsilon a_n \big) \le \delta 
+        \quad \text{for all } n \ge N.
+    \end{equation*}
+\end{definition}
+
+
+\begin{theorem}[Bound on the approximation error]\label{thm:approx_error}
+Assume the following conditions are satisfied
+\begin{enumerate}[label=\arabic*., leftmargin=2.5em]
+    \item There exist constants $B, M_1, M_2 > 0$ such that
+    \begin{equation*}
+        -M_1 \|h\|_\E^2 \leq \Lambda(\eta_0 + h) - \Lambda(\eta_0) \leq -M_2 \|h\|_\E^2
+    \end{equation*}
+    for all $h \in\mathbb G$ with $\|h\|_\infty \leq B$;
+    \item $\lim_n \delta_n\vee\lambda_n = 0$;
+    \item $\displaystyle \lim_n A_n^2 \{\delta_n^{2p'} \vee (\lambda_n \delta_n^{2(p'-q)\wedge 0})\} = 0$.
+\end{enumerate}
+Then
+\begin{enumerate}[label=\alph*., leftmargin=2.5em]
+    \item Then $\bar\eta_n$ exists and is bounded;
+    \item $\|\bar\eta_n - \eta_0\|_\infty = o(1)$;
+    \item $\|\bar\eta_n - \eta_0\|^2 + \lambda_n J_q(\bar\eta_n) = O\{\delta_n^{2p'} \vee \lambda_n \delta_n^{2(p'-q)\wedge 0}\}$, with $p' = p \wedge (m+1)$.
+\end{enumerate}
+\end{theorem}
+
+\begin{theorem}[Bound on the estimation error]\label{thm:est_error}
+Assume the following conditions are satisfied
+\begin{enumerate}[label=\arabic*., leftmargin=2.5em]
+    \item $\displaystyle \sup_{g \in G_n} 
+\frac{|(\E_n - \E)\,\dot l[\bar\eta_n, g]|^2}
+{\|g\|_2^2 + \lambda_n J_q(g)} 
+= O_P\!\left( \frac{1}{n \lambda_n^{1/(2q)}} \wedge \frac{1}{n \delta_n} \right)$ \\
+with $\displaystyle \dot l[\bar\eta_n, g] = \frac{\de}{\de\alpha}l(\bar\eta_n+\alpha g)\bigg|_{\alpha=0^+}$;
+    \item There are constants $B > 0$ and $M > 0$ such that, with probability tending to one as $n \to \infty$, we have that
+\begin{equation*}
+    \left. \frac{\de}{\de\alpha} \ell(\bar\eta_n + \alpha g) \right|_{\alpha = 1^+}
+- \left. \frac{\de}{\de\alpha} \ell(\bar\eta_n + \alpha g) \right|_{\alpha = 0^+} \leq - M \|g\|_2^2
+\end{equation*}
+    for all $g \in\mathbb G$ with $\|g\|_\infty \leq B$,
+    \item $\lim_n \delta_n\vee\lambda_n = 0$;
+    \item $\displaystyle \lim_n A_n^2 \left(\frac{1}{n \lambda_n^{1/(2q)}} \wedge \frac{1}{n \delta_n}\right)=0$.
+\end{enumerate}
+Then
+\begin{enumerate}[label=\alph*., leftmargin=2.5em]
+    \item $\|\hat\eta_n - \bar{\eta}_n\|_\infty = o_P(1)$;
+    \item $\displaystyle \|\hat\eta_n - \bar{\eta}_n\|^2 
++ \lambda_n J_q(\hat\eta_n - \bar{\eta}_n) 
+= O_P\!\left( \frac{1}{n \lambda_n^{1/(2q)}} \wedge \frac{1}{n \delta_n} \right)$.
+\end{enumerate}
+\end{theorem}
+
+Combining \autoref{thm:approx_error} and \autoref{thm:est_error}, we obtain the following probabilistic bound.
+\begin{corollary}[Bound on the error]\label{thm:overall_error}
+Assume the conditions of \autoref{thm:approx_error} and \autoref{thm:est_error} are satisfied. Then
+\begin{enumerate}[label=\alph*., leftmargin=2.5em]
+    \item $\|\hat\eta_n - \eta_0\|_\infty = o_P(1)$;
+    \item $\displaystyle \|\hat\eta_n - \eta_0\|^2 
++ \lambda_n J_q(\hat\eta_n - \eta_0) 
+= O_P\!\left(\delta_n^{2p'} \vee \lambda_n \delta_n^{2(p'-q)\wedge 0} + \frac{1}{n \lambda_n^{1/(2q)}} \wedge \frac{1}{n \delta_n} \right)$, \\
+with $p' = p \wedge (m+1)$.
+\end{enumerate}
+\end{corollary} 
