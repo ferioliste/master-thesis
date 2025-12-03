@@ -1,0 +1,395 @@
+\subsection{Proofs of the master theorems}\label{sec:proofs}
+We start by stating and proving \autoref{lem:convexity}, that is used in the proofs of both theorems.
+
+\begin{lemma}[Convexity lemma]\label{lem:convexity}
+    Take $C(\cdot)$ convex functional and $L(\cdot)$ a continuous functional on a convex set $\mathcal C$ of functions. If there exists a function $\eta^\dagger\in\mathcal C$ and a real number $s > L(\eta^\dagger)$ such that for all $\eta\in\mathcal C$ such that $L(\eta)=s$, we have either
+    \begin{equation*}
+        C(\eta^\dagger) < C(\eta)
+    \end{equation*}
+    or
+    \begin{equation*}
+        \frac{\partial}{\partial\beta} C(\eta^\dagger + \beta(\eta-\eta^\dagger))\big|_{\beta=1^+}>0
+    \end{equation*}
+    then any minimizer $\eta_\text{min}$ of $C(\cdot)$ in $\mathcal C$ satisfies $L(\eta_\text{min})\leq s$
+\end{lemma}
+\begin{proof}\mbox{}
+
+Fix $\tilde\eta\in\mathcal C$ such that $L(\tilde\eta)>s$. Let $\eta_\alpha = \alpha\tilde\eta + (1-\alpha)\eta^\dagger$. Since $L(\cdot)$ is continuous, by the intermediate value theorem, there exists $\breve\alpha$ such that $L(\eta_{\breve\alpha}) = s$.\\
+If the first condition holds, by convexity of $C(\cdot)$, $C(\eta^\dagger) < C(\eta_{\breve\alpha}) \leq \breve\alpha C(\tilde\eta) + (1-\breve\alpha)C(\eta^\dagger)$, that implies $C(\eta^\dagger) < C(\tilde\eta)$, so $\tilde\eta$ cannot be minimizer.\\
+On the other hand, we can write $\tilde\eta = \eta^\dagger + \breve\beta(\breve\eta-\eta^\dagger)$ with $\breve\beta = 1/\breve\alpha>1$. Then, if the second condition holds,
+\begin{gather*}
+C(\tilde\eta) - C(\breve\eta) = C(\eta^\dagger + \breve\beta(\breve\eta-\eta^\dagger)) - C(\eta^\dagger + (\breve\eta-\eta^\dagger)) \\ \overset{\star}{\geq} (\breve\beta -1)\frac{\partial}{\partial\beta}C(\eta^\dagger + \beta(\breve\eta - \eta^\dagger))\big |_{\beta=1^+} > 0
+\end{gather*}
+where $\overset{\star}{\geq}$ is justified as follows. Let $\Phi(\beta) = C(\eta^\dagger + \beta(\breve\eta - \eta^\dagger))$. Since $\Phi$ is convex, $\Phi'$ is monotone. Then, by Lagrange theorem,
+\begin{equation*}
+    \frac{\Phi(\breve\beta)-\Phi(1)}{\breve\beta-1} \geq \min_{\beta\in[1,\breve\beta]} \Phi'(\beta) = \Phi'(1^+).
+\end{equation*}
+
+Then $C(\tilde\eta) > C(\breve\eta)$, so $\tilde\eta$ cannot be minimizer.
+\end{proof}
+
+\subsubsection{Proof of the bound on the estimation error}\label{sec:proof_es}
+
+Before proving \autoref{thm:est_error}, we introduce \autoref{prop:2.1} and show how it can be derived from Theorem 6.25 of \cite{schumaker_2007}. In addition, we state the Weierstrass extreme value theorem for metric spaces, that we will use to show existence of $\bar\eta_n$.
+
+\begin{proposition}\label{prop:2.1}
+    Assume $\eta_0 \in W^p[a,b]$ and $m \geq p-1$. 
+    There exist a function $\eta_n^* \in \mathbb G$ and constants $C_1$, $C_2$, $C_3$, 
+    depending on $p$, $m$ and $\eta_0$ such that
+    \begin{equation*}
+        \|\eta_n^* - \eta_0\|_2 \leq C_1\delta_n^p,
+        \qquad
+        \|\eta_n^* - \eta_0\|_{\infty} \leq C_2\delta_n^{p-1/2},
+    \end{equation*}
+    and moreover, if $q \leq m$, then
+    \begin{equation*}
+        J_q(\eta_n^*) \leq C_3\delta_n^{2(p-q)\wedge 0}.
+    \end{equation*}
+\end{proposition}
+
+In order to derive \autoref{prop:2.1}, we report Theorem 6.25 of \cite{schumaker_2007} adapting the notation. Note that \cite{schumaker_2007} utilizes a map $Q$ to "project" functions into the spline space. In our case, we do not need to define such map and we say instead that a spline function exists, without characterizing it.
+
+We introduce the following notation for Sobolev spaces
+\begin{equation*}
+    W_s^p[a,b] = \{h: h^{(p-1)}\text{ is absolutely continuous and }h^{(p)}\in L_s[a,b]\}.
+\end{equation*}
+so that $W_2^p[a,b] \equiv W^p[a,b]$.
+
+\begin{proposition}[Schumaker's Theorem 6.25 \cite{schumaker_2007}]\label{prop:6.25}
+    Let $1\leq s\leq z\leq \infty$ and $1 \leq p \leq m$. Then for every $f \in W_s^p[a,b]$, there exists $\tilde f\in \mathbb G$ such that
+    \begin{equation}
+    \begin{aligned}
+        &\| (f - \tilde f)^{(r)} \|_z, \quad r = 0, \ldots, p - 1, \\
+        &\| \tilde f^{(r)} \|_z, \qquad\quad\ \ r = p, \ldots, m-1
+    \end{aligned}
+    \Bigg\}
+    \leq 
+    C \, \delta_n^{p - r + 1/z - 1/s} \, 
+    \omega_{m-p}(f^{(p)}; \delta_n)_s .
+    \end{equation}
+    where $C$ is a constant that depends only on $m$ and $k$ and $\omega_{m-p}(f^{(p)}; \delta_n)_k$ is the $(m-p)$-th modulus of smoothness of $f^{(p)}$ in $L_k$ according to Definition 2.58 of \cite{schumaker_2007}.
+\end{proposition}
+
+We can derive the three inequalities of \autoref{prop:2.1} as follows.
+\begin{enumerate}
+\item To obtain the first inequality, we set $s=z=2$ and $r=0$. We have
+\begin{equation*}
+    \| f - \tilde f\|_2 \leq C \, \delta_n^p \, 
+\omega_{m-p}\!\left(f^{(p)}; \delta_n\right)_2.
+\end{equation*}
+Then, using Equation 2.118 of Theorem 2.59 of \cite{schumaker_2007}, we have
+\begin{equation*}
+    \| f - \tilde f\|_2 \leq C \, \delta_n^p \, 2^{m-p}\|f^{(p)}\|_2
+\end{equation*}
+so we set $C_1 = C\,2^{m-p}\|f^{(p)}\|_2$.
+
+\item To obtain the second inequality, we set $k=2$, $z=\infty$ and $r=0$. We have
+\begin{equation*}
+    \| f - \tilde f\|_\infty \leq C \, \delta_n^{p-1/2} \, 
+\omega_{m-p}\!\left(f^{(p)}; \delta_n\right)_2.
+\end{equation*}
+Then, using Equation 2.118 of Theorem 2.59 of \cite{schumaker_2007}, we have
+\begin{equation*}
+    \| f - \tilde f\|_\infty \leq C \, \delta_n^{p-1/2} \, 2^{m-p}\|f^{(p)}\|_2
+\end{equation*}
+so we set $C_2 = C\,2^{m-p}\|f^{(p)}\|_2$.
+
+\item To obtain the third inequality, we set $k=z=2$ and $r=q$. \\
+If $\p\leq q$, we have
+\begin{equation*}
+    \|\tilde f^{(q)}\|_2 \leq C \, \delta_n^{p-q} \, 
+\omega_{m-p}\!\left(f^{(p)}; \delta_n\right)_2.
+\end{equation*}
+Then, using Equation 2.118 of Theorem 2.59 of \cite{schumaker_2007}, we have
+\begin{equation*}
+    \|\tilde f^{(q)}\|_2 \leq C \, \delta_n^{p-q} \, 2^{m-p}\|f^{(p)}\|_2.
+\end{equation*}
+If $p > q$, we have
+\begin{gather*}
+    \|\tilde f^{(q)} \|_2 \leq \| (f - \tilde f)^{(q)} \|_2 + \| f^{(q)} \|_2 \\
+    \leq C \, \delta_n^{p-q} \, 2^{m-p}\|f^{(p)}\|_2 + \| f^{(q)} \|_2 \leq C\, 2^{m-p}\|f^{(p)}\|_2 + \| f^{(q)}\|_2.
+\end{gather*}
+Combining the two cases, we have
+\begin{equation*}
+    \|\tilde f^{(q)}\|_2 \leq \big(C \, 2^{m-p}\|f^{(p)}\|_2 \,\vee\, (C\, 2^{m-p}\|f^{(p)}\|_2 + \| f^{(q)}\|_2)\big)\delta_n^{(p-q)\wedge 0}
+\end{equation*}
+and squaring we obtain the third inequality, with
+\begin{equation*}
+    C_3 = \big(C \, 2^{m-p}\|f^{(p)}\|_2 \,\vee\, (C\, 2^{m-p}\|f^{(p)}\|_2 + \| f^{(q)}\|_2)\big)^2.
+\end{equation*}
+\end{enumerate}
+
+\begin{theorem}[Weierstrass extreme value theorem]\label{thm:weierstrass}
+Let $(X,d)$ be a metric space and let $K \subset X$ be a compact set. 
+If $f : K \to \mathbb{R}$ is continuous, then there exist points 
+$x_{\min}, x_{\max} \in K$ such that
+\begin{equation*}
+    f(x_{\min}) \leq f(x) \leq f(x_{\max}) \quad \text{for all } x \in K.
+\end{equation*}
+\end{theorem}
+
+We are now ready to prove \autoref{thm:approx_error}.
+
+\begin{proof}[Proof of \autoref{thm:approx_error}]\mbox{}
+
+We assume $p \leq m+1$ without loss of generality, as we can always replace $p$ with $p' = p \wedge (m+1)$. For $\eta_n^*$ as in \autoref{prop:2.1}, we have that
+\begin{equation*}
+    \|\eta_n^* - \eta_{0}\|_2 \leq C_{1}\delta_{n}^{p}\qquad\text{and}\qquad J_{q}(\eta_n^*) \leq C_{3}\delta_{n}^{2(p-q)\wedge 0}.
+\end{equation*}
+Then, summing the inequalities,
+\begin{equation}
+    \label{eq:star_vs_0}
+    \|\eta_n^* - \eta_{0}\|_2 + \lambda_n^{1/2} J_q^{1/2}(\eta_n^*) \leq C_1 \delta_n^p + C_3^{1/2}\lambda_n^{1/2}\delta_n^{(p-q)\wedge 0}.
+\end{equation}
+
+We apply \autoref{lem:convexity} to the convex functional
+\begin{equation*}
+    C(g) = -\Lambda(g) + \lambda_n J_q(g)
+\end{equation*}
+and the continuous functional
+\begin{equation*}
+    L(g) = \|g-\eta^*_n\|_2 + \lambda_n^{1/2} J_q^{1/2} (g - \eta_n^*)
+\end{equation*}
+on $\mathcal C = \mathbb G$. Note that $L(\cdot)$ is continuous since
+\begin{gather*}
+    |L(g_1) - L(g_2)| = |\|g_1-\eta^*_n\|_2 + \lambda_n^{1/2} J_q^{1/2} (g_1 - \eta_n^*) - \|g_2-\eta^*_n\|_2 - \lambda_n^{1/2} J_q^{1/2} (g_2 - \eta_n^*)| \\
+    \leq |\|g_1-\eta^*_n\|_2 - \|g_2-\eta^*_n\|_2 | + | \lambda_n^{1/2} J_q^{1/2} (g_1 - \eta_n^*) - \lambda_n^{1/2} J_q^{1/2} (g_2 - \eta_n^*)| \\
+    \leq \|g_1 - g_2\|_2 + \lambda_n^{1/2} J_q^{1/2} (g_1 - g_2)
+\end{gather*}
+where the last inequality is by reverse triangle inequality.
+
+We take $s = a(\delta_n^p + \lambda_n^{1/2}\delta_n^{(p-q)\wedge 0})$, with $a>0$.\\
+We take $\eta^\dagger = \eta^*_n$, so that $L(\eta^\dagger)=0$. By \autoref{prop:2.1}, $\|\eta_n^* - \eta_0\|_\infty \leq C_2\delta_n^{p-1/2}$.
+
+Let $g$ such that $L(g)=s$, where both $g$ and $s$ depend on $a$ and $n$. By definition of $A_n$, we have
+\begin{equation*}
+    \|g-\eta_n^*\|_\infty \leq A_n\|g-\eta_n^*\|_2 \leq A_n L(g) = A_n s = A_n a (\delta_n^p + \lambda_n^{1/2}\delta_n^{(p-q)\wedge 0}).
+\end{equation*}
+Then
+\begin{equation*}
+    \|g-\eta_0\|_\infty \leq \|g-\eta_n^*\|_\infty + \|\eta_n^*-\eta_0\|_\infty\leq A_n a (\delta_n^p + \lambda_n^{1/2}\delta_n^{(p-q)\wedge 0}) + C_2\delta_n^{p-1/2} = o(1),
+\end{equation*}
+from which follows that, for $n$ large enough, $\|g-\eta_0\|_\infty \leq B$.
+
+Using Condition 1,
+\begin{equation}\label{eq:chain1}
+\begin{aligned}
+    C(g) + \Lambda(\eta_0) &= - \Lambda(g) + \Lambda(\eta_0) + \lambda_n J_q(g) \\
+    &\geq M_2\|g-\eta_0\|_2^2 + \lambda_n J_q(g) \\
+    &\geq (M_2\wedge 1)(\|g-\eta_0\|_2^2 + \lambda_n J_q(g)) \\
+    &\geq \frac{1}{2}(M_2\wedge 1)(\|g-\eta_0\|_2 + \lambda_n^{1/2} J_q^{1/2}(g))^2
+\end{aligned}
+\end{equation}
+and
+\begin{equation}\label{eq:chain2}
+\begin{aligned}
+    C(\eta_n^*) + \Lambda(\eta_0) &= - \Lambda(\eta_n^*) + \Lambda(\eta_0) + \lambda_n J_q(\eta_n^*) \\
+    &\leq M_1\|\eta_n^*-\eta_0\|_2^2 + \lambda_n J_q(\eta_n^*) \\
+    &\leq (M_1\vee 1)(\|\eta_n^*-\eta_0\|_2^2 + \lambda_n J_q(\eta_n^*)) \\
+    &\leq (M_1\vee 1)(\|\eta_n^*-\eta_0\|_2 + \lambda_n^{1/2} J_q^{1/2}(\eta_n^*))^2.
+\end{aligned}
+\end{equation}
+
+In addition,
+\begin{align*}
+    a\left(\delta_n^p + \lambda_n^{1/2}\delta_n^{(p-q)\wedge 0}\right) 
+    &= \|g - \eta_n^*\|_2 + \lambda_n^{1/2} J_q^{1/2}(g - \eta_n^*) \\
+    &\leq \|g - \eta_0\|_2 + \lambda_n^{1/2} J_q^{1/2}(g) + \|\eta_n^* - \eta_0\|_2 
+       + \lambda_n^{1/2} J_q^{1/2}(\eta_n^*) \\
+    &\leq \|g - \eta_0\|_2 + \lambda_n^{1/2} J_q^{1/2}(g) 
+       + C_1 \delta_n^p + C_3^{1/2} \lambda_n^{1/2} \delta_n^{(p-q)\wedge 0}.
+\end{align*}
+where the last inequality uses \autoref{eq:star_vs_0}. It follows that
+\begin{equation} \label{eq:a_minus}
+    (a-C_1)\delta_n^p + (a-C_3^{1/2})\lambda_n^{1/2}\delta_n^{(p-q)\wedge 0} \leq \|g - \eta_0\|_2 + \lambda_n^{1/2} J_q^{1/2}(g).
+\end{equation}
+We have
+\begin{equation}\label{eq:M1vsM2}
+\begin{aligned}
+    &(M_1\vee 1)(\|\eta_n^* - \eta_{0}\|_2 + \lambda_n^{1/2} J_q^{1/2}(\eta_n^*))^2 \\
+    \leq & (M_1\vee 1)(C_1 \delta_n^p + C_3^{1/2}\lambda_n^{1/2}\delta_n^{(p-q)\wedge 0})^2 \\
+    \leq & \frac{1}{2}(M_2\wedge 1)((a-C_1)\delta_n^p + (a-C_3^{1/2})\lambda_n^{1/2}\delta_n^{(p-q)\wedge 0})^2 \\
+    \leq & \frac{1}{2}(M_2\wedge 1)(\|g - \eta_0\|_2 + \lambda_n^{1/2} J_q^{1/2}(g))^2
+\end{aligned}
+\end{equation}
+where the first inequality uses \autoref{eq:star_vs_0}, the second inequality holds for $a$ large enough, and the third inequality uses \autoref{eq:a_minus}.
+
+Using \autoref{eq:M1vsM2}, \autoref{eq:chain1} and \autoref{eq:chain2}, we have that
+\begin{equation*}
+    C(g) \geq  C(\eta_n^*)\qquad\text{for }g\in\mathbb G\text{ with }L(g)=s.
+\end{equation*}
+
+By \autoref{lem:convexity}, if $C(\cdot)$ admits minimizer $\bar\eta_n$, it satisfies $L(\bar\eta_n)<s$. In other words, if we define $K_n = \{g\in\mathbb G:L(g)\leq s\}$, then
+\begin{equation*}
+    \min_{g\in\mathbb G_n} C(g) = \min_{g\in K_n} C(g).
+\end{equation*}
+
+In order to show that the minimizer $\bar\eta_n$ of $C(\cdot)$ exists, we use the Weierstrass extreme value theorem (\ref{thm:weierstrass}). We consider the $L_2$ distance and we want to show that $K_n$ is compact. Since $\mathbb G$ is finite dimensional, it is enough to show that $K_n$ is closed and bounded. First, $K_n$ is closed since $L$ is continuous. Second, $K_n$ is bounded since for any $g\in K_n$, we have by definition of $L$,
+\begin{equation*}
+    \|g - \eta_n^*\|_2 \leq L(g) \leq s
+\end{equation*}
+and, therefore,
+\begin{equation*}
+    K_n \subseteq \big\{g\in\mathbb G : \|g-\eta_n^*\|_2 \leq s\big\}.
+\end{equation*}
+Then, by the Weierstrass extreme value theorem (\ref{thm:weierstrass}), we have that the minimizer $\bar\eta_n$ of $C(\cdot)$ exists.
+
+Now we show that $\bar\eta_n$ is uniformly bounded. We have
+\begin{equation*}
+    \|\bar\eta_n\|_\infty \leq \|\eta_n^*\|_\infty + \|\bar\eta_n-\eta_n^*\|_\infty \leq \|\eta_n^*\|_\infty + A_n\|\bar\eta_n-\eta_n^*\|_2 \leq \|\eta_n^*\|_\infty + A_n s
+\end{equation*}
+and, using \autoref{prop:2.1},
+\begin{equation*}
+    \|\eta_n^*\|_\infty \leq \|\eta_0\|_\infty + \|\eta_n^*-\eta_0\|_\infty \leq \|\eta_0\|_\infty + C_2 \delta_n^{p - 1/2}.
+\end{equation*}
+So,
+\begin{equation*}
+    \|\bar\eta_n\|_\infty \leq \|\eta_0\|_\infty + C_2 \delta_n^{p - 1/2} + A_n s.
+\end{equation*}
+By condition 3, $A_n s\rightarrow 0$ as $n\rightarrow\infty$. Since $p>1/2$, also $C_2 \delta_n^{p - 1/2}\rightarrow 0$ as $n\rightarrow\infty$. Then, for $n$ large enough,
+\begin{equation*}
+    \|\bar\eta_n\|_\infty \leq \|\eta_0\|_\infty + 1.
+\end{equation*}
+
+We now prove that $\|\bar\eta_n - \eta_0\|_\infty = o(1)$. Since $L(\bar\eta_n)\leq s$, we have
+\begin{equation*}
+    \|\bar\eta_n-\eta_n^*\|_\infty \leq A_n\|\bar\eta_n-\eta_n^*\|_2 \leq A_n L(\bar\eta_n) \leq A_n a (\delta_n^p + \lambda_n^{1/2}\delta_n^{(p-q)\wedge 0}).
+\end{equation*}
+Then
+\begin{equation*}
+    \|\bar\eta_n-\eta_0\|_\infty \leq \|\bar\eta_n-\eta_n^*\|_\infty + \|\eta_n^*-\eta_0\|_\infty\leq A_n a (\delta_n^p + \lambda_n^{1/2}\delta_n^{(p-q)\wedge 0}) + C_2\delta_n^{p-1/2} = o(1).
+\end{equation*}
+
+Finally, we show conclusion c. We have that the minimizer $\bar\eta_n$ of $C(\cdot)$ in $\mathbb G$ satisfies $L(\bar\eta_n)<s$. Then using \autoref{eq:star_vs_0},
+\begin{align*}
+\|\bar{\eta}_n - \eta_0\| 
++ \lambda_n^{1/2} J_q^{1/2}(\bar{\eta}_n) 
+&\leq L(\bar{\eta}_n) + \|\eta_n^* - \eta_0\|_2 + \lambda_n^{1/2} J_q^{1/2}(\eta_n^*) \\
+&\leq a \bigl(\delta_n^p + \lambda_n^{1/2}\delta_n^{(p-q)\wedge 0}\bigr) 
++ C_1 \delta_n^p + C_3^{1/2}\lambda_n^{1/2}\delta_n^{(p-q)\wedge 0}.
+\end{align*}
+from which, using the inequality $u^2+v^2 \leq (u+v)^2$ for $u$ and $v$ non-negative, we have
+\begin{equation*}
+    \|\bar\eta_n - \eta_0\|_2^2 + \lambda_n J_q(\bar\eta_n) = O\big(\delta_n^{2p} \vee \lambda_n \delta_n^{2(p-q)\wedge 0}\big).
+\end{equation*}
+\end{proof}
+
+
+\subsubsection{Proof of the bound on the approximation error}\label{sec:proof_approx}
+\begin{proof}[Proof of \autoref{thm:est_error}]\mbox{}
+
+First, assuming we can exchange differentiation and expectation, we have that
+\begin{equation*}
+    \E\big[\dot l[\bar\eta_n, g]\big] = \frac{\de}{\de\alpha}\Lambda(\bar\eta_n+\alpha g)\Bigg|_{\alpha=0^+}.
+\end{equation*}
+In addition,
+\begin{gather*}
+    \frac{\de}{\de\alpha}J_q(g) = \frac{\de}{\de\alpha}\int_{\mathcal U} \{(\bar\eta_n+\alpha g)(x)\}^2 \de x \\
+    = \int_{\mathcal U} \frac{\de}{\de\alpha}\big(\{(\bar\eta_n+\alpha g)(x)\}^2\big) \de x = \int_{\mathcal U} 2\,g(x)\big((\bar\eta_n+\alpha g)(x)\big) \de x,
+\end{gather*}
+and
+\begin{equation*}
+    \frac{\de}{\de\alpha}J_q(g)\Bigg|_{\alpha=0^+} = \int_{\mathcal U} 2\,g(x)\big((\bar\eta_n+\alpha g)(x)\big) \de x\Bigg|_{\alpha=0^+} = 2\int_{\mathcal U} \bar\eta_n(x)g(x) \de x = 2J_q(\bar\eta_n, g)
+\end{equation*}
+
+Since $\bar\eta_n$ is the maximizer of the concave functional $\p\Lambda(\cdot)$ over $\mathbb G$, it satisfied the condition
+\begin{equation*}
+    \frac{\de}{\de\alpha}\Lambda(\bar\eta_n+\alpha g)\Bigg|_{\alpha=0^+} - 2\lambda_nJ_q(\bar\eta_n, g) = 0\qquad\text{for }g\in\mathbb G,
+\end{equation*}
+so that
+\begin{equation*}
+    \frac{\de}{\de\alpha}\ell(\bar\eta_n+\alpha g)\Bigg|_{\alpha=0^+} - 2\lambda_nJ_q(\bar\eta_n, g) = \frac{\de}{\de\alpha}\ell(\bar\eta_n+\alpha g)\Bigg|_{\alpha=0^+} - \frac{\de}{\de\alpha}\Lambda(\bar\eta_n+\alpha g)\Bigg|_{\alpha=0^+}
+\end{equation*}
+for $g\in\mathbb G$. Then
+\begin{equation}\label{eq:E_difference}
+    \frac{\de}{\de\alpha}\ell(\bar\eta_n+\alpha g)\Bigg|_{\alpha=0^+} - 2\lambda_nJ_q(\bar\eta_n, g) = (\E_n - \E)\dot l[\bar\eta_n, g]\qquad\text{for }g\in\mathbb G.
+\end{equation}
+
+We apply \autoref{lem:convexity} to the convex functional
+\begin{equation*}
+    C(g) = -\ell(g) + \lambda_n J_q(g)
+\end{equation*}
+and the continuous functional
+\begin{equation*}
+    L(g) = \|g-\bar\eta_n\| + \lambda_n^{1/2} J_q^{1/2} (g - \bar\eta_n)
+\end{equation*}
+on $\mathcal C = \mathbb G$. Note that $L(\cdot)$ is continuous since
+\begin{gather*}
+    |L(g_1) - L(g_2)| = |\|g_1-\bar\eta_n\| + \lambda_n^{1/2} J_q^{1/2} (g_1 - \bar\eta_n) - \|g_2-\bar\eta_n\| - \lambda_n^{1/2} J_q^{1/2} (g_2 - \bar\eta_n)| \\
+    \leq |\|g_1-\bar\eta_n\| - \|g_2-\bar\eta_n\| | + | \lambda_n^{1/2} J_q^{1/2} (g_1 - \bar\eta_n) - \lambda_n^{1/2} J_q^{1/2} (g_2 - \bar\eta_n)| \\
+    \leq \|g_1 - g_2\| + \lambda_n^{1/2} J_q^{1/2} (g_1 - g_2)|
+\end{gather*}
+by reverse triangle inequality.
+
+We take $\displaystyle s^2 = a^2\Big(\frac{1}{n \lambda_n^{1/(2q)}} \wedge \frac{1}{n \delta_n}\Big)$, with $a>0$.
+
+We consider now the quantity $\displaystyle \frac{\partial}{\partial\alpha}C(\bar\eta_n + \alpha(g-\bar\eta_n))\Bigg|_{\alpha=1^+}$.
+
+We have that
+\begin{gather*}
+    \frac{\partial}{\partial\alpha}C(\bar\eta_n + \alpha(g-\bar\eta_n))\Bigg|_{\alpha=1^+} \\
+    = -\frac{\partial}{\partial\alpha}\ell(\bar\eta_n + \alpha(g-\bar\eta_n))\Bigg|_{\alpha=1^+} + \lambda_n\frac{\partial}{\partial\alpha} J_q(\bar\eta_n + \alpha(g-\bar\eta_n))\Bigg|_{\alpha=1^+} \\
+    \overset{\star}= - \frac{\partial}{\partial\alpha}\ell(\bar\eta_n + \alpha(g-\bar\eta_n))\Bigg|_{\alpha=1^+}
+    + 2\lambda_n J_q(\bar\eta_n, g-\bar\eta_n)
+    + 2\lambda_n J_q(g-\bar\eta_n) = \mathrm{I} + \mathrm{II}
+\end{gather*}
+where $\overset{\star}=$ is because
+\begin{equation*}
+    J_q\big(\bar\eta_n + \alpha (g - \bar\eta_n)\big) 
+    = J_q(\bar\eta_n) 
+    + 2 \alpha J_q(\bar\eta_n,\, g - \bar\eta_n) 
+    + \alpha^2 J_q(g - \bar\eta_n).
+\end{equation*}
+and, using \autoref{eq:E_difference},
+\begin{gather*}
+    \mathrm{I} = -\frac{\partial}{\partial\alpha}\ell(\bar\eta_n + \alpha(g-\bar\eta_n))\Bigg|_{\alpha=0^+} + 2\lambda_n J_q(\bar\eta_n, g-\bar\eta_n) = (\E_n - \E)\dot l[\bar\eta_n, g]\quad\text{and} \\
+    \mathrm{II} = \frac{\partial}{\partial\alpha}\ell(\bar\eta_n + \alpha(g-\bar\eta_n))\Bigg|_{\alpha=0^+} - \frac{\partial}{\partial\alpha}\ell(\bar\eta_n + \alpha(g-\bar\eta_n))\Bigg|_{\alpha=1^+} + 2\lambda_n J_q(g-\bar\eta_n).
+\end{gather*}
+
+Let $g \in \mathbb G$ with $L(g) \leq s$. By Condition 1,
+\begin{equation*}
+\begin{aligned}
+    |\mathrm{I}| 
+&= \big(\|g - \bar\eta_n\|^2 
+  + \lambda_n J_q(g - \bar\eta_n)\big)^{1/2}
+  O_P\!\bigg(\!\Big( \frac{1}{n \lambda_n^{1/(2q)}} 
+   \wedge \frac{1}{n \delta_n} \Big)^{1/2} \bigg) \\
+&= L(g)^{1/2}\,O_P\!\Big(\frac{s}{a}\Big)\leq s\,O_P\!\Big(\frac{s}{a}\Big) 
+= O_P\!\left(\frac{s^2}{a}\right).
+\end{aligned}
+\end{equation*}
+
+By Condition 5,
+\begin{equation*}
+    \|g - \tilde{\eta}_n\|_\infty 
+    \leq A_n \|g - \tilde{\eta}_n\| 
+    = A_n a \left( \frac{1}{n \lambda_n^{1/(2q)}} \wedge \frac{1}{n \delta_n} \right)^{1/2} 
+    = o(1).
+\end{equation*}
+Then, for $n$ large enough, $\|g - \tilde{\eta}_n\|_\infty \leq B$. Then, by Condition 2, for $g \in \mathbb G$ with $L(g) = s$,
+\begin{align*}
+\mathrm{II} &\geq M \|g - \bar\eta_n\|^2 + 2\lambda_n J_q(g - \bar\eta_n) \\
+&\geq \frac{1}{2}(M \wedge 2) \big(\|g - \bar\eta_n\| 
+   + \lambda_n^{1/2} J_q^{1/2}(g - \tilde{\eta}_n)\bigr)^2 \\
+&= \frac{1}{2}(M \wedge 2) s^2.
+\end{align*}
+using $u^2+v^2\geq\frac{1}{2}(u+v)^2$ with $u$ and $v$ non-negative.
+
+Then, for $a$ large enough,
+\begin{equation*}
+\mathrm{I} + \mathrm{II} \geq \frac{1}{2}(M \wedge 2)s^2 - O_P\!\Big(\frac{s^2}{a}\Big) > 0.
+\end{equation*}
+and, thus,
+\begin{equation*}
+    \frac{\partial}{\partial\alpha}C(\bar\eta_n + \alpha(g-\bar\eta_n))\Bigg|_{\alpha=1^+} > 0\qquad\text{for }g\in\mathbb G\text{ with }L(g)=s.
+\end{equation*}
+
+Then \autoref{lem:convexity} implies that the minimizer $\hat\eta_n$ of $C(\cdot)$ in $\mathbb G$ satisfies $L(\hat\eta_n)\leq s$. Then
+\begin{equation*}
+    \|\hat\eta_n - \bar\eta_n\|^2 
+    + \lambda_n J_q(\hat\eta_n - \bar\eta_n) 
+    \leq s^2 
+    = a^2 \Big( \frac{1}{n \lambda_n^{1/(2q)}} \wedge \frac{1}{n \delta_n} \Big).
+\end{equation*}
+
+\end{proof}

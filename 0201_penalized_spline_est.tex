@@ -44,7 +44,7 @@ We define the penalized utility as
 \end{equation*}
 where $\lambda_n$ is a positive penalty parameter and $J_q(h)$ is a penalty term defined as
 \begin{equation*}
-    J_q(h) = \int_{\mathcal U} \big(h^{(q)}(x)\big)^2 \de x = \|h^{(q)}\|_2^2
+    J_q(h) = \int_a^b \big(h^{(q)}(x)\big)^2 \de x = \|h^{(q)}\|_2^2
 \end{equation*}
 where the integer $q$ is the order of the penalty and $h^{(q)}$ is the $q$-th derivative of $h$.
 
@@ -55,7 +55,7 @@ Similarly, we define the penalized expected utility as
 
 Now, let $\mathbb G$ be the space of spline functions of degree $m$ on $k$ inner knots. Given a partition of $[a,b]$, $a=t_0<t_1<\cdots<t_k<t_{k+1}=b$, a spline function $f$ is piecewise defined by polynomials of degree at most $m$ on each interval $[t_i, t_{i+1}]$, so that $f$ globally is continuous and has $m-1$ continuous derivatives. Since there are $(k+1)(m+1)$ polynomial coefficients and $k\,m$ continuity constraints, $\mathbb G$ is a linear vector space of order $N = m+k+1$.
 
-Note that $\mathbb G$ is univocally identified by the knots vector $t\in\R^{k+2}$ and the degree $m$. In general, $t$ and so $\mathbb G$ and $N$ can change with $n$, but $m$ must remain constant. When we write $\mathbb G_n$ and $N_n$ we explicit the dependence on $n$.
+Note that $\mathbb G$ is univocally identified by the knots vector $t\in\R^{k+2}$ and the degree $m$. In general, $t$ and so $\mathbb G$ and $N$ can change with $n$, but $m$ must remain constant. When we write $t_{(n)}$, $\mathbb G_n$ and $N_n$ we explicit the dependence on $n$.
 
 We further assume that the knot sequence has bounded mesh ratio, that is
 \begin{equation*}
@@ -73,7 +73,8 @@ Let
 \end{equation*}
 then, if $k\rightarrow\infty$ and $m/k\rightarrow 0$ as $n\rightarrow\infty$, $\delta_n$ is asymptotically equivalent to $1/N_n$, that is $\delta_n \asymp 1/N_n$.
 \end{proposition}
-\begin{proof}
+\begin{proof}\mbox{}
+
 We have that
 \begin{equation*}
     \delta_n=\max_{j}(t_{j+1}-t_j) \geq \frac{b-a}{k+1}\qquad\text{and}\qquad \min_{j}(t_{j+1}-t_j) \leq \frac{b-a}{k+1}.
@@ -99,11 +100,18 @@ In this framework, a specific estimation problem is fully specified once the fol
     \item the smoothness order $p$, which determines the Sobolev space $W^p$ where $\eta_0$ lives;
     \item a valid utility function $\ell$;
     \item the spline degree $m$;
-    \item the sequence of knot vectors $(t_{(n)})_{n\in\N}$, where for each $n$ the vector $t_{(n)}\in \bigcup_{i=1}^\infty [a,b]^i$ is a partition of $[a,b]$ with $a = (t_{(n)})_0 < \cdots < (t_{(n)})_{k_n} = b$ and bounded mesh ratio;
-    \item the sequence of penalty parameters $(\lambda_n)_{n\in\N}\subset (0,\infty)$.
+    \item the sequence of knot vectors $(t_{(n)})_{n\in\N}$, where for each $n$ the vector $t_{(n)}\in \bigcup_{i=1}^\infty [a,b]^i$ is a partition of $[a,b]$ with $a = (t_{(n)})_0 < \cdots < (t_{(n)})_{k_n} = b$, bounded mesh ratio, and $k_n\rightarrow\infty$ as $n\rightarrow\infty$;
+    \item the sequence of penalty parameters $(\lambda_n)_{n\in\N}\subset (0,\infty)$;
     \item the penalty order $q$.
 \end{itemize}
 Note that $m$ together with $(t_{(n)})_{n\in\N}$ allows to define the sequence of spline spaces $(\mathbb G_n)_{n\in\N}$. For the ease of notation, we will keep writing $\mathbb G$ instead of $\mathbb G_n$, $t$ instead of $t_{(n)}$, and $k$ instead of $k_n$, keeping in mind that they all still depend on $n$.
+
+We further impose the following constraints:
+\begin{itemize}
+    \item $q\leq m$, otherwise the $q$-th derivative in $J_q$ cannot be calculated;
+    \item $p>1/2$, as explained in \autoref{sec:proof_es};
+    \item $q>1/2$, as required by \autoref{}.
+\end{itemize}
 
 Given these components, the penalized spline estimator $\hat\eta_n$ is defined as
 \begin{equation*}

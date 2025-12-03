@@ -33,16 +33,36 @@
   {\newline}                          % space after theorem head (newline)
   {\thmname{#1}\ \thmnumber{#2}\thmnote{: #3}}                                  % theorem head spec
 
-% Use the new style
 \theoremstyle{break}
-\newtheorem{theorem}{Theorem}[subsection]
-\newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{proposition}[theorem]{Proposition}
-\newtheorem{corollary}[theorem]{Corollary}
-\newtheorem{definition}[theorem]{Definition}
 
+% Base environment
+\newtheorem{theorem}{Theorem}[subsection]
 \renewcommand*{\theoremautorefname}{Theorem}
-\newcommand*{\lemmaautorefname}{Lemma}
-\newcommand*{\propositionautorefname}{Proposition}
-\newcommand*{\corollaryautorefname}{Corollary}
-\newcommand*{\definitionautorefname}{Definition}
+
+% Lemma
+\newaliascnt{lemma}{theorem}
+\newtheorem{lemma}[lemma]{Lemma}
+\aliascntresetthe{lemma}
+\providecommand*{\lemmaautorefname}{Lemma}
+
+% Proposition
+\newaliascnt{proposition}{theorem}
+\newtheorem{proposition}[proposition]{Proposition}
+\aliascntresetthe{proposition}
+\providecommand*{\propositionautorefname}{Proposition}
+
+% Corollary
+\newaliascnt{corollary}{theorem}
+\newtheorem{corollary}[corollary]{Corollary}
+\aliascntresetthe{corollary}
+\providecommand*{\corollaryautorefname}{Corollary}
+
+% Definition
+\newaliascnt{definition}{theorem}
+\newtheorem{definition}[definition]{Definition}
+\aliascntresetthe{definition}
+\providecommand*{\definitionautorefname}{Definition}
+
+\renewcommand*{\sectionautorefname}{Section}
+\renewcommand*{\subsectionautorefname}{Section}
+\renewcommand*{\subsubsectionautorefname}{Section}
