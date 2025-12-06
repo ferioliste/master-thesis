@@ -1,0 +1,264 @@
+\subsection{Checking the master theorems' hypoteses}
+\begin{lemma}\label{lem:cond_1}
+    
+Suppose $\|h_1\|_{\infty} \leq C$ for some constant $C > 0$. 
+If there are constants $B > 0$ and constants $M_1, M_2 > 0$ such that
+\begin{equation*}
+    -M_1 \|h_2\|_2^2 \leq \frac{\de^2}{\de\alpha^2} \Lambda(h_1 + \alpha h_2) \leq -M_2 \|h_2\|_2^2, 
+    \quad 0 \leq \alpha \leq 1,
+\end{equation*}
+whenever $\|h_2\|_{\infty} \leq B$, then, if $\|\eta_0\| \leq C$, Condition 1 of \autoref{thm:approx_error} holds, that is there exist constants $B^*, M_1^*, M_2^* > 0$ such that
+\begin{equation*}
+    -M_1^* \|h\|_2^2 \leq \Lambda(\eta_0 + h) - \Lambda(\eta_0) \leq -M_2^* \|h\|_2^2
+\end{equation*}
+whenever $\|h\|_\infty \leq B^*$.
+\end{lemma}
+
+\begin{proof}\mbox{}
+
+This proof is for the most part taken from \cite{huang2001}. Since $\eta_0$ maximizes $\Lambda(\cdot)$, we have that
+\begin{equation*}
+    \frac{\de}{\de\alpha} \Lambda(\eta_0+\alpha h)\Bigg|_{\alpha=0} = 0.
+\end{equation*}
+Then, using the Fundamental Theorem of Calculus and integrating by parts, we have that
+\begin{gather*}
+    \Lambda(\eta_0 + h) - \Lambda(\eta_0) = \int_0^1\frac{\de}{\de\alpha} \Lambda(\eta_0+\alpha h)\de\alpha = -\int_0^1\frac{\de}{\de\alpha}(1-\alpha)\frac{\de}{\de\alpha} \Lambda(\eta_0+\alpha h)\de\alpha \\
+    = -\bigg[(1-\alpha)\frac{\de}{\de\alpha} \Lambda(\eta_0+\alpha h)\bigg]_{\alpha=0}^{\alpha=1} + \int_0^1(1-\alpha)\frac{\de^2}{\de\alpha^2} \Lambda(\eta_0+\alpha h)\de\alpha \\
+    = \int_0^1(1-\alpha)\frac{\de^2}{\de\alpha^2} \Lambda(\eta_0+\alpha h)\de\alpha
+\end{gather*}
+and so, using the hypotesis,
+\begin{gather*}
+    \Lambda(\eta_0 + h) - \Lambda(\eta_0) = \int_0^1(1-\alpha)\frac{\de^2}{\de\alpha^2} \Lambda(\eta_0+\alpha h)\de\alpha \geq \\
+    -M_1 \|h\|_2^2\int_0^1(1-\alpha)\de\alpha = -\frac{1}{2}M_1 \|h\|_2^2
+\end{gather*}
+and
+\begin{gather*}
+    \Lambda(\eta_0 + h) - \Lambda(\eta_0) = \int_0^1(1-\alpha)\frac{\de^2}{\de\alpha^2} \Lambda(\eta_0+\alpha h)\de\alpha \leq \\
+    -M_2 \|h\|_2^2\int_0^1(1-\alpha)\de\alpha = -\frac{1}{2}M_2 \|h\|_2^2
+\end{gather*}
+\end{proof}
+
+\begin{lemma}\label{lem:cond_3}
+
+Assume the following two conditions are satisfied.
+\begin{enumerate}
+    \item[(i)] $\|\bar\eta_n\|_\infty = O(1)$;
+    \item[(ii)] For $g \in\mathbb G$, $\ell(\bar\eta_n + \alpha g)$ as a function of $\alpha$ is twice continuously differentiable; moreover, there are constants $B > 0$ and $M > 0$ such that
+    \begin{equation*}
+        \frac{\de^2}{\de\alpha^2} \ell(\bar\eta_n + \alpha g) \leq -M \|g\|_2^2, \qquad\text{ for }0\leq\alpha\leq1,
+    \end{equation*}
+    holds for $g \in\mathbb G$ with $\|g\|_\infty \leq B$, with probability tending to one as $n \to \infty$.
+\end{enumerate}
+Then, Condition 2 of \autoref{thm:est_error} is also satisfied, that is there are constants $B^* > 0$ and $M^* > 0$ such that, with probability tending to one as $n \to \infty$, we have that
+\begin{equation*}
+    \frac{\de}{\de\alpha} \ell(\bar\eta_n + \alpha g) \Bigg|_{\alpha = 1^+}
+- \frac{\de}{\de\alpha} \ell(\bar\eta_n + \alpha g) \Bigg|_{\alpha = 0^+} \leq - M^* \|g\|_2^2
+\end{equation*}
+    for all $g \in \mathbb G$ with $\|g\|_\infty \leq B^*$.
+\end{lemma}
+
+\begin{proof}\mbox{}
+
+We use the Fundamental Theorem of Calculus. We have
+\begin{gather*}
+    \frac{\de}{\de\alpha} \ell(\bar\eta_n + \alpha g) \Bigg|_{\alpha = 1^+}
+- \frac{\de}{\de\alpha} \ell(\bar\eta_n + \alpha g) \Bigg|_{\alpha = 0^+} = \int_0^1\frac{\de^2}{\de\alpha^2} \ell(\bar\eta_n + \alpha g)\de\alpha\\
+\leq -M \|g\|_2^2\int_0^1\de\alpha = -M \|g\|_2^2,
+\end{gather*}
+by hypothesis, for $g \in\mathbb G$.
+\end{proof}
+
+\begin{lemma}\label{lem:cond_2}
+    If there exists a constant $M$ such that $\var\big(\dot l[\bar\eta_n;h]\big)\leq M$ for all $h\in L^2$ with $\|h\|_2=1$ then Condition 1 of \autoref{thm:est_error} holds, that is we have that
+    \begin{equation*}
+        \sup_{g \in \mathbb G} 
+        \frac{|(\E_n - \E)\dot l[\bar\eta_n; g]|^2}
+        {\|g\|_2^2 + \lambda_n J_q(g)} 
+        = O_P\!\bigg( \frac{1}{n \lambda_n^{1/(2q)}} \wedge \frac{1}{n \delta_n} \bigg)
+    \end{equation*}
+    with $\displaystyle \dot l[\bar\eta_n; g] = \frac{\de}{\de\alpha}l(\bar\eta_n+\alpha g)\bigg|_{\alpha=0^+}$.
+\end{lemma}
+\autoref{lem:cond_2} imposes a condition that needs to hold for all $h\in L^2$ with $\|h\|_2=1$. However, this can be militating is some settings. For this reason, we modified the lemma so that the condition only needs to hold for all $h\in\mathbb G$ with $\|h\|_2\leq 1$. Although this is not as strictly better version of the lemma, it is much easier to apply in practice, as we will see in \autoref{sec:score_matching}.
+
+\begin{lemma}[Variation of \autoref{lem:cond_2}]\label{lem:cond_2_bis}
+    If there exists a constant $M$ such that $\var\big(\dot l[\bar\eta_n;h]\big)\leq M$ for all $h\in\mathbb G$ with $\|h\|_2\leq 1$ then Condition 1 of \autoref{thm:est_error} holds, that is we have that
+    \begin{equation*}
+        \sup_{g \in \mathbb G} 
+        \frac{|(\E_n - \E)\dot l[\bar\eta_n; g]|^2}
+        {\|g\|_2^2 + \lambda_n J_q(g)} 
+        = O_P\!\bigg( \frac{1}{n \lambda_n^{1/(2q)}} \wedge \frac{1}{n \delta_n} \bigg)
+    \end{equation*}
+    with $\displaystyle \dot l[\bar\eta_n; g] = \frac{\de}{\de\alpha}l(\bar\eta_n+\alpha g)\bigg|_{\alpha=0^+}$.
+\end{lemma}
+
+Before proving \autoref{lem:cond_2}, we make a short digression on bilinear and quadratic functionals that will be useful in the proof.
+
+\begin{definition}
+A quadratic functional $B(h,h)$ is said to be completely continuous with respect to another quadratic functional $A(h,h)$, if for any $\varepsilon > 0$, there exists a finite number of linear functionals $L_1, \dots, L_k$ such that $L_1(h) = \cdots = L_k(h) = 0$ implies that $B(h,h) \leq \varepsilon A(h,h)$ (see \cite[Section 3.3]{weinberger}).
+\end{definition}
+
+We use the following result from Section 3 of \cite{utreras}, in particular we use inequality 3.17.
+
+\begin{proposition}[Result from \cite{utreras}]\label{prop:utreras}
+Consider the two bilinear functionals
+\begin{equation*}
+    V(h_1, h_2) = \int_a^b h_1(x)h_2(x)\de x
+    \qquad\text{and}\qquad
+    J_q(h_1, h_2) = \int_a^b h_1^{(q)}(x)h_2^{(q)}(x)\de x.
+\end{equation*}
+
+We have that $V(h,h)$ is completely continuous with respect to $J_q(h,h)$. In addition, $\rho_i\geq 0$ for all $i=1,2,\dots$ and $\rho_i \asymp i^{2q}$.
+\end{proposition}
+
+By Theorem 3.3.1 of \cite{weinberger}, since $V(h,h)$ is completely continuous with respect to $J_q(h,h)$, $V$ and $J_q$ can be simultaneously diagonalized. This means that there exists a sequence of eigenfunctions $\phi_i$, for $i=1,2,\dots$, and a sequence of eigenvalues $\rho_i$,  for $i=1,2,\dots$, such that
+\begin{equation*}
+    V(\phi_i, \phi_j) = \delta_{ij}\qquad\text{and}\qquad J_q(\phi_i, \phi_j) = \rho_i\delta_{ij}.
+\end{equation*}
+In addition, for $h\in L^2$, we have
+\begin{equation*}
+    h = \sum_{i=1}^\infty h_i\phi_i\qquad\text{with}\quad h_i=V(h,\phi_i),
+\end{equation*}
+and
+\begin{equation*}
+    V(h) = \sum_{i=1}^\infty h_i^2
+    \qquad\text{and}\qquad
+    J_q(h) = \sum_{i=1}^\infty \rho_i h_i^2.
+\end{equation*}
+
+This implies that, for $h\in L^2$,
+\begin{equation}\label{eq:fun_ineq}
+    \|h\|_2^2 + \lambda_n J_q(h) = \sum_{i=1}^\infty (1+\lambda_n\rho_i) h_i^2.
+\end{equation}
+
+\begin{proposition}[Lemma 9.1 of \cite{gu2013}]\label{prop:gu}
+Assume there is a constant $C>0$ such that $\rho_i \ge C i^{2q}$ 
+for $i$ large enough, where $q > 1/2$. 
+If $\lambda_n \rightarrow 0$ as $n \rightarrow \infty$, then
+\begin{equation*}
+    \sum_{i=1}^\infty \frac{1}{1 + \lambda_n \rho_i} = O\big(\lambda_n^{-1/(2q)}\big).
+\end{equation*}
+\end{proposition}
+
+We are now ready to prove \autoref{lem:cond_2}.
+
+\begin{proof}[Proof of \autoref{lem:cond_2}]\mbox{}
+
+We consider an orthonormal basis $\{\psi_i: i = 1, \dots, N\}$ of $\mathbb G$. Then, any $g \in\mathbb G$ can be represented as
+\begin{equation*}
+    g = \sum_{i=1}^N g_i \psi_i\qquad\text{with}\quad g_i = \langle g, \psi_i\rangle_2 = \int_a^b g(x)\psi_i(x)\de x.
+\end{equation*}
+Then, using the properties of directional derivatives,
+\begin{gather*}
+    \dot l[\bar\eta_n; g] = \frac{\de}{\de\alpha}l(\bar\eta_n+\alpha g)\bigg|_{\alpha=0^+}
+    = \frac{\de}{\de\alpha}l\Big(\bar\eta_n+\alpha \sum_{i=1}^N g_i\psi_ik\Big)\bigg|_{\alpha=0^+} \\
+    = \sum_{i=1}^N g_i\frac{\de}{\de\alpha}l\Big(\bar\eta_n+\alpha\psi_i\Big)\bigg|_{\alpha=0^+} = \sum_{i=1}^N g_i\dot l[\bar\eta_n; \psi_i].
+\end{gather*}
+We have
+\begin{gather*}
+    \frac{|(\E_n - \E)\dot l[\bar\eta_n; g]|^2}{\|g\|_2^2 + \lambda_n J_q(g)} \leq \frac{|(\E_n - \E)\dot l[\bar\eta_n; g]|^2}{\|g\|_2^2} \\
+    = \frac{|\sum_{i=1}^N g_i(\E_n - \E)\dot l[\bar\eta_n; \psi_i]|^2}{\|g\|_2^2} \leq \frac{\Big(\sum_{i=1}^Ng_i^2\Big)\Big(\sum_{i=1}^N \big((\E_n - \E)\dot l[\bar\eta_n; \psi_i]\big)^2\Big)}{\|g\|_2^2} \\
+    = \sum_{i=1}^N \big((\E_n - \E)\dot l[\bar\eta_n; \psi_i]\big)^2,
+\end{gather*}
+where the first inequality is justified by making the denominator smaller and the second inequality uses the Cauchy-Schwarz inequality. Then
+\begin{gather}
+    \E\bigg[\sum_{i=1}^N \big((\E_n - \E)\dot l[\bar\eta_n; \psi_i]\big)^2\bigg]=\sum_{i=1}^N \E\Big[\big((\E_n - \E)\dot l[\bar\eta_n; \psi_i]\big)^2\Big] = \sum_{i=1}^N \var\big((\E_n - \E)\dot l[\bar\eta_n; \psi_i]\big) \notag \\
+    = \sum_{i=1}^N \var\big(\E_n\dot l[\bar\eta_n; \psi_i]\big) = \sum_{i=1}^N \frac{1}{n}\var\big(\dot l[\bar\eta_n; \psi_i]\big) \leq \frac{N\,M}{n} = O\bigg(\frac{1}{n\delta_n}\bigg) \label{eq:to_combine2}
+\end{gather}
+where the inequality uses the hypothesis, since $\|\psi_i\|_2=1$, for $i=1,2,\dots$, and the last equality uses the fact that $\delta_n \asymp 1/N_n$ (\autoref{prop:asymeq_delta_N}).
+
+As seen above, we can also decompose $g$ according to the eigenbasis induced by the simultaneous diagonalization of $V$ and $J_q$, as
+\begin{equation*}
+    g=\sum_{i=1}^\infty\tilde g_i\phi_i\qquad\text{with}\quad \tilde g_i = \langle g, \phi_i\rangle_2 = \int_a^b g(x)\phi_i(x)\de x.
+\end{equation*}
+
+As above, we have
+\begin{equation*}
+    \dot l[\bar\eta_n; g] = \sum_{i=1}^\infty \tilde g_i\dot l[\bar\eta_n; \phi_i].
+\end{equation*}
+Let $\omega_i = 1 + \lambda_n \rho_i$ and $a_i = (\E_n - \E)\dot l[\bar\eta_n; \phi_i]$. Then, using \autoref{eq:fun_ineq},
+\begin{gather*}
+    \frac{|(\E_n - \E)\dot l[\bar\eta_n; g]|^2}{\|g\|_2^2 + \lambda_n J_q(g)} = \frac{|\sum_{i=1}^\infty \tilde g_i(\E_n - \E)\dot l[\bar\eta_n; \phi_i]|^2}{\sum_{i=1}^\infty (1 + \lambda_n \rho_i) \tilde g_i^2} = \frac{\big(\sum_{i=1}^\infty \tilde g_i a_i\big)^2}{\sum_{i=1}^\infty \omega_i \tilde g_i^2} \\
+    = \frac{\big(\sum_{i=1}^\infty (\sqrt{\omega_i}\tilde g_i) \frac{a_i}{\sqrt{\omega_i}}\big)^2}{\sum_{i=1}^\infty \omega_i \tilde g_i^2} \leq \frac{\big(\sum_{i=1}^\infty\omega_i \tilde g_i^2\big)\big(\sum_{i=1}^\infty\frac{a^2}{\omega_i}\big)}{\sum_{i=1}^\infty \omega_i \tilde g_i^2} = \sum_{i=1}^\infty\frac{a^2}{\omega_i} = \sum_{i=1}^\infty\frac{\big((\E_n - \E)\dot l[\bar\eta_n; \phi_i]\big)^2}{1 + \lambda_n \rho_i}
+\end{gather*}
+where the inequality uses the Cauchy-Schwartz inequality.
+Taking expectation we have
+\begin{gather}
+    \E\bigg[\frac{|(\E_n - \E)\dot l[\bar\eta_n; g]|^2}{\|g\|_2^2 + \lambda_n J_q(g)}\bigg]= \sum_{i=1}^\infty\frac{\var\big((\E_n - \E)\dot l[\bar\eta_n; \phi_i]\big)}{1 + \lambda_n \rho_i} = \sum_{i=1}^\infty\frac{\var\big(\E_n\dot l[\bar\eta_n; \phi_i]\big)}{1 + \lambda_n \rho_i} \notag \\
+    = \sum_{i=1}^\infty\frac{\frac{1}{n}\var\big(\dot l[\bar\eta_n; \phi_i]\big)}{1 + \lambda_n \rho_i} \leq \frac{M}{n}\sum_{i=1}^\infty\frac{1}{1 + \lambda_n \rho_i} = O\bigg( \frac{1}{n \lambda_n^{1/(2q)}}\bigg) \label{eq:to_combine1}
+\end{gather}
+where the inequality is by hypothesis and the last equality is by \autoref{prop:gu}.
+
+Combining \autoref{eq:to_combine1} with \autoref{eq:to_combine2}, we have
+\begin{equation*}
+    \E\bigg[\frac{|(\E_n - \E)\dot l[\bar\eta_n; g]|^2}{\|g\|_2^2 + \lambda_n J_q(g)}\bigg] = O\bigg( \frac{1}{n \lambda_n^{1/(2q)}} \wedge \frac{1}{n\delta_n}\bigg).
+\end{equation*}
+
+Let
+\begin{equation*}
+    X_n = \frac{\big|(\E_n - \E)\,\dot l[\bar\eta_n; g]\big|^2}
+{\|g\|_2^2 + \lambda_n J_q(g)} \ge 0
+\qquad\text{and}\qquad
+a_n = \frac{1}{n\lambda_n^{1/(2q)}} \wedge \frac{1}{n\delta_n}.
+\end{equation*}
+
+By definition of big-O, there exists a constant $C < \infty$ such that $\E[X_n] \le Ca_n$ for all $n$.
+
+For any $M > 0$, the Markov’s inequality gives
+\begin{equation*}
+    \Pr(X_n > M a_n)
+= \Pr\bigg(\frac{X_n}{a_n} > M\bigg)
+\le \frac{\E[X_n/a_n]}{M}
+\le \frac{C}{M}.
+\end{equation*}
+
+Given $\varepsilon > 0$, we choose $M = C/\varepsilon$. Then
+\begin{equation*}
+    \Pr(X_n > M a_n) \leq \varepsilon\quad \text{for all }n.
+\end{equation*}
+that, by definition, is equivalent to $X_n = O_P(a_n)$. Therefore,
+\begin{equation*}
+    \frac{\big|(\E_n - \E)\,\dot l[\bar\eta_n; g]\big|^2}
+{\|g\|_2^2 + \lambda_n J_q(g)}
+= O_P\!\bigg(
+\frac{1}{n\lambda_n^{1/(2q)}} \wedge \frac{1}{n\delta_n}
+\bigg).
+\end{equation*}
+\end{proof}
+
+\begin{proof}[Proof of \autoref{lem:cond_2_bis}]\mbox{}
+
+We only highlight the differences with respect to the proof of \autoref{lem:cond_2}.
+
+As in that proof, we decompose $g$ according to the eigenbasis induced by the simultaneous diagonalization of $V$ and $J_q$, as
+\begin{equation*}
+    g=\sum_{i=1}^\infty\tilde g_i\phi_i\qquad\text{with}\quad \tilde g_i = \langle g, \phi_i\rangle_2 = \int_a^b g(x)\phi_i(x)\de x.
+\end{equation*}
+
+Let $Q$ be the orthogonal projection map from $L^2$ onto $\mathbb G$. Given $h\in L^2$, we have
+\begin{equation*}
+    Qh = \sum_{i=1}^N \langle h, \psi_i\rangle_2\, \psi_i.
+\end{equation*}
+
+In addition, we recall that, by properties of orthogonal projectors, $\|Qh\|_2\leq \|h\|_2$ and $h\in\mathbb G$ if and only if $Qh = h$.
+
+Since $g\in\mathbb G$, we have
+\begin{equation*}
+    g = Qg = \sum_i\tilde g_i\,Q\phi_i
+\end{equation*}
+where $\|Q\phi_i\|_2\leq \|\phi_i\|_2 = 1$, for all $k$.
+
+Then, we have
+\begin{equation*}
+    \dot l[\bar\eta_n; g] = \sum_{i=1}^\infty \tilde g_i\dot l[\bar\eta_n; Q\phi_i].
+\end{equation*}
+We define $\omega_i = 1 + \lambda_n \rho_i$ and $a_i = (\E_n - \E)\dot l[\bar\eta_n; Q\phi_i]$. Repeating the argument leading to \autoref{eq:to_combine1}, but with $\phi_i$ replaced by $Q\phi_i$, we obtain
+\begin{gather*}
+    \E\bigg[\frac{|(\E_n - \E)\dot l[\bar\eta_n; g]|^2}{\|g\|_2^2 + \lambda_n J_q(g)}\bigg]
+    = \sum_{i=1}^\infty\frac{\frac{1}{n}\var\big(\dot l[\bar\eta_n; Q\phi_i]\big)}{1 + \lambda_n \rho_i} \\
+    \leq \frac{M}{n}\sum_{i=1}^\infty\frac{1}{1 + \lambda_n \rho_i}
+    = O\bigg( \frac{1}{n \lambda_n^{1/(2q)}}\bigg),
+\end{gather*}
+where the inequality is by hypothesis, since $\|Q\phi_i\|_2\le 1$, and the last equality is by \autoref{prop:gu}.
+
+The remaining steps are identical to those in the proof of \autoref{lem:cond_2}.
+\end{proof}

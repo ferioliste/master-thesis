@@ -66,7 +66,7 @@ We further assume that the knot sequence has bounded mesh ratio, that is
 Given two positive sequences $(a_n)_n, (b_n)_n$, we say $(a_n)_n$ asymptotically dominates $(b_n)_n$ if $b_n/a_n \leq C$ for some positive constant $C$. In this case, we write $b_n\lesssim a_n$ and $a_n\gtrsim b_n$. If $b_n\lesssim a_n$ and $a_n\lesssim b_n$, we say $(a_n)_n$ and $(b_n)_n$ are asymptotically equivalent and write $a_n \asymp b_n$.
 \end{definition}
 
-\begin{proposition}
+\begin{proposition}\label{prop:asymeq_delta_N}
 Let
 \begin{equation*}
     \delta_n = \max_{j}(t_{j+1}-t_j),
@@ -100,7 +100,7 @@ In this framework, a specific estimation problem is fully specified once the fol
     \item the smoothness order $p$, which determines the Sobolev space $W^p$ where $\eta_0$ lives;
     \item a valid utility function $\ell$;
     \item the spline degree $m$;
-    \item the sequence of knot vectors $(t_{(n)})_{n\in\N}$, where for each $n$ the vector $t_{(n)}\in \bigcup_{i=1}^\infty [a,b]^i$ is a partition of $[a,b]$ with $a = (t_{(n)})_0 < \cdots < (t_{(n)})_{k_n} = b$, bounded mesh ratio, and $k_n\rightarrow\infty$ as $n\rightarrow\infty$;
+    \item the sequence of knot vectors $(t_{(n)})_{n\in\N}$, where for each $n$ the vector $t_{(n)}\in \bigcup_{i=1}^\infty [a,b]^i$ is a partition of $[a,b]$ with $a = (t_{(n)})_0 < \cdots < (t_{(n)})_{k_n+1} = b$, bounded mesh ratio, and $k_n\rightarrow\infty$ as $n\rightarrow\infty$;
     \item the sequence of penalty parameters $(\lambda_n)_{n\in\N}\subset (0,\infty)$;
     \item the penalty order $q$.
 \end{itemize}

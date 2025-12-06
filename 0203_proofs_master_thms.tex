@@ -75,7 +75,7 @@ We can derive the three inequalities of \autoref{prop:2.1} as follows.
 \item To obtain the first inequality, we set $s=z=2$ and $r=0$. We have
 \begin{equation*}
     \| f - \tilde f\|_2 \leq C \, \delta_n^p \, 
-\omega_{m-p}\!\left(f^{(p)}; \delta_n\right)_2.
+\omega_{m-p}\!\big(f^{(p)}; \delta_n\big)_2.
 \end{equation*}
 Then, using Equation 2.118 of Theorem 2.59 of \cite{schumaker_2007}, we have
 \begin{equation*}
@@ -86,7 +86,7 @@ so we set $C_1 = C\,2^{m-p}\|f^{(p)}\|_2$.
 \item To obtain the second inequality, we set $k=2$, $z=\infty$ and $r=0$. We have
 \begin{equation*}
     \| f - \tilde f\|_\infty \leq C \, \delta_n^{p-1/2} \, 
-\omega_{m-p}\!\left(f^{(p)}; \delta_n\right)_2.
+\omega_{m-p}\!\big(f^{(p)}; \delta_n\big)_2.
 \end{equation*}
 Then, using Equation 2.118 of Theorem 2.59 of \cite{schumaker_2007}, we have
 \begin{equation*}
@@ -98,7 +98,7 @@ so we set $C_2 = C\,2^{m-p}\|f^{(p)}\|_2$.
 If $\p\leq q$, we have
 \begin{equation*}
     \|\tilde f^{(q)}\|_2 \leq C \, \delta_n^{p-q} \, 
-\omega_{m-p}\!\left(f^{(p)}; \delta_n\right)_2.
+\omega_{m-p}\!\big(f^{(p)}; \delta_n\big)_2.
 \end{equation*}
 Then, using Equation 2.118 of Theorem 2.59 of \cite{schumaker_2007}, we have
 \begin{equation*}
@@ -120,7 +120,7 @@ and squaring we obtain the third inequality, with
 \end{enumerate}
 
 \begin{theorem}[Weierstrass extreme value theorem]\label{thm:weierstrass}
-Let $(X,d)$ be a metric space and let $K \subset X$ be a compact set. 
+Let $(X,d)$ be a metric space and let $K \subseteq X$ be a compact set. 
 If $f : K \to \mathbb{R}$ is continuous, then there exist points 
 $x_{\min}, x_{\max} \in K$ such that
 \begin{equation*}
@@ -192,7 +192,7 @@ and
 
 In addition,
 \begin{align*}
-    a\left(\delta_n^p + \lambda_n^{1/2}\delta_n^{(p-q)\wedge 0}\right) 
+    a\big(\delta_n^p + \lambda_n^{1/2}\delta_n^{(p-q)\wedge 0}\big) 
     &= \|g - \eta_n^*\|_2 + \lambda_n^{1/2} J_q^{1/2}(g - \eta_n^*) \\
     &\leq \|g - \eta_0\|_2 + \lambda_n^{1/2} J_q^{1/2}(g) + \|\eta_n^* - \eta_0\|_2 
        + \lambda_n^{1/2} J_q^{1/2}(\eta_n^*) \\
@@ -276,6 +276,7 @@ from which, using the inequality $u^2+v^2 \leq (u+v)^2$ for $u$ and $v$ non-nega
 
 
 \subsubsection{Proof of the bound on the approximation error}\label{sec:proof_approx}
+Using again \autoref{lem:convexity}, we prove \autoref{thm:est_error}.
 \begin{proof}[Proof of \autoref{thm:est_error}]\mbox{}
 
 First, assuming we can exchange differentiation and expectation, we have that
@@ -284,15 +285,21 @@ First, assuming we can exchange differentiation and expectation, we have that
 \end{equation*}
 In addition,
 \begin{gather*}
-    \frac{\de}{\de\alpha}J_q(g) = \frac{\de}{\de\alpha}\int_{\mathcal U} \{(\bar\eta_n+\alpha g)(x)\}^2 \de x \\
-    = \int_{\mathcal U} \frac{\de}{\de\alpha}\big(\{(\bar\eta_n+\alpha g)(x)\}^2\big) \de x = \int_{\mathcal U} 2\,g(x)\big((\bar\eta_n+\alpha g)(x)\big) \de x,
+    \frac{\de}{\de\alpha}J_q(\bar\eta_n+\alpha g) = \frac{\de}{\de\alpha}\int_a^b \big(\bar\eta_n^{(q)}(x)+\alpha g^{(q)}(x)\big)^2 \de x \\
+    = \int_a^b \frac{\de}{\de\alpha}\Big(\big(\bar\eta_n^{(q)}(x)+\alpha g^{(q)}(x)\big)^2\Big) \de x = \int_a^b 2\,g^{(q)}(x)\big(\bar\eta_n^{(q)}(x)+\alpha g^{(q)}(x)\big) \de x,
 \end{gather*}
 and
+\begin{gather*}
+    \frac{\de}{\de\alpha}J_q(\bar\eta_n+\alpha g)\Bigg|_{\alpha=0^+} = \int_a^b 2\,g^{(q)}(x)\big(\bar\eta_n^{(q)}(x)+\alpha g^{(q)}(x)\big) \de x\Bigg|_{\alpha=0^+} \\
+    = 2\int_a^b \bar\eta_n^{(q)}(x)g^{(q)}(x) \de x = 2J_q(\bar\eta_n, g),
+\end{gather*}
+where we define the quadratic functional $J_q$ as
 \begin{equation*}
-    \frac{\de}{\de\alpha}J_q(g)\Bigg|_{\alpha=0^+} = \int_{\mathcal U} 2\,g(x)\big((\bar\eta_n+\alpha g)(x)\big) \de x\Bigg|_{\alpha=0^+} = 2\int_{\mathcal U} \bar\eta_n(x)g(x) \de x = 2J_q(\bar\eta_n, g)
+    J_q(h, g) = \int_a^b h^{(q)}(x)g^{(q)}(x) \de x\qquad\text{so that}\qquad J_q(g) = J_q(g, g) 
 \end{equation*}
+with a small abuse of notation.
 
-Since $\bar\eta_n$ is the maximizer of the concave functional $\p\Lambda(\cdot)$ over $\mathbb G$, it satisfied the condition
+Since $\bar\eta_n$ is the maximizer of the concave functional $\p\Lambda(\cdot)$ over $\mathbb G$, it satisfies the condition
 \begin{equation*}
     \frac{\de}{\de\alpha}\Lambda(\bar\eta_n+\alpha g)\Bigg|_{\alpha=0^+} - 2\lambda_nJ_q(\bar\eta_n, g) = 0\qquad\text{for }g\in\mathbb G,
 \end{equation*}
@@ -311,21 +318,19 @@ We apply \autoref{lem:convexity} to the convex functional
 \end{equation*}
 and the continuous functional
 \begin{equation*}
-    L(g) = \|g-\bar\eta_n\| + \lambda_n^{1/2} J_q^{1/2} (g - \bar\eta_n)
+    L(g) = \|g-\bar\eta_n\|_2 + \lambda_n^{1/2} J_q^{1/2} (g - \bar\eta_n)
 \end{equation*}
 on $\mathcal C = \mathbb G$. Note that $L(\cdot)$ is continuous since
 \begin{gather*}
-    |L(g_1) - L(g_2)| = |\|g_1-\bar\eta_n\| + \lambda_n^{1/2} J_q^{1/2} (g_1 - \bar\eta_n) - \|g_2-\bar\eta_n\| - \lambda_n^{1/2} J_q^{1/2} (g_2 - \bar\eta_n)| \\
-    \leq |\|g_1-\bar\eta_n\| - \|g_2-\bar\eta_n\| | + | \lambda_n^{1/2} J_q^{1/2} (g_1 - \bar\eta_n) - \lambda_n^{1/2} J_q^{1/2} (g_2 - \bar\eta_n)| \\
-    \leq \|g_1 - g_2\| + \lambda_n^{1/2} J_q^{1/2} (g_1 - g_2)|
+    |L(g_1) - L(g_2)| = |\|g_1-\bar\eta_n\|_2 + \lambda_n^{1/2} J_q^{1/2} (g_1 - \bar\eta_n) - \|g_2-\bar\eta_n\|_2 - \lambda_n^{1/2} J_q^{1/2} (g_2 - \bar\eta_n)| \\
+    \leq |\|g_1-\bar\eta_n\|_2 - \|g_2-\bar\eta_n\|_2 | + | \lambda_n^{1/2} J_q^{1/2} (g_1 - \bar\eta_n) - \lambda_n^{1/2} J_q^{1/2} (g_2 - \bar\eta_n)| \\
+    \leq \|g_1 - g_2\|_2 + \lambda_n^{1/2} J_q^{1/2} (g_1 - g_2)
 \end{gather*}
-by reverse triangle inequality.
+where the last inequality is by reverse triangle inequality.
 
 We take $\displaystyle s^2 = a^2\Big(\frac{1}{n \lambda_n^{1/(2q)}} \wedge \frac{1}{n \delta_n}\Big)$, with $a>0$.
 
-We consider now the quantity $\displaystyle \frac{\partial}{\partial\alpha}C(\bar\eta_n + \alpha(g-\bar\eta_n))\Bigg|_{\alpha=1^+}$.
-
-We have that
+We consider now the quantity $\displaystyle \frac{\partial}{\partial\alpha}C(\bar\eta_n + \alpha(g-\bar\eta_n))\Bigg|_{\alpha=1^+}$. We have that
 \begin{gather*}
     \frac{\partial}{\partial\alpha}C(\bar\eta_n + \alpha(g-\bar\eta_n))\Bigg|_{\alpha=1^+} \\
     = -\frac{\partial}{\partial\alpha}\ell(\bar\eta_n + \alpha(g-\bar\eta_n))\Bigg|_{\alpha=1^+} + \lambda_n\frac{\partial}{\partial\alpha} J_q(\bar\eta_n + \alpha(g-\bar\eta_n))\Bigg|_{\alpha=1^+} \\
@@ -340,56 +345,87 @@ where $\overset{\star}=$ is because
     + 2 \alpha J_q(\bar\eta_n,\, g - \bar\eta_n) 
     + \alpha^2 J_q(g - \bar\eta_n).
 \end{equation*}
-and, using \autoref{eq:E_difference},
+Using \autoref{eq:E_difference},
 \begin{gather*}
     \mathrm{I} = -\frac{\partial}{\partial\alpha}\ell(\bar\eta_n + \alpha(g-\bar\eta_n))\Bigg|_{\alpha=0^+} + 2\lambda_n J_q(\bar\eta_n, g-\bar\eta_n) = (\E_n - \E)\dot l[\bar\eta_n, g]\quad\text{and} \\
     \mathrm{II} = \frac{\partial}{\partial\alpha}\ell(\bar\eta_n + \alpha(g-\bar\eta_n))\Bigg|_{\alpha=0^+} - \frac{\partial}{\partial\alpha}\ell(\bar\eta_n + \alpha(g-\bar\eta_n))\Bigg|_{\alpha=1^+} + 2\lambda_n J_q(g-\bar\eta_n).
 \end{gather*}
 
-Let $g \in \mathbb G$ with $L(g) \leq s$. By Condition 1,
+Let $g$ such that $L(g)=s$, where both $g$ and $s$ depend on $a$ and $n$. By Condition 1, we have
 \begin{equation*}
 \begin{aligned}
     |\mathrm{I}| 
-&= \big(\|g - \bar\eta_n\|^2 
+&= \big(\|g - \bar\eta_n\|_2^2 
   + \lambda_n J_q(g - \bar\eta_n)\big)^{1/2}
   O_P\!\bigg(\!\Big( \frac{1}{n \lambda_n^{1/(2q)}} 
    \wedge \frac{1}{n \delta_n} \Big)^{1/2} \bigg) \\
-&= L(g)^{1/2}\,O_P\!\Big(\frac{s}{a}\Big)\leq s\,O_P\!\Big(\frac{s}{a}\Big) 
-= O_P\!\left(\frac{s^2}{a}\right).
+&= L(g)^{1/2}\,O_P\!\Big(\frac{s}{a}\Big) = s\,O_P\!\Big(\frac{s}{a}\Big) 
+= O_P\!\Big(\frac{s^2}{a}\Big).
 \end{aligned}
 \end{equation*}
 
-By Condition 5,
+By Condition 5, we have
 \begin{equation*}
-    \|g - \tilde{\eta}_n\|_\infty 
-    \leq A_n \|g - \tilde{\eta}_n\| 
-    = A_n a \left( \frac{1}{n \lambda_n^{1/(2q)}} \wedge \frac{1}{n \delta_n} \right)^{1/2} 
-    = o(1).
+    \|g - \bar\eta_n\|_\infty 
+    \leq A_n \|g - \bar\eta_n\|_2 
+    \leq A_n L(g) = A_n a \Big( \frac{1}{n \lambda_n^{1/(2q)}} \wedge \frac{1}{n \delta_n} \Big)^{1/2} 
+    = o(1),
 \end{equation*}
-Then, for $n$ large enough, $\|g - \tilde{\eta}_n\|_\infty \leq B$. Then, by Condition 2, for $g \in \mathbb G$ with $L(g) = s$,
+from which follows that, for $n$ large enough, $\|g - \bar\eta_n\|_\infty \leq B$.
+
+Using Condition 2,
 \begin{align*}
-\mathrm{II} &\geq M \|g - \bar\eta_n\|^2 + 2\lambda_n J_q(g - \bar\eta_n) \\
-&\geq \frac{1}{2}(M \wedge 2) \big(\|g - \bar\eta_n\| 
-   + \lambda_n^{1/2} J_q^{1/2}(g - \tilde{\eta}_n)\bigr)^2 \\
+\mathrm{II} &\geq M \|g - \bar\eta_n\|_2^2 + 2\lambda_n J_q(g - \bar\eta_n) \\
+&\geq \frac{1}{2}(M \wedge 2) \big(\|g - \bar\eta_n\|_2 
+   + \lambda_n^{1/2} J_q^{1/2}(g - \bar\eta_n)\bigr)^2 \\
 &= \frac{1}{2}(M \wedge 2) s^2.
 \end{align*}
 using $u^2+v^2\geq\frac{1}{2}(u+v)^2$ with $u$ and $v$ non-negative.
 
-Then, for $a$ large enough,
+By definition of big-O in probability, for every $\varepsilon > 0$ there exist constants $M' < \infty$ and $N < \infty$ such that
 \begin{equation*}
-\mathrm{I} + \mathrm{II} \geq \frac{1}{2}(M \wedge 2)s^2 - O_P\!\Big(\frac{s^2}{a}\Big) > 0.
+    \Pr\big( |\mathrm{I}| > M'\frac{s^2}{a} \big) \leq \varepsilon \quad \text{for all } n \ge N.
 \end{equation*}
-and, thus,
+We choose $a$ large enough so that
 \begin{equation*}
-    \frac{\partial}{\partial\alpha}C(\bar\eta_n + \alpha(g-\bar\eta_n))\Bigg|_{\alpha=1^+} > 0\qquad\text{for }g\in\mathbb G\text{ with }L(g)=s.
+    \frac{M'}{a} \leq \frac{1}{4}(M \wedge 2).
+\end{equation*}
+Then, if $|\mathrm{I}| \leq M' \frac{s^2}{a}$, we have
+\begin{equation*}
+    \mathrm{I} + \mathrm{II} \geq - M' \frac{s^2}{a} + \frac{1}{2}(M \wedge 2)s^2 \geq - \frac{1}{4}(M \wedge 2)s^2 + \frac{1}{2}(M \wedge 2)s^2 = \frac{1}{4}(M \wedge 2)s^2 > 0,
+\end{equation*}
+so that
+\begin{equation*}
+    \Pr(\mathrm{I} + \mathrm{II} >0) \geq \Pr\Big(|\mathrm{I}| \leq M' \frac{s^2}{a}\Big)\geq 1-\varepsilon.
+\end{equation*}
+and then
+\begin{equation*}
+    \Pr\Big(\frac{\partial}{\partial\alpha}C(\bar\eta_n + \alpha(g-\bar\eta_n))\Big|_{\alpha=1^+} > 0\text{ for all }g\in\mathbb G\text{ with }L(g)=s\Big) \geq 1-\varepsilon.
+\end{equation*}
+On this event, we apply \autoref{lem:convexity} that implies that the minimizer $\hat\eta_n$ of $C(\cdot)$ in $\mathbb G$ satisfies $L(\hat\eta_n)\leq s$. Then
+\begin{equation*}
+    \Pr\big(L(\hat\eta_n)\leq s\big) \geq 1-\varepsilon,
+\end{equation*}
+that is the same as
+\begin{equation*}
+    \|\hat\eta_n - \bar{\eta}_n\|_2^2 
++ \lambda_n J_q(\hat\eta_n - \bar{\eta}_n) 
+= O_P\!\bigg( \frac{1}{n \lambda_n^{1/(2q)}} \wedge \frac{1}{n \delta_n} \bigg).
 \end{equation*}
 
-Then \autoref{lem:convexity} implies that the minimizer $\hat\eta_n$ of $C(\cdot)$ in $\mathbb G$ satisfies $L(\hat\eta_n)\leq s$. Then
+Finally, we prove a. If $L(\hat\eta_n)\leq s$, then, using condition 5, we have
 \begin{equation*}
-    \|\hat\eta_n - \bar\eta_n\|^2 
-    + \lambda_n J_q(\hat\eta_n - \bar\eta_n) 
-    \leq s^2 
-    = a^2 \Big( \frac{1}{n \lambda_n^{1/(2q)}} \wedge \frac{1}{n \delta_n} \Big).
+    \|\hat\eta_n - \bar\eta_n\|_\infty 
+    \leq A_n \|\hat\eta_n - \bar\eta_n\|_2 
+    \leq A_n L(\hat\eta_n) = A_n a \Big( \frac{1}{n \lambda_n^{1/(2q)}} \wedge \frac{1}{n \delta_n} \Big)^{1/2} 
+    = o(1).
 \end{equation*}
-
+Then
+\begin{equation*}
+    \Pr\big(\|\hat\eta_n - \bar\eta_n\|_\infty = o(1)\big) \geq 1 - \varepsilon
+\end{equation*}
+or, equivalently,
+\begin{equation*}
+    \|\hat\eta_n - \bar{\eta}_n\|_\infty = o_P(1).
+\end{equation*}
 \end{proof}

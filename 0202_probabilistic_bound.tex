@@ -87,23 +87,23 @@ Assume the following conditions are satisfied
     \item $\displaystyle \sup_{g \in G_n} 
 \frac{|(\E_n - \E)\,\dot l[\bar\eta_n, g]|^2}
 {\|g\|_2^2 + \lambda_n J_q(g)} 
-= O_P\!\left( \frac{1}{n \lambda_n^{1/(2q)}} \wedge \frac{1}{n \delta_n} \right)$ \\
+= O_P\!\bigg( \frac{1}{n \lambda_n^{1/(2q)}} \wedge \frac{1}{n \delta_n} \bigg)$ \\
 with $\displaystyle \dot l[\bar\eta_n, g] = \frac{\de}{\de\alpha}l(\bar\eta_n+\alpha g)\bigg|_{\alpha=0^+}$;
     \item There are constants $B > 0$ and $M > 0$ such that, with probability tending to one as $n \to \infty$, we have that
 \begin{equation*}
-    \left. \frac{\de}{\de\alpha} \ell(\bar\eta_n + \alpha g) \right|_{\alpha = 1^+}
-- \left. \frac{\de}{\de\alpha} \ell(\bar\eta_n + \alpha g) \right|_{\alpha = 0^+} \leq - M \|g\|_2^2
+    \frac{\de}{\de\alpha} \ell(\bar\eta_n + \alpha g) \bigg|_{\alpha = 1^+}
+- \frac{\de}{\de\alpha} \ell(\bar\eta_n + \alpha g) \bigg|_{\alpha = 0^+} \leq - M \|g\|_2^2
 \end{equation*}
     for all $g \in\mathbb G$ with $\|g\|_\infty \leq B$,
     \item $\displaystyle \lim_{n\to\infty} \delta_n\vee\lambda_n = 0$;
-    \item $\displaystyle \lim_{n\to\infty} A_n^2 \left(\frac{1}{n \lambda_n^{1/(2q)}} \wedge \frac{1}{n \delta_n}\right)=0$.
+    \item $\displaystyle \lim_{n\to\infty} A_n^2 \bigg(\frac{1}{n \lambda_n^{1/(2q)}} \wedge \frac{1}{n \delta_n}\bigg)=0$.
 \end{enumerate}
 Then
 \begin{enumerate}[label=\alph*., leftmargin=2.5em]
     \item $\|\hat\eta_n - \bar{\eta}_n\|_\infty = o_P(1)$;
-    \item $\displaystyle \|\hat\eta_n - \bar{\eta}_n\|^2 
+    \item $\displaystyle \|\hat\eta_n - \bar{\eta}_n\|_2^2 
 + \lambda_n J_q(\hat\eta_n - \bar{\eta}_n) 
-= O_P\!\left( \frac{1}{n \lambda_n^{1/(2q)}} \wedge \frac{1}{n \delta_n} \right)$.
+= O_P\!\bigg( \frac{1}{n \lambda_n^{1/(2q)}} \wedge \frac{1}{n \delta_n} \bigg)$.
 \end{enumerate}
 \end{theorem}
 
@@ -112,9 +112,9 @@ Combining \autoref{thm:approx_error} and \autoref{thm:est_error}, we obtain the 
 Assume the conditions of \autoref{thm:approx_error} and \autoref{thm:est_error} are satisfied. Then
 \begin{enumerate}[label=\alph*., leftmargin=2.5em]
     \item $\|\hat\eta_n - \eta_0\|_\infty = o_P(1)$;
-    \item $\displaystyle \|\hat\eta_n - \eta_0\|^2 
+    \item $\displaystyle \|\hat\eta_n - \eta_0\|_2^2 
 + \lambda_n J_q(\hat\eta_n - \eta_0) 
-= O_P\!\left(\delta_n^{2p'} \vee \lambda_n \delta_n^{2(p'-q)\wedge 0} + \frac{1}{n \lambda_n^{1/(2q)}} \wedge \frac{1}{n \delta_n} \right)$, \\
+= O_P\!\bigg(\delta_n^{2p'} \vee \lambda_n \delta_n^{2(p'-q)\wedge 0} + \frac{1}{n \lambda_n^{1/(2q)}} \wedge \frac{1}{n \delta_n} \bigg)$, \\
 with $p' = p \wedge (m+1)$.
 \end{enumerate}
 \end{corollary} 

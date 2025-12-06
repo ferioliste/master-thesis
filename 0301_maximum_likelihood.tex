@@ -1,0 +1,29 @@
+\subsection{Simple Maximum Likelihood}
+
+\begin{proposition}
+Let $\mu$ be the Lebegue measure. Let $\mathcal D$ be the space of density functions on $[a,b]$, that is
+\begin{equation*}
+    \mathcal D = \big\{ f: [a,b]\rightarrow \R\ \big|\ f\geq0\ \mu\text{-a.s.},\ {\textstyle \int_a^b f(x)\,\de x=1}\big\} 
+\end{equation*}
+Fix $f_0\in\mathcal D$ and let $\mathbf X$ be a random variable with distribution $f_0$. Then
+\begin{equation*}
+    \argmax_{f\in\mathcal D} \E\big[\ln\!\big(f(\mathbf X)\big)\big] = f_0\ \ \ \mu\text{-a.s.}\ .
+\end{equation*}
+\end{proposition}
+
+\begin{proof}
+For $f\in\mathcal D$, we have
+\begin{equation*}
+    \E\big[\ln\!\big(f(\mathbf X)\big)\big] = \int_a^b \ln\!\big(f(x)\big)f_0(x)\de x = \int_a^b \ln\!\big(f_0(x)\big)f_0(x)\de x + \int_a^b \ln\!\bigg(\frac{f(x)}{f_0(x)}\bigg)f_0(x)\de x
+\end{equation*}
+We use the fact that for all $t > 0$, $\ln(t) \leq t - 1$. We have
+\begin{gather*}
+    \int_a^b \ln\!\bigg(\frac{f(x)}{f_0(x)}\bigg)f_0(x)\de x \leq \int_a^b \bigg(\frac{f(x)}{f_0(x)}-1\bigg)f_0(x)\de x \\
+    = \int_a^b \big(f(x)-f_0(x)\big)\de x = 1-1 = 0,
+\end{gather*}
+so that
+\begin{equation*}
+    \E\big[\ln\!\big(f(\mathbf X)\big)\big] \leq \E\big[\ln\!\big(f_0(\mathbf X)\big)\big].
+\end{equation*}
+In addition, the upper bound is attained if and only if $f=f_0\ \mu$-a.s. .
+\end{proof}
