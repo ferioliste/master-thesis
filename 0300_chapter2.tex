@@ -1,3 +1,19 @@
 \section{Chapter 2}
-\input{0301_maximum_likelihood}
-\input{0302_score_matching}
+In this chapter, we present and analyze several methods for probability density estimation.
+
+We consider a continuous random variable $\mathbf X$, that takes values in $[a,b]$, with unknown density function $f_0\in W^p$. Assume we have available $n$ iid copies of $\mathbf X$, denoted as $\mathbf X_1,\dots,\mathbf X_n$. We are interested in finding an estimate $f$ of $f_0$ using this sample.
+
+Let $\mu$ be the Lebesgue measure. We recall that, in order to be a density, $f$ needs to satisfy the following two properties:
+\begin{enumerate}
+    \item $f \geq 0$ $\mu$-a.e. on $[a,b]$.
+    \item $\int_a^b f(x)\de x=1$
+\end{enumerate}
+Note that, since $f$ is continuous, the first condition is equivalent to $f(x) \geq 0$ for all $x\in [a,b]$.
+
+In the following sections, we will present and analyze several methods for probability density estimation. In order to define the utility functions, we will first define the expected utility and then we will obtain the utility by replacing expectations with averages.
+
+\input{0301_simple_MLE}
+\input{0302_shifted_MLE}
+\input{0303_simple_score_matching}
+\input{0304_shifted_score_matching}
+\input{0305_generalized_score_matching}

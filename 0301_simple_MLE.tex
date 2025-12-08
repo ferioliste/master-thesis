@@ -1,0 +1,205 @@
+\subsection{Simple Maximum Likelihood}\label{sec:simple_MLE}
+
+In this section, we present the classical maximum likelihood estimator of the density. The method is part of the applications of the statistical framework in \cite{huang2021}.
+
+Let $\mathcal D$ be the space of density functions on $[a,b]$, that is
+\begin{equation*}
+    \mathcal D = \big\{ f: [a,b]\rightarrow \R\ \big|\ f\geq0\ \mu\text{-a.s.},\ {\textstyle \int_a^b f(x)\,\de x=1}\big\}.
+\end{equation*}
+The maximum likelihood method consists in maximizing $\E\big[\ln\!\big(f(\mathbf X)\big)\big]$ over all $f\in\mathcal D$, where $\mathbf X$ has distribution $f_0$. In the next proposition we show that this is indeed a consistent estimator of $f_0$.
+
+\begin{proposition}
+Fix $f_0\in\mathcal D$ and let $\mathbf X$ be a random variable with distribution $f_0$. Then
+\begin{equation*}
+    \argmax_{f\in\mathcal D} \E\big[\ln\!\big(f(\mathbf X)\big)\big] = f_0\ \ \ \mu\text{-a.s.}\ .
+\end{equation*}
+\end{proposition}
+
+\begin{proof}\mbox{}
+
+For $f\in\mathcal D$, we have
+\begin{equation*}
+    \E\big[\ln\!\big(f(\mathbf X)\big)\big] = \int_a^b \ln\!\big(f(x)\big)f_0(x)\de x = \int_a^b \ln\!\big(f_0(x)\big)f_0(x)\de x + \int_a^b \ln\!\bigg(\frac{f(x)}{f_0(x)}\bigg)f_0(x)\de x
+\end{equation*}
+We use the fact that for all $t > 0$, $\ln(t) \leq t - 1$. We have
+\begin{gather*}
+    \int_a^b \ln\!\bigg(\frac{f(x)}{f_0(x)}\bigg)f_0(x)\de x \leq \int_a^b \bigg(\frac{f(x)}{f_0(x)}-1\bigg)f_0(x)\de x \\
+    = \int_a^b \big(f(x)-f_0(x)\big)\de x = 1-1 = 0,
+\end{gather*}
+so that
+\begin{equation*}
+    \E\big[\ln\!\big(f(\mathbf X)\big)\big] \leq \E\big[\ln\!\big(f_0(\mathbf X)\big)\big].
+\end{equation*}
+In addition, the upper bound is attained if and only if $f=f_0\ \mu$-a.s. .
+\end{proof}
+
+Since in our case $f_0\in W_p$, we would need to maximize $\E\big[\ln\!\big(f(\mathbf X)\big)\big]$ over all $f\in W_p\cap\mathcal D$. This is however unpractical in practice. In order to remove the constraints over $f$, we represent it as
+\begin{equation*}
+    f(\cdot) = \exp(\eta(\cdot))\Big/ \int_a^b \exp \eta(x)\de x,
+\end{equation*}
+with $\eta\in W_p$. This however creates an identifiability problem, since, for example, $\eta + c$ and $\eta$ would give the same density function for any constant $c$. To solve this issue, we impose
+\begin{equation}\label{eq:cond_eta}
+    \int_a^b\eta(x)\de x = 0.
+\end{equation}
+
+We can show that this condition is indeed enough to have a one-to-one correspondence between $\eta$ and $f$. Assume there are two functions $\eta$ and $\eta^\star$ that satisfy \autoref{eq:cond_eta} and are such that
+\begin{equation*}
+    f(\cdot) \overset{\mu\text{-a.e.}}= \frac{\exp(\eta(\cdot))}{\int_a^b\exp(\eta(x))\de x} \overset{\mu\text{-a.e.}}= \frac{\exp(\eta^\star(\cdot))}{\int_a^b\exp(\eta^\star(x))\de x}.
+\end{equation*}
+Then
+\begin{equation*}
+    \exp(\eta(\cdot) - \eta^\star(\cdot)) \overset{\mu\text{-a.e.}}= \frac{\exp(\eta(\cdot))}{\exp(\eta^\star(\cdot))} \overset{\mu\text{-a.e.}}= \frac{\int_a^b\exp(\eta(x))\de x}{\int_a^b\exp(\eta^\star(x))\de x} =: c
+\end{equation*}
+and
+\begin{equation*}
+    \eta(\cdot) - \eta^\star(\cdot) \overset{\mu\text{-a.e.}}= \ln(c).
+\end{equation*}
+
+Using \autoref{eq:cond_eta}, we have
+\begin{equation*}
+    0 = \int_a^b\eta(x)\de x - \int_a^b\eta^\star(x)\de x = \int_a^b(\eta(x)-\eta^\star(x))\de x = \int_a^b\ln(c)\de x = (b-a) \ln(c)
+\end{equation*}
+and so
+\begin{equation*}
+    0 = \ln(c) \overset{\mu\text{-a.e.}}= \eta(\cdot) - \eta^\star(\cdot).
+\end{equation*}
+
+We are now ready to define $\Lambda$ and $\ell$. We define $\Lambda$ as
+\begin{equation}\label{eq:Lambda_simple_MLE}
+    \Lambda(\eta) = \E\big[\ln\!\big(f(\mathbf X)\big)\big] = \E\big[\eta(\mathbf X)\big] - \ln \int_a^b \exp \eta(x)\de x,
+\end{equation}
+so that $\ell$ can be defined as
+\begin{equation}\label{eq:ell_simple_MLE}
+    \ell(\eta; \mathbf X_1 , \ldots, \mathbf X_n) = \frac{1}{n}\sum_{i=1}^n l(\eta; \mathbf X_i) = \sum_{i=1}^n \bigg(\eta(\mathbf X_i) - \ln \int_a^b \exp \eta(x)\de x\bigg).
+\end{equation}
+
+We assume $f_0$ is bounded away from $0$ and infinity. This means that there exist $C_1^*$ and $C_2^*$ such that
+\begin{equation}\label{eq:f_bounded}
+    C_1^*\leq f_0\leq C_2^*\ \ \mu\text{-a.e.}\ .
+\end{equation}
+
+We will show that $\Lambda$, $\ell$ and $l$ satisfy the hypotheses of Lemmas $\ref{lem:cond_1}$, \ref{lem:cond_3}, and \ref{lem:cond_2}, so that we are able to apply Theorems \ref{thm:approx_error} and \ref{thm:est_error}.
+
+\begin{proposition}\label{prop:simple_MLE_cond_1}
+    The functional $\Lambda$ as in \autoref{eq:Lambda_simple_MLE} satisfies the hypothesis of \autoref{lem:cond_1}, and so Condition 1 of \autoref{thm:approx_error} is satisfied.
+\end{proposition}
+
+\begin{proof}\mbox{}
+
+We have that
+\begin{gather*}
+    \Lambda(h_1 + \alpha h_2) = \E[h_1(\mathbf X)] + \alpha\E[h_2(\mathbf X)] - \log \int_a^b \exp\big(h_1(x) + \alpha h_2(x)\big)\de x, \\
+    \frac{\de}{\de\alpha}\Lambda(h_1 + \alpha h_2) = \E[h_2(\mathbf X)] - \frac{\int_a^b h_2(x)\exp\big(h_1(x) + \alpha h_2(x)\big)\de x}{\int_a^b \exp\big(h_1(x) + \alpha h_2(x)\big)\de x},\text{ and} \\
+    \frac{\de^2}{\de\alpha^2}\Lambda(h_1 + \alpha h_2) \\
+    = \bigg(\frac{\int_a^b h_2(x)\exp\big(h_1(x) + \alpha h_2(x)\big)\de x}{\int_a^b \exp\big(h_1(x) + \alpha h_2(x)\big)\de x}\bigg)^2 - \frac{\int_a^b h_2(x)^2\exp\big(h_1(x) + \alpha h_2(x)\big)\de x}{\int_a^b \exp\big(h_1(x) + \alpha h_2(x)\big)\de x}.
+\end{gather*}
+
+We define the random variable $\mathbf X_\alpha$ that has density
+\begin{equation*}
+    f_{\mathbf X_\alpha}(x) = \exp\big(h_1(x) + \alpha h_2(x)\big) \Big/ \int_a^b \exp\big(h_1(x) + \alpha h_2(x)\big)\de x.
+\end{equation*}
+Then,
+\begin{equation}\label{eq:second_Lambda}
+    \frac{\de^2}{\de\alpha^2}\Lambda(h_1 + \alpha h_2) = -\var\big(h_2(\mathbf X_\alpha) \big)
+\end{equation}
+
+Assume $0\leq\alpha\leq1$, $\|h_1\|_\infty\leq C$, and $\|h_2\|_\infty\leq B$, for $B>0$ and $C>0$. Then\linebreak $\|h_1 + \alpha h_2\|_\infty\leq B+C$. It follows that
+\begin{equation*}
+    f_{\mathbf X_\alpha}(x)=\frac{\exp\big(h_1(x) + \alpha h_2(x)\big)}{\int_a^b \exp\big(h_1(x) + \alpha h_2(x)\big)\de x} \leq \frac{\exp\big(B+C\big)}{\int_a^b \exp\big(-B-C\big)\de x} = \frac{\exp\big(2B+2C\big)}{b-a} = \frac{M_1}{b-a}
+\end{equation*}
+and
+\begin{equation*}
+    f_{\mathbf X_\alpha}(x)=\frac{\exp\big(h_1(x) + \alpha h_2(x)\big)}{\int_a^b \exp\big(h_1(x) + \alpha h_2(x)\big)\de x} \geq \frac{\exp\big(-B-C\big)}{\int_a^b \exp\big(B+C\big)\de x} = \frac{\exp\big(-2B-2C\big)}{b-a} = \frac{M_2}{b-a},
+\end{equation*}
+with
+\begin{equation*}
+    M_1 = \exp\big(2B+2C\big)\qquad\text{and}\qquad M_2=\exp\big(-2B-2C\big).
+\end{equation*}
+
+For fixed $c\in[a,b]$, we have
+\begin{equation*}
+    \frac{M_2}{b-a}\int_a^b\big(h_2(x)-c\big)^2\de x \leq \int_a^b\big(h_2(x)-c\big)^2 f_{\mathbf X_\alpha}(x)\de x \leq \frac{M_1}{b-a}\int_a^b\big(h_2(x)-c\big)^2\de x
+\end{equation*}
+and, taking the infima over $c$, we have
+\begin{equation*}\label{eq:XalphaU}
+    M_2 \var\big(h_2(\mathbf U)\big) \leq \var\big(h_2(\mathbf X_\alpha)\big) \leq M_1 \var\big(h_2(\mathbf U)\big)
+\end{equation*}
+where $\mathbf U$ has uniform distribution over $[a,b]$. 
+
+Since
+\begin{equation*}
+    \E[h_2(\mathbf U)] = \frac{1}{b-a} \int_a^b h_2(x) \de x = 0,
+\end{equation*}
+we have that
+\begin{equation*}
+    \var\big(h_2(\mathbf U)\big) = \E\big[h_2(\mathbf U)^2\big] = \frac{1}{b-a}\int_a^b h_2(x)^2 \de x = \frac{1}{b-a}\|h_2\|_2^2.
+\end{equation*}
+
+Finally,
+\begin{equation*}
+     \frac{M_2}{b-a}\|h_2\|_2^2 \leq \var\big(h_2(\mathbf X_\alpha)\big) \leq \frac{M_1}{b-a}\|h_2\|_2^2
+\end{equation*}
+or, equivalently,
+\begin{equation*}
+     -\frac{M_1}{b-a}\|h_2\|_2^2 \leq \frac{\de^2}{\de\alpha^2}\Lambda(h_1 + \alpha h_2) \leq -\frac{M_2}{b-a}\|h_2\|_2^2.
+\end{equation*}
+
+Since the hypothesis is satisfied, we can use \autoref{lem:cond_1} and conclude that in this setting Condition 1 of \autoref{thm:approx_error} is satisfied.
+\end{proof}
+
+\begin{proposition}
+    The function $l$ as in \autoref{eq:ell_simple_MLE} satisfies the hypothesis of \autoref{lem:cond_2}, and so Condition 1 of \autoref{thm:est_error} is satisfied.
+\end{proposition}
+
+\begin{proof}\mbox{}
+
+We recall that
+\begin{equation*}
+    \dot l[\bar\eta_n; g] = \frac{\de}{\de\alpha}l(\bar\eta_n+\alpha g)\bigg|_{\alpha=0^+}.
+\end{equation*}
+
+In our case,
+\begin{equation*}
+    l(\eta, \mathbf X) = \eta(\mathbf X) - \ln\int_a^b\exp(\eta(x))\de x.
+\end{equation*}
+Then,
+\begin{gather*}
+    l(\bar\eta_n+\alpha g) = \bar\eta_n(\mathbf X)+\alpha g(\mathbf X) - \ln\int_a^b\exp(\bar\eta_n(x)+\alpha g(x))\de x, \\
+    \frac{\de}{\de\alpha}l(\bar\eta_n+\alpha g) = g(\mathbf X) - \frac{\int_a^bg(x)\exp(\bar\eta_n(x)+\alpha g(x))\de x}{\int_a^b\exp(\bar\eta_n(x)+\alpha g(x))\de x}, \text{ and}\\
+    \dot l[\bar\eta_n; g]=g(\mathbf X) - \frac{\int_a^bg(x)\exp(\bar\eta_n(x))\de x}{\int_a^b\exp(\bar\eta_n(x))\de x}.
+\end{gather*}
+It follows that
+\begin{equation*}
+    \var\big(\dot l[\bar\eta_n; g]\big) = \var\big(g(\mathbf X)\big) = \E[g(\mathbf X)^2] - \E[g(\mathbf X)]^2 \leq \E[g(\mathbf X)^2] \leq C_2^*\|g\|_2^2,
+\end{equation*}
+since $f_0$ is bounded away from infinity.
+
+Since the hypothesis is satisfied, we can use \autoref{lem:cond_2} and conclude that in this setting Condition 1 of \autoref{thm:est_error} is satisfied.
+\end{proof}
+
+\begin{proposition}\label{prop:simple_MLE_cond_3}
+    The function $\ell$ as in \autoref{eq:ell_simple_MLE} satisfies the hypotheses of \autoref{lem:cond_3}, and so Condition 2 of \autoref{thm:est_error} is satisfied.
+\end{proposition}
+
+\begin{proof}\mbox{}
+
+Since Condition 1 of \autoref{thm:approx_error} is satisfied we can apply \autoref{thm:approx_error} and obtain that $\|\bar\eta_n\|_\infty$ is bounded and so Condition (i) of \autoref{lem:cond_3} is satisfied.
+
+We have that
+\begin{gather*}
+    \ell(\bar\eta_n + \alpha g) = \frac{1}{n}\sum_{i=1}^n \bigg(\bar\eta_n(\mathbf X_i) + \alpha g(\mathbf X_i) - \ln\int_a^b\exp(\bar\eta_n(x) + \alpha g(x))\de x\bigg), \\
+    \frac{\de}{\de\alpha}\ell(\bar\eta_n + \alpha g) = \frac{1}{n}\sum_{i=1}^n \bigg(g(\mathbf X_i) - \frac{\int_a^bg(x)\exp(\bar\eta_n(x) + \alpha g(x))\de x}{\int_a^b\exp(\bar\eta_n(x) + \alpha g(x))\de x}\bigg), \text{and}\\
+    \frac{\de^2}{\de\alpha^2}\ell(\bar\eta_n + \alpha g) = \\
+    -\frac{1}{n}\sum_{i=1}^n \bigg(\frac{\int_a^bg(x)^2\exp(\bar\eta_n(x) + \alpha g(x))\de x}{\int_a^b\exp(\bar\eta_n(x) + \alpha g(x))\de x} - \Big(\frac{\int_a^bg(x)\exp(\bar\eta_n(x) + \alpha g(x))\de x}{\int_a^b\exp(\bar\eta_n(x) + \alpha g(x))\de x}\Big)^2\bigg) \\
+    = -\var\big(g(\bar{\mathbf X}_\alpha) \big) \overset{\star}= \frac{\de^2}{\de\alpha^2}\Lambda(\bar\eta_n + \alpha g)
+\end{gather*}
+where the random variable $\mathbf X_\alpha$ is as in the proof of \autoref{prop:simple_MLE_cond_1} with $h_1=\bar\eta_n$ and $h_2=g$ and $\overset{\star}=$ is justified using \autoref{eq:second_Lambda}.
+
+It follows that $\ell(\bar\eta_n + \alpha g)$ is twice differentiable. In addition, we have
+\begin{equation*}
+    \frac{\de^2}{\de\alpha^2}\ell(\bar\eta_n + \alpha g) = \frac{\de^2}{\de\alpha^2}\Lambda(\bar\eta_n + \alpha g) \leq -M_2 \|g\|_2^2,\qquad\text{ for }0\leq\alpha\leq1,
+\end{equation*}
+since, by \autoref{prop:simple_MLE_cond_1}, $\Lambda$ satisfies the hypothesis of \autoref{lem:cond_1}.
+
+Since the hypotheses are satisfied, we can use \autoref{lem:cond_3} and conclude that in this setting Condition 2 of \autoref{thm:est_error} is satisfied.
+\end{proof}
