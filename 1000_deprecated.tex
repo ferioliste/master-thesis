@@ -1,0 +1,54 @@
+\begin{proposition}
+    The functional $l$ as in \autoref{eq:ell_shifted_SM} satisfies the hypothesis of \autoref{lem:cond_2_bis}, and so Condition 1 of \autoref{thm:est_error} is satisfied.
+\end{proposition}
+
+\begin{proof}\mbox{}
+
+
+
+Similarly,
+\begin{equation*}
+    \mathrm{I} \leq C_2^*\|g'\|_2^2.
+\end{equation*}
+
+We want to construct a bound of the form $\|g'\|_2^2 \leq M \|g\|_2^2$ for some $M>0$. Notice that $M$ cannot depend on $n$, so in this case we cannot use the fact that in finite dimensional spaces all norms are equivalent, because the constant would depend on $\mathbb G_n$ and so on $n$.
+
+We recall that $\mathbb G_n$ is identified by the knots vector $t\in\R^{k+2}$ and the degree $m$. We write
+\begin{equation*}
+    \|g'\|_2^2 = \int_a^b g'(x)^2\de x =  \sum_{i=0}^k \int_{t_i}^{t_{i+1}} g'(x)^2\de x.
+\end{equation*}
+We fix $i\in\{0,\dots, k\}$. Since $g\in\mathbb G$, it is a polynomial on $[t_i, t_{i+1}]$. So we have that, on $[t_i, t_{i+1}]$,
+\begin{equation*}
+    g(x) = \sum_{j=0}^m a_j x^j\qquad\text{and}\qquad g'(x) = \sum_{j=0}^m j a_j x^{j-1}
+\end{equation*}
+for some coefficients $a_0,\dots,a_m\in\R$.
+
+Then,
+\begin{equation*}
+    \int_{t_i}^{t_{i+1}}g(x)^2 \de x = \sum_{j=0}^m \sum_{u=0}^m a_j a_u \int_{t_i}^{t_{i+1}} x^{j+u} \de x = \sum_{j=0}^m \sum_{u=0}^m \frac{a_j a_u}{j+u+1} (t_{i+1}^{j+u+1} - t_i^{j+u+1})
+\end{equation*}
+and
+\begin{equation*}
+    \int_{t_i}^{t_{i+1}}g'(x)^2 \de x = \sum_{j=0}^m \sum_{u=0}^m j\, u\, a_j a_u \int_{t_i}^{t_{i+1}} x^{j+u-2} \de x = \sum_{j=0}^m \sum_{u=0}^m \frac{j\, u\, a_j a_u}{j+u-1} (t_{i+1}^{j+u-1} - t_i^{j+u-1}).
+\end{equation*}
+
+We perform a term by term comparison. 
+
+
+
+
+
+
+\begin{definition}[Empirical and theoretical norms]
+    We define the empirical and theoretical inner products, respectively, as
+    \begin{gather*}
+        \langle g_1, g_2 \rangle_{\E_n} = \E_n[g_1(\mathbf X) g_2(\mathbf X)] 
+        = \frac{1}{n} \sum_{i=1}^{n} g_1(\mathbf X_i) g_2(\mathbf X_i)\quad\text{and} \\
+        \langle g_1, g_2 \rangle_\E = \E[g_1(\mathbf X) g_2(\mathbf X)].
+    \end{gather*}
+    These two inner products induce the norms
+    \begin{equation*}
+        \| g \|_{\E_n}^2 = \E_n[g(\mathbf X)^2] 
+        = \frac{1}{n} \sum_{i=1}^{n} g(\mathbf X_i)^2\quad\text{and}\quad \| g \|_\E^2 = \E[g(\mathbf X)^2].
+    \end{equation*}
+\end{definition}

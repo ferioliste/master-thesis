@@ -1,0 +1,20 @@
+\subsection{Real-world testcase}
+In this last section, we present two real-world test cases. We use the \emph{NYC Yellow Taxi Trip} datase from Kaggle\footnote{Dataset available at \href{https://www.kaggle.com/datasets/elemento/nyc-yellow-taxi-trip-data}{\underline{https://www.kaggle.com/datasets/elemento/nyc-yellow-taxi-trip-data}}}. We consider two variables: the taxi pick-up time and the trip distance. For the pick-up times, we restrict the analysis to the daytime interval from $06{:}00$ to $22{:}00$ and we extract a random subsample of $n=1000$ observations. We make the working assumption that the observations are independent and identically distributed.
+
+Since there are no times during the day in which the demand for taxis is exactly zero, it is reasonable to assume that the corresponding density is bounded away from $0$ and infinity on the considered interval. For this reason, we estimate the pick-up time density using the Simple Maximum Likelihood estimator. We select $\lambda_n=10^{-7}$ using k-fold crossvalidation. The resulting estimate is shown in \autoref{fig:arrival_time_distr}. The fitted density is trimodal: the first peak occurs around $08{:}30$, which coincides with the morning commute; the second peak appears around $14{:}00$, shortly after lunch; and the third peak is around $18{:}30$, when many people return home from work. The density increases again as $22{:}00$ approaches. A distribution of this type can be useful, for instance, to inform decisions on how many taxis should be operating at different times of the day.
+
+We also estimate the distribution of trip distances. We remove trips with distance equal to $0$ and we discard trips longer than $13$ km, since they represent only a small fraction of the data and would dominate the scale of the plot. We select $\lambda_n=10^{-6}$ again using k-fold crossvalidation. The estimated density, shown in \autoref{fig:distance_distr}, is unimodal, with mode around $1$ km.
+
+\begin{figure}[hbt]
+\centering
+\includegraphics[width=.7\linewidth]{plots/arrival_time_distr.pdf}
+\caption{Estimated density of taxi pick-up times between $06{:}00$ and $22{:}00$ using the Simple Maximum Likelihood estimator on a subsample of $n=1000$ observations.}
+\label{fig:arrival_time_distr}
+\end{figure}
+
+\begin{figure}[hbt]
+\centering
+\includegraphics[width=.7\linewidth]{plots/distance_distr.pdf}
+\caption{Estimated density of taxi trip distances using the Simple Maximum Likelihood estimator on a subsample of $n=1000$ observations.}
+\label{fig:distance_distr}
+\end{figure}

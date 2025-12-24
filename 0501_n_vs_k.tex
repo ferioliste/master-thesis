@@ -1,0 +1,32 @@
+\subsection{Choice of the number of knots}
+The first question we address is how the number of interior knots $k$ should be related to the sample size $n$ in practice. To keep the comparison simple, in this subsection we focus on two representative methods, the Simple Maximum Likelihood and the Simple Score Matching estimators. Since the applicability of these methods differ, we use the first method on samples generated from $f_1$ and the second on samples generated from $f_2$.
+
+We consider three values of the number of interior knots, $k\in\{5,10,20\}$, and three sample sizes, $n\in\{100,1000,10000\}$, for a total of nine possible configurations.
+
+For each pair $(n,k)$, we perform $5$ pilot runs in order to select the penalty parameter $\lambda_n$ by k-fold cross-validation. More precisely, at each pilot run we
+\begin{enumerate}
+    \item generate a new sample of size $n$ from the ground-truth distribution,
+    \item select $\lambda_n$ by k-fold cross-validation,
+    \item store the selected value of $\lambda_n$.
+\end{enumerate}
+At the end of the $5$ pilot runs, we set $\lambda_n$ equal to the largest of the selected values, as we prefer a conservative penalty.
+
+After fixing $\lambda_n$ for each configuration $(n,k)$, we generate three additional independent samples and fit the estimator on each of them. The resulting estimated densities are then plotted and compared among all combinations of $n$ and $k$. The outcomes for the Simple Maximum Likelihood estimator and the Simple Score Matching estimator are shown in \autoref{fig:n_vs_k_MLE} and \autoref{fig:n_vs_k_SM}, respectively.
+
+From these experiments, we make the following observations. As expected, the quality of the estimates improves as the sample size $n$ increases. We see that the variability across the three fitted curves decreases and the estimated densities become closer to the ground-truth. Moreover, increasing the number of interior knots $k$ generally improves the approximation by enlarging the spline space, but only up to a point. In particular, if $k$ is too small the estimator may not be flexible enough to capture local features of the target distribution. This is clearly visible for Simple Score Matching (\autoref{fig:n_vs_k_SM}), where for $k=5$ the fitted density fails to capture the smallest mode of the ground-truth. For this reason, in all subsequent experiments we fix $k=10$. More generally, we expect that relatively small values of $k$ are sufficient for smooth and simple targets, while larger values are needed when the distribution presents sharper features, multiple modes, or other local irregularities.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.89\linewidth]{plots/n_vs_k_MLE.pdf}
+\caption{Effect of the sample size $n$ and the number of interior knots $k$ on the Simple Maximum Likelihood estimator. The ground-truth density (black) is compared to three estimated densities (colored), obtained from three independent samples.}
+\label{fig:n_vs_k_MLE}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.89\linewidth]{plots/n_vs_k_SM.pdf}
+\caption{Effect of the sample size $n$ and the number of interior knots $k$ on the Simple Score Matching estimator. The ground-truth density (black) is compared to three estimated densities (colored), obtained from three independent samples.}
+\label{fig:n_vs_k_SM}
+\end{figure}
+
+\newpage

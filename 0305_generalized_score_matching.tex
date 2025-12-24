@@ -1,0 +1,59 @@
+\subsection{Generalized Score matching}
+In this section, we present a generalized version of the simple score matching estimator of the density. This will allow us to remove the assumption that $f_0(a) = f_0(b) = 0$. The method was first introduced by Yu et al. in \cite{gen_sm}.
+
+We consider a continuous random variable $\mathbf X$, that takes values in $[a,b]$, with unknown density function $f_0\in W^{p+1}$. As before, we define the score $\psi_0$ of $f_0$ as
+\begin{equation*}
+    \psi_0(x) = \frac{\de}{\de x}\ln f_0(x), \qquad\text{with }x\in[a,b],
+\end{equation*}
+where $\psi_0\in W^p$.
+
+We define the functions
+\begin{equation*}
+    \phi(x) = \min\!\big\{x-a;\ b-x;\ 1\big\}\qquad\text{and}\qquad \kappa(x) = x^\alpha
+\end{equation*}
+with $\alpha>1$.
+
+As in the simple score matching method, we want to estimate $\psi_0$ and then use \autoref{eq:psi_to_f} to obtain an estimate of $f_0$.
+
+Let $\psi\in W^p$. We want to minimize
+\begin{gather*}
+    J(\psi) = \frac{1}{2} \E \Big[\kappa\big(\phi(\mathbf X)\big)(\psi(\mathbf X) - \psi_0(\mathbf X))^2\Big] \\
+    = \frac{1}{2}\int_a^b \kappa\big(\phi(x)\big)\psi(x)^2 f_0(x)\de x - \int_a^b \kappa\big(\phi(x)\big)\psi(x)\psi_0(x)f_0(x)\de x \\
+    + \frac{1}{2}\int_a^b \kappa\big(\phi(x)\big)\psi_0(x)^2f_0(x)\de x.
+\end{gather*}
+
+The third term does not depend on $\psi$ so we can remove it, as it is a constant. The second term can be rewritten as
+\begin{gather*}
+    \int_a^b \kappa\big(\phi(x)\big)\psi(x)\psi_0(x)f_0(x)\de x = \int_a^b \kappa\big(\phi(x)\big)\psi(x)f_0'(x)\de x = \\
+    \big[\kappa\big(\phi(x)\big)\psi(x)f_0(x)\big]_a^b - \int_a^b \kappa\big(\phi(x)\big)\psi'(x)f_0(x)\de x - \int_a^b \phi'(x)\kappa'\big(\phi(x)\big)\psi(x)f_0(x)\de x \\
+    = - \int_a^b \kappa\big(\phi(x)\big)\psi'(x)f_0(x)\de x - \int_a^b \phi'(x)\kappa'\big(\phi(x)\big)\psi(x)f_0(x)\de x
+\end{gather*}
+where the first equality uses the fact that
+\begin{equation*}
+    f_0(x)\psi_0(x) = f_0(x)\frac{\de}{\de x}\ln f_0(x) = f_0(x)\frac{f_0'(x)}{f_0(x)} = f_0'(x),
+\end{equation*}
+the second equality is by integration by parts, and the third equality uses the fact that $\kappa\big(\phi(a)\big) = \kappa\big(\phi(b)\big) = 0$. In addition, we multiply $J(\psi)$ by $-1$ in order to turn a loss function into a utility function.
+
+Then, we define $\Lambda$ as
+\begin{gather}
+    \Lambda(\psi) = - \int_a^b \kappa\big(\phi(x)\big)\psi'(x)f_0(x)\de x - \int_a^b \phi'(x)\kappa'\big(\phi(x)\big)\psi(x)f_0(x)\de x \notag \\
+    -\frac{1}{2}\int_a^b \kappa\big(\phi(x)\big)\psi(x)^2 f_0(x)\de x \notag \\
+    = \E\bigg[\!- \kappa\big(\phi(\mathbf X)\big)\psi'(\mathbf X) - \phi'(\mathbf X)\kappa'\big(\phi(\mathbf X)\big)\psi(\mathbf X) - \frac{1}{2}\kappa\big(\phi(\mathbf X)\big)\psi(\mathbf X)^2\bigg], \label{eq:Lambda_gen_SM}
+\end{gather}
+so that $\ell$ can be defined as
+\begin{gather}
+    \ell(\psi; \mathbf X_1 , \ldots, \mathbf X_n) = \frac{1}{n}\sum_{i=1}^n l(\psi; \mathbf X_i)
+    \notag \\
+    = \frac{1}{n}\sum_{i=1}^n \bigg(\!- \kappa\big(\phi(\mathbf X_i)\big)\psi'(\mathbf X_i) - \phi'(\mathbf X_i)\kappa'\big(\phi(\mathbf X_i)\big)\psi(\mathbf X_i) - \frac{1}{2}\kappa\big(\phi(\mathbf X_i)\big)\psi(\mathbf X_i)^2\bigg).\label{eq:ell_gen_SM}
+\end{gather}
+
+Unfortunately, similarly to the simple score matching method, $\Lambda$ does not satisfy the hypotheses of the probabilistic bounds. For example, if we try again to apply \autoref{lem:cond_1}, we obtain
+\begin{gather*}
+    \frac{\de^2}{\de\alpha^2}\Lambda(h_1+\alpha h_2) = -\E\big[\kappa\big(\phi(\mathbf X)\big)h_2(\mathbf X)^2\big] = -\int_a^b \kappa\big(\phi(x)\big)h_2(x)^2f_0(x)\de x.
+\end{gather*}
+
+Since $\kappa\big(\phi(a)\big) = \kappa\big(\phi(b)\big) = 0$, in general we cannot find a constant $M_2>0$ such that
+\begin{equation*}
+    \frac{\de^2}{\de\alpha^2}\Lambda(h_1+\alpha h_2) \leq -M_2\|h_2\|_2^2, 
+    \quad 0 \leq \alpha \leq 1.
+\end{equation*}

@@ -1,0 +1,46 @@
+\subsection{Optimization algorithm}
+We assume to have available $n$ iid realizations of $\mathbf X$, denoted as $\mathbf X_1,\dots,\mathbf X_n$.
+
+We recall that all the estimators that we presented are in the form
+\begin{equation*}
+    \hat\eta_n = \argmax_{h\in \mathbb G} \p\ell(h; \mathbf X_1 , \ldots, \mathbf X_n).
+\end{equation*}
+
+Using the representation \ref{eq:representation}, we can reformulate the problem as
+\begin{equation*}
+    \hat \theta = \argmax_{\theta\in\R^{m+k+1}} \mathcal L(\theta)\qquad\text{with}\qquad\mathcal L(\theta) = \p\ell\Big(\theta^\tr \varphi(x); \mathbf X_1 , \ldots, \mathbf X_n\Big)
+\end{equation*}
+and $\hat\eta_n = \hat\theta^\tr \varphi(x)$.
+
+In order to maximize $\mathcal L$ we use the Newton-Raphson method. We start with an initial guess $\theta^{(0)}$ and we produce a sequence of coefficient vectors using the formula
+\begin{equation*}
+    \theta^{(i+1)} = \theta^{(i)} + \zeta\big[\H(\theta^{(i)})\big]^{-1} \S(\theta^{(i)})
+\end{equation*}
+where $0<\zeta\leq 1$, $\S(\theta^{(i)}) \in\R^{m+k+1}$ is the gradient of $\mathcal L$ at $\theta^{(i)}$ and $\H(\theta^{(i)}) \in\R^{(m+k+1)\times (m+k+1)}$ is the Hessian of $\mathcal L$ at $\theta^{(i)}$.
+
+We stop the iterations when
+\begin{equation*}
+    \frac{\mathcal L(\theta^{(i+1)}) - \mathcal L(\theta^{(i)})}{\max\{|\mathcal L(\theta^{(i)}|,\, 1\}} \leq \varepsilon
+\end{equation*}
+for $\varepsilon > 0$.
+
+For the different methods, we will verify that $\mathcal L$ satisfies the hypotheses that ensure that the Newton-Raphson method converges to a maximizer. In particular, we will check that $\mathcal L$ is twice continuously differentiable on $\R^{m+k+1}$ and that $\H(\theta)$ is non-singular in a neighborhood of the solution.
+
+\begin{algorithm}[H]
+\caption{Newton-Raphson maximization of $\mathcal L$}
+\label{alg:newton_max}
+\begin{algorithmic}[1]
+\REQUIRE Data $\mathbf X_1,\ldots,\mathbf X_n$, initial value $\theta^{(0)}\in\R^{m+k+1}$, step size $\zeta\in(0,1]$, tolerance $\varepsilon>0$, maximum number of iterations $I_{\max}$.
+\STATE Set $i\gets 0$.
+\STATE Set $r_0 = 1 + \varepsilon$
+\WHILE{$r_i \geq \varepsilon$ \AND $i < I_{\max}$}
+    \STATE Compute the gradient $\S(\theta^{(i)})$.
+    \STATE Compute the Hessian $\H(\theta^{(i)})$.
+    \STATE Solve the linear system $\H(\theta^{(i)})\,d^{(i)} = \S(\theta^{(i)})$ for $d^{(i)}\in\R^{m+k+1}$.
+    \STATE Set $\theta^{(i+1)} \gets \theta^{(i)} + \zeta\, d^{(i)}$.
+    \STATE Set $i\gets i+1$.
+    \STATE Set $\displaystyle r_i \gets \frac{\mathcal L(\theta^{(i+1)}) - \mathcal L(\theta^{(i)})}{\max\{|\mathcal L(\theta^{(i)})|,\, 1\}}.$
+\ENDWHILE
+\RETURN $\theta^{(i)}$
+\end{algorithmic}
+\end{algorithm}

@@ -1,1 +1,96 @@
 \subsection{Simple Score Matching}
+In this section, we present a simple score matching method for probability density estimation. The method was first introduced by Hyv\"{a}rinen in \cite{score_matching}.
+
+We consider a continuous random variable $\mathbf X$, that takes values in $[a,b]$, with unknown density function $f_0\in W^{p+1}$ such that $f_0(a) = f_0(b) = 0$. We define the score $\psi_0$ of $f_0$ as
+\begin{equation*}
+    \psi_0(x) = \frac{\de}{\de x}\ln f_0(x), \qquad\text{with }x\in[a,b],
+\end{equation*}
+where $\psi_0\in W^p$.
+
+\begin{proposition}
+    Let $f$, $f^* \in W^{p+1}$ be density functions on $[a,b]$. We define the respective scores $\psi$ and $\psi^*$ as
+    \begin{equation*}
+        \psi(x) = \frac{\de}{\de x}\ln f(x) \qquad\text{and}\qquad \psi'(x) = \frac{\de}{\de x}\ln f^*(x),
+    \end{equation*}
+    with $x\in[a,b]$.
+    
+    Then, $f=f^*$ if and only if $\psi=\psi^*$.
+    
+    In addition,
+    \begin{equation}\label{eq:psi_to_f}
+        f(x) = \frac{\exp\!\big(\int_a^x \psi(t)\de t\big)}{\int_a^b\exp\!\big(\int_a^x \psi(t)\de t\big)\de x}
+    \end{equation}
+\end{proposition}
+
+\begin{proof}\mbox{}
+
+Clearly, if $f=f^*$ then $\psi=\psi^*$.
+
+In order to prove the other direction, we construct $f$ as a function of $\psi$. We consider the primitives of $\psi$
+\begin{equation*}
+    \ln f(x) = \int_a^x\psi(t)\de t + c,\qquad\text{for some }c\in\R.
+\end{equation*}
+Then, we have
+\begin{equation}\label{eq:score_matching_f}
+    f(x) = \exp\!\Big(\int_a^x\psi(t)\de t + c\Big).
+\end{equation}
+We use the fact that $\int_a^b f(x) \de x = 1$. We have that
+\begin{equation*}
+    1 = e^c\int_a^b \exp\!\Big(\int_a^x\psi(t)\de t\Big) \de x
+\end{equation*}
+and
+\begin{equation*}
+    c = -\ln\!\bigg(\int_a^b \exp\!\Big(\int_a^x\psi(t)\de t\Big) \de x\bigg).
+\end{equation*}
+
+By replacing $c$ in \autoref{eq:score_matching_f}, we obtain
+\begin{equation*}
+    f(x) = \frac{\exp\!\big(\int_a^x \psi(t)\de t\big)}{\int_a^b\exp\!\big(\int_a^x \psi(t)\de t\big)\de x}.
+\end{equation*}
+\end{proof}
+
+The idea of score matching is to estimate $\psi_0$ and then use \autoref{eq:psi_to_f} to obtain an estimate of $f_0$.
+
+Let $\psi\in W^p$. We want to minimize the expected squared distance between $\psi(\mathbf X)$ and $\psi_0(\mathbf X)$, that is
+\begin{gather*}
+    J(\psi) = \frac{1}{2} \E \Big[(\psi(\mathbf X) - \psi_0(\mathbf X))^2\Big] \\
+    = \frac{1}{2}\int_a^b \psi(x)^2 f_0(x)\de x - \int_a^b \psi(x)\psi_0(x)f_0(x)\de x + \frac{1}{2}\int_a^b \psi_0(x)^2f_0(x)\de x.
+\end{gather*}
+The third term does not depend on $\psi$ so we can remove it, as it is a constant. The second term can be rewritten as
+\begin{gather*}
+    \int_a^b \psi(x)\psi_0(x)f_0(x)\de x = \int_a^b \psi(x)f_0'(x)\de x = \\
+    \big[\psi(x)f_0(x)\big]_a^b - \int_a^b \psi'(x)f_0(x)\de x = - \int_a^b \psi'(x)f_0(x)\de x
+\end{gather*}
+where the first equality uses the fact that
+\begin{equation*}
+    f_0(x)\psi_0(x) = f_0(x)\frac{\de}{\de x}\ln f_0(x) = f_0(x)\frac{f_0'(x)}{f_0(x)} = f_0'(x),
+\end{equation*}
+the second equality is by integration by parts, and the third equality uses the fact that $f_0(a) = f_0(b) = 0$. In addition, we multiply $J(\psi)$ by $-1$ in order to turn a loss function into a utility function.
+
+Then, we define $\Lambda$ as
+\begin{gather}
+    \Lambda(\psi) = - \int_a^b \psi'(x)f_0(x)\de x -\frac{1}{2}\int_a^b \psi(x)^2 f_0(x)\de x \notag \\
+    = \E\bigg[\!- \psi'(\mathbf X) -\frac{1}{2}\psi(\mathbf X)^2\bigg], \label{eq:Lambda_simple_SM}
+\end{gather}
+so that $\ell$ can be defined as
+\begin{equation}\label{eq:ell_simple_SM}
+    \ell(\psi; \mathbf X_1 , \ldots, \mathbf X_n) = \frac{1}{n}\sum_{i=1}^n l(\psi; \mathbf X_i)
+    = \frac{1}{n}\sum_{i=1}^n \bigg(\!- \psi'(\mathbf X_i) - \frac{1}{2}\psi(\mathbf X_i)^2\bigg).
+\end{equation}
+
+The advantage of score matching is that the utility function depends only on the score $\psi$ and its derivative evaluated at the data. In particular, we never need to numerically compute any integrals in order to normalize the density.
+
+Unfortunately, to our knowledge, $\Lambda$ does not satisfy the hypotheses of the probabilistic bounds. For example, if we try to apply \autoref{lem:cond_1}, we obtain
+\begin{gather*}
+    \Lambda(h_1+\alpha h_2) = -\E[h_1'(\mathbf X)] -\alpha\E[h_2'(\mathbf X)] - \frac{1}{2}\E\big[\big(h_1(\mathbf X) + \alpha h_2(\mathbf X)\big)^2\big], \\
+    \frac{\de}{\de\alpha}\Lambda(h_1+\alpha h_2) = -\E[h_2'(\mathbf X)] - \E\big[h_2(\mathbf X)\big(h_1(\mathbf X) + \alpha h_2(\mathbf X)\big)\big], \text{ and}\\
+    \frac{\de^2}{\de\alpha^2}\Lambda(h_1+\alpha h_2) = -\E\big[h_2(\mathbf X)^2\big] = -\int_a^b h_2(x)^2f_0(x)\de x.
+\end{gather*}
+
+Since $f_0(a) = f_0(b) = 0$, in general we cannot find a constant $M_2>0$ such that
+\begin{equation*}
+    \frac{\de^2}{\de\alpha^2}\Lambda(h_1+\alpha h_2) \leq -M_2\|h_2\|_2^2, 
+    \quad 0 \leq \alpha \leq 1.
+\end{equation*}
+
+We will partially solve this issue in the next section where we introduce the shifted score matching method.

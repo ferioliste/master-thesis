@@ -1,11 +1,11 @@
-\subsection{Shifted Maximum Likelihood}
-In this section, we present a modified version of the classical maximum likelihood estimator of the density. This will allow us to remove the assumption that $f_0$ is bounded away from $0$, at the cost of having a (slightly) unbiased estimator.
+\subsection{Shifted Maximum Likelihood}\label{sec:shifted_MLE}
+In this section, we present a modified version of the classical maximum likelihood estimator of the density. This will allow us to remove the assumption that $f_0$ is bounded away from $0$, at the cost of having a (slightly) biased estimator.
 
 For $0<\gamma<1$, we consider the random variable $\widetilde{\mathbf X}$ with density
 \begin{equation*}
     \tilde f_0(\cdot) = (1-\gamma)f_0(\cdot) + \frac{\gamma}{b-a}.
 \end{equation*}
-Equivalently, $\widetilde{\mathbf X}$ is distributed such that
+Equivalently, $\widetilde{\mathbf X}$ is distributed as
 \begin{equation*}
     \widetilde{\mathbf X} \sim 
     \begin{cases}
@@ -28,12 +28,12 @@ Then, we define $\Lambda$ as
 \begin{gather}
     \Lambda(\eta) = \E\big[\ln\!\big(f(\widetilde{\mathbf X})\big)\big] = \E\big[\eta(\widetilde{\mathbf X})\big] - \ln \int_a^b \exp \eta(x)\de x \notag\\
     = (1-\gamma)\E\big[\eta(\mathbf X)\big] + \gamma\E\big[\eta(\mathbf U)\big] - \ln \int_a^b \exp \eta(x)\de x \notag \\
-    = (1-\gamma)\E\big[\eta(\mathbf X)\big] + \gamma\int_a^b\eta(x)\de x - \ln \int_a^b \exp \eta(x)\de x, \label{eq:Lambda_shifted_MLE}
+    = (1-\gamma)\E\big[\eta(\mathbf X)\big] + \frac{\gamma}{b-a}\int_a^b\eta(x)\de x - \ln \int_a^b \exp \eta(x)\de x, \label{eq:Lambda_shifted_MLE}
 \end{gather}
 so that $\ell$ can be defined as
 \begin{gather}
     \ell(\eta; \mathbf X_1 , \ldots, \mathbf X_n) = \frac{1}{n}\sum_{i=1}^n l(\eta; \mathbf X_i) \notag \\
-    = \sum_{i=1}^n \bigg((1-\gamma)\eta(\mathbf X_i) + \gamma\int_a^b\eta(x)\de x - \ln \int_a^b \exp \eta(x)\de x\bigg). \label{eq:ell_shifted_MLE}
+    = \frac{1}{n}\sum_{i=1}^n \bigg((1-\gamma)\eta(\mathbf X_i) + \frac{\gamma}{b-a}\int_a^b\eta(x)\de x - \ln \int_a^b \exp \eta(x)\de x\bigg). \label{eq:ell_shifted_MLE}
 \end{gather}
 
 In this case, we do not need to assume $f_0$ is bounded away from $0$. However, we still assume that $f_0$ is bounded away from infinity. This means that there exists $C_2^*$ such that
@@ -65,14 +65,14 @@ We recall that
 
 In our case,
 \begin{equation*}
-    l(\eta, \mathbf X) = (1-\gamma)\eta(\mathbf X) + \gamma\int_a^b\eta(x)\de x - \ln \int_a^b \exp \eta(x)\de x.
+    l(\eta, \mathbf X) = (1-\gamma)\eta(\mathbf X) + \frac{\gamma}{b-a}\int_a^b\eta(x)\de x - \ln \int_a^b \exp \eta(x)\de x.
 \end{equation*}
 Then,
 \begin{gather*}
     l(\bar\eta_n+\alpha g) = (1-\gamma)\big(\bar\eta_n(\mathbf X) +\alpha g(\mathbf X)\big) \\
-    + \gamma\int_a^b(\bar\eta_n(x)+\alpha g(x))\de x - \ln\int_a^b\exp(\bar\eta_n(x)+\alpha g(x))\de x, \\
-    \frac{\de}{\de\alpha}l(\bar\eta_n+\alpha g) = (1-\gamma)g(\mathbf X) + \gamma\int_a^b g(x)\de x - \frac{\int_a^bg(x)\exp(\bar\eta_n(x)+\alpha g(x))\de x}{\int_a^b\exp(\bar\eta_n(x)+\alpha g(x))\de x}, \text{ and}\\
-    \dot l[\bar\eta_n; g]=(1-\gamma)g(\mathbf X) + \gamma\int_a^b g(x)\de x - \frac{\int_a^bg(x)\exp(\bar\eta_n(x))\de x}{\int_a^b\exp(\bar\eta_n(x))\de x}.
+    + \frac{\gamma}{b-a}\int_a^b(\bar\eta_n(x)+\alpha g(x))\de x - \ln\int_a^b\exp(\bar\eta_n(x)+\alpha g(x))\de x, \\
+    \frac{\de}{\de\alpha}l(\bar\eta_n+\alpha g) = (1-\gamma)g(\mathbf X) + \frac{\gamma}{b-a}\int_a^b g(x)\de x - \frac{\int_a^bg(x)\exp(\bar\eta_n(x)+\alpha g(x))\de x}{\int_a^b\exp(\bar\eta_n(x)+\alpha g(x))\de x}, \text{ and}\\
+    \dot l[\bar\eta_n; g]=(1-\gamma)g(\mathbf X) + \frac{\gamma}{b-a}\int_a^b g(x)\de x - \frac{\int_a^bg(x)\exp(\bar\eta_n(x))\de x}{\int_a^b\exp(\bar\eta_n(x))\de x}.
 \end{gather*}
 It follows that
 \begin{gather*}
@@ -123,8 +123,8 @@ However, this does not guarantee that $f_2(x)\geq 0$ for all $x\in[a,b]$. To sol
 \begin{equation*}
     f_3(x) = 0 \vee f_2(x)\Big/ \int_a^b \big(0 \vee f_2(y)\big)\de y,\qquad\text{for }x\in[a,b].
 \end{equation*}
-Unfortunately, this completely ruins the regularity of $f_2$ since it introduces corner points where the first derivative is discontinuous. Instead, we define
+Unfortunately, this ruins completely the regularity of $f_2$ since it introduces corner points where the first derivative is discontinuous. Instead, we define
 \begin{equation*}
     f_4(x) = f_2(x) + 0 \wedge\min_{y\in[a,b]} f_2(y) \Big/ \Big(1+(b-a)\big(0 \wedge\min_{y\in[a,b]} f_2(y)\big)\Big),
 \end{equation*}
-where the minimum of $f_2$ over $[a,b]$ always exists since $f_2$ is continuous. Intuitively, the estimator $f_4$ is $f_2$ shifted up by the bare minimum to make $f_2$ positive for all $x\in[a,b]$. In addition, since by conclusion a of \autoref{thm:overall_error}, we have that $f_4$ is an asymptotically unbiased estimator.
+where the minimum of $f_2$ over $[a,b]$ always exists since $f_2$ is continuous. Intuitively, the estimator $f_4$ is $f_2$ shifted up by the bare minimum to make $f_2$ positive for all $x\in[a,b]$. In addition, by conclusion a of \autoref{thm:overall_error}, we have that $f_4$ is an asymptotically unbiased estimator.

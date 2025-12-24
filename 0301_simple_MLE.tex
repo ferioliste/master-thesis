@@ -70,7 +70,7 @@ We are now ready to define $\Lambda$ and $\ell$. We define $\Lambda$ as
 \end{equation}
 so that $\ell$ can be defined as
 \begin{equation}\label{eq:ell_simple_MLE}
-    \ell(\eta; \mathbf X_1 , \ldots, \mathbf X_n) = \frac{1}{n}\sum_{i=1}^n l(\eta; \mathbf X_i) = \sum_{i=1}^n \bigg(\eta(\mathbf X_i) - \ln \int_a^b \exp \eta(x)\de x\bigg).
+    \ell(\eta; \mathbf X_1 , \ldots, \mathbf X_n) = \frac{1}{n}\sum_{i=1}^n l(\eta; \mathbf X_i) = \frac{1}{n}\sum_{i=1}^n \bigg(\eta(\mathbf X_i) - \ln \int_a^b \exp \eta(x)\de x\bigg).
 \end{equation}
 
 We assume $f_0$ is bounded away from $0$ and infinity. This means that there exist $C_1^*$ and $C_2^*$ such that
@@ -78,7 +78,7 @@ We assume $f_0$ is bounded away from $0$ and infinity. This means that there exi
     C_1^*\leq f_0\leq C_2^*\ \ \mu\text{-a.e.}\ .
 \end{equation}
 
-We will show that $\Lambda$, $\ell$ and $l$ satisfy the hypotheses of Lemmas $\ref{lem:cond_1}$, \ref{lem:cond_3}, and \ref{lem:cond_2}, so that we are able to apply Theorems \ref{thm:approx_error} and \ref{thm:est_error}.
+We will show that $\Lambda$, $\ell$ and $l$ satisfy the hypotheses of Lemmas $\ref{lem:cond_1}$, \ref{lem:cond_3}, and \ref{lem:cond_2}, so that we are able to apply Theorems \ref{thm:approx_error} and \ref{thm:est_error}. The following three propositions and their proofs are originally taken and integrated from \cite{huang2021}.
 
 \begin{proposition}\label{prop:simple_MLE_cond_1}
     The functional $\Lambda$ as in \autoref{eq:Lambda_simple_MLE} satisfies the hypothesis of \autoref{lem:cond_1}, and so Condition 1 of \autoref{thm:approx_error} is satisfied.

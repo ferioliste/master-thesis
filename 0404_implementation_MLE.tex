@@ -1,0 +1,112 @@
+\subsection{Implementation of Simple Maximum Likelihood}
+We recall that for the Simple Maximum Likelihood estimator, we have
+\begin{equation*}
+     \ell(\eta; \mathbf X_1 , \ldots, \mathbf X_n) = \frac{1}{n}\sum_{v=1}^n \bigg(\eta(\mathbf X_v) - \ln \int_a^b \exp \eta(x)\de x\bigg),
+\end{equation*}
+so that
+\begin{equation*}
+    \mathcal L(\theta) = \frac{1}{n}\sum_{v=1}^n \theta^\tr \varphi(\mathbf X_v) - \ln \int_a^b \exp\!\big(\theta^\tr \varphi(x)\big)\de x - \lambda_n\,\theta^\tr G_q \theta.
+\end{equation*}
+
+Instead of imposing
+\begin{equation*}
+    \int_a^b\theta^\tr \varphi(x)\de x = 0,
+\end{equation*}
+we use the condition
+\begin{equation*}
+    \theta_0 = 0,
+\end{equation*}
+that also guarantees a one-to-one correspondence between $\theta^\tr \varphi(x)$ and density.
+
+For fixed $\theta$, we calculate $\mathcal L(\theta)$ and the gradient and the Hessian of $\mathcal L$ at $\theta$. 
+First, we define $I^{(0)}\in\R$, $I^{(1)}\in\R^{m+k+1}$, and $I^{(2)}\in\R^{(m+k+1)\times(m+k+1)}$, as
+\begin{gather*}
+    I^{(0)} = \int_a^b\exp\!\big(\theta^\tr \varphi(x)\big)\de x, \\
+    I^{(1)}_i = \int_a^b \varphi_i(x)\exp\!\big(\theta^\tr \varphi(x)\big)\de x,\qquad i=0,\ldots,m+k,\quad\text{and}\\
+    I^{(2)}_{i,j} = \int_a^b \varphi_i(x)\varphi_j(x)\exp\!\big(\theta^\tr \varphi(x)\big)\de x,\qquad\substack{\displaystyle i=0,\ldots,m+k,\\ \displaystyle j=0,\ldots,m+k.}
+\end{gather*}
+
+For $\mathcal L(\theta)$, we have
+\begin{equation*}
+    \mathcal L(\theta) = \frac{1}{n}\sum_{v=1}^n \theta^\tr \varphi(\mathbf X_v) - \ln I^{(0)} - \lambda_n\,\theta^\tr G_q \theta.
+\end{equation*}
+
+For the gradient, we have
+\begin{gather*}
+    \big(\S(\theta)\big)_i = \frac{\partial}{\partial\theta_i} \mathcal L(\theta) = \frac{1}{n}\sum_{v=1}^n \varphi_i(\mathbf X_v) - \frac{\int_a^b \varphi_i(x)\exp\!\big(\theta^\tr \varphi(x)\big)\de x}{\int_a^b\exp\!\big(\theta^\tr \varphi(x)\big)\de x} - 2\lambda_n\big(G_q \theta\big)_i \\
+    = \frac{1}{n}\sum_{v=1}^n \varphi_i(\mathbf X_v) - \frac{I^{(1)}_i}{I^{(0)}} - 2\lambda_n\big(G_q \theta\big)_i,
+\end{gather*}
+for $i=0,\ldots,m+k$.
+
+For the Hessian, we have
+\begin{gather*}
+    \big(\H(\theta)\big)_{i,j} = \frac{\partial^2}{\partial\theta_i\partial\theta_j} \mathcal L(\theta) = \frac{\int_a^b \varphi_i(x)\exp\!\big(\theta^\tr \varphi(x)\big)\de x \int_a^b \varphi_j(x)\exp\!\big(\theta^\tr \varphi(x)\big)\de x}{\Big(\int_a^b\exp\!\big(\theta^\tr \varphi(x)\big)\de x\Big)^2} \\
+    - \frac{\int_a^b \varphi_i(x)\varphi_j(x)\exp\!\big(\theta^\tr \varphi(x)\big)\de x}{\Big(\int_a^b\exp\!\big(\theta^\tr \varphi(x)\big)\de x\Big)^2} - 2\lambda_n\big(G_q\big)_{i,j} = \frac{I^{(1)}_i I^{(1)}_j -I^{(2)}_{i,j}}{\big(I^{(0)}\big)^2}- 2\lambda_n\big(G_q\big)_{i,j},
+\end{gather*}
+for $i=0,\ldots,m+k$ and $j=0,\ldots,m+k$.
+
+We define the matrix $A\in\R^{(k+1)\times (2m+1)}$, with entries
+\begin{equation*}
+    A_{i,j} = \int_{t_i}^{t_{i+1}} x^{j}\exp\!\big(\theta^\tr \varphi(x)\big)\de x
+\end{equation*}
+for $i=0,\ldots,k$ and $j=0,\ldots,2m$. 
+
+We approximate the entries of $A$ using Gauss-Legendre quadrature. Given a function $f:[-1,1]\rightarrow\R$, the integral on $f$ on $[-1,1]$ can be approximated using the $\alpha$-point Gauss-Legendre rule
+\begin{equation*}
+    \int_{-1}^{1} f(x)\de x \ \approx\; \sum_{i=1}^{\alpha} w_i f(x_i),
+\end{equation*}
+where the nodes $x_1,\ldots,x_\alpha$ are the roots of the Legendre polynomial of order $\alpha$, $P_\alpha$, and
+\begin{equation*}
+    w_i=\frac{2}{\big(1-x_i^2\big)\big(P_\alpha'(x_i)\big)^2}.
+\end{equation*}
+for $i=1,\ldots,\alpha$. 
+
+The $\alpha$-point Gauss-Legendre quadrature rule is exact for all polynomials of degree at most $2\alpha-1$ and is very precise with all $f$ that can be well-approximated by polynomials. We can approximate integrals on any interval using a simple change of variable.
+
+The entries of $A$ can be used to calculate $I^{(0)}$, $I^{(1)}$, and $I^{(2)}$. We give a few examples of calculations. First, we have
+\begin{equation*}
+    I^{(0)} = \int_a^b\exp\!\big(\theta^\tr \varphi(x)\big)\de x = \sum_{i=0}^k \int_{t_i}^{t_{i+1}}\exp\!\big(\theta^\tr \varphi(x)\big)\de x = \sum_{i=0}^k A_{i,0}.
+\end{equation*}
+
+For $j\in\{0,\ldots,m\}$,
+\begin{equation*}
+    I^{(1)}_j = \int_a^b x^j\exp\!\big(\theta^\tr \varphi(x)\big)\de x = \sum_{i=0}^k \int_{t_i}^{t_{i+1}}x^j\exp\!\big(\theta^\tr \varphi(x)\big)\de x = \sum_{i=0}^k A_{i,j}.
+\end{equation*}
+
+For $i\in\{0,\ldots,m\}$ and $j\in\{1,\ldots,k\}$,
+\begin{gather*}
+    I^{(2)}_{i,m+j} = \int_a^b x^i(x-t_j)_+^m\exp\!\big(\theta^\tr \varphi(x)\big)\de x = \int_{t_j}^b x^i(x-t_j)^m\exp\!\big(\theta^\tr \varphi(x)\big)\de x = \\
+    \sum_{v=i}^k \int_{t_v}^{t_{v+1}} x^i(x-t_j)^m\exp\!\big(\theta^\tr \varphi(x)\big)\de x = \sum_{v=i}^k \int_{t_v}^{t_{v+1}} \sum_{z=0}^{m} \tbinom{m}{z} x^{i+m-z} (-t_j)^z \exp\!\big(\theta^\tr \varphi(x)\big)\de x = \\
+    \sum_{v=i}^k \sum_{z=0}^{m} \tbinom{m}{z}(-t_j)^z \int_{t_v}^{t_{v+1}} x^{i+m-z} \exp\!\big(\theta^\tr \varphi(x)\big)\de x = \sum_{v=i}^k \sum_{z=0}^{m} \tbinom{m}{z}(-t_j)^z A_{v,(i+m-z)}.
+\end{gather*}
+
+With a bit more work one can cover all the other cases to calculate all the entries of $I^{(0)}$, $I^{(1)}$, and $I^{(2)}$.
+
+\begin{algorithm}[H]
+\caption{Newton-Raphson algorithm for the Simple Maximum Likelihood method}
+\label{alg:simple_ML_newton}
+\begin{algorithmic}[1]
+\REQUIRE Data $\mathbf X_1,\ldots,\mathbf X_n$, initial value $\theta^{(0)}\in\R^{m+k+1}$ such that $\theta^{(0)}_0=0$, step size $\zeta\in(0,1]$, tolerance $\varepsilon>0$, maximum number of iterations $I_{\max}$, quadrature order $\alpha$.
+\STATE Set $i\gets 0$.
+\STATE Set $L_{\text{new}}\gets -\infty$.
+\WHILE{$i<I_{\max}$}
+    \STATE Approximate $A$ using the $\alpha$-point Gauss-Legendre quadrature.
+    \STATE Compute $I^{(0)}$, $I^{(1)}$, and $I^{(2)}$.
+    \STATE Set $L_{\text{old}} \gets L_{\text{new}}$.
+    \STATE Compute $\mathcal L(\theta^{(i)})$.
+    \STATE Set $L_{\text{new}} \gets \mathcal L(\theta^{(i)})$.
+    \IF{i>0}
+        \STATE Set $\displaystyle r \gets \frac{L_{\text{new}} - L_{\text{old}}}{\max\{|L_{\text{old}}|,\,1\}}$
+        \IF{$r<\varepsilon$}
+            \STATE \textbf{break}
+        \ENDIF
+    \ENDIF
+    \STATE Compute the gradient $\S(\theta^{(i)})$.
+    \STATE Compute the Hessian $\H(\theta^{(i)})$.
+    \STATE Solve the linear system $\H(\theta^{(i)})\,d^{(i)} = \S(\theta^{(i)})$ for $d^{(i)}\in\R^{m+k+1}$, with $d^{(i)}_0=0$.
+    \STATE Set $\theta^{(i+1)} \gets \theta^{(i)} + \zeta\, d^{(i)}$.
+    \STATE Set $i\gets i+1$.
+\ENDWHILE
+\RETURN $\theta^{(i)}$
+\end{algorithmic}
+\end{algorithm}

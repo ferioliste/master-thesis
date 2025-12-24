@@ -1,0 +1,20 @@
+\subsection{Representing splines}
+The first point we have to deal with is which basis to use in order to represent the splines in $\mathbb G$ in a way that is convenient for numerical computations. We define the truncated power basis functions $\varphi_i$ by
+\begin{equation*}
+    \varphi_i(x) = x^i,\qquad i=0,\ldots,m,
+\end{equation*}
+and
+\begin{equation*}
+    \varphi_{m+j}(x) = (x-t_j)_+^m,\qquad j=1,\ldots,k,
+\end{equation*}
+where $(u)_+ = \max\{u,0\}$.
+
+By construction, the family $\{\varphi_0,\ldots,\varphi_{m+k}\} \subset \mathbb G$ contains $m+k+1$ linearly independent functions and thus forms a basis of $\mathbb G$. In particular, for any spline $g\in\mathbb G$ there exists a unique coefficient vector $\theta\in\R^{m+k+1}$ such that
+\begin{equation}\label{eq:representation}
+    g(x) = \theta^\tr \varphi(x) = \sum_{i=0}^{m+k} \theta_i\varphi_i(x)
+    = \sum_{i=0}^m \theta_i x^i + \sum_{j=1}^k \theta_{m+j}(x-t_j)_+^m,
+    \qquad x\in[a,b],
+\end{equation}
+where $\varphi(x)\in\R^{m+k+1}$ is such that $\big(\varphi(x)\big)_i = \varphi_i(x)$ for $i=0,\ldots,m+k$.
+
+In our implementation, we estimate the coefficient vector of $\hat\eta_n$.

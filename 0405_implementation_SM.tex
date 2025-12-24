@@ -1,0 +1,61 @@
+\subsection{Implementation of Simple Score Matching}
+We recall that for the Simple Score Matching estimator, we have
+\begin{equation*}
+     \ell(\psi; \mathbf X_1 , \ldots, \mathbf X_n) = \frac{1}{n}\sum_{v=1}^n \bigg(\!- \psi'(\mathbf X_v) - \frac{1}{2}\psi(\mathbf X_v)^2\bigg),
+\end{equation*}
+so that
+\begin{equation*}
+    \mathcal L(\theta) = \frac{1}{n}\sum_{v=1}^n \bigg(\!- \theta^\tr \varphi'(\mathbf X_v) - \frac{1}{2}\big(\theta^\tr \varphi(\mathbf X_v)\big)^2\bigg) - \lambda_n\,\theta^\tr G_q \theta,
+\end{equation*}
+where $\varphi'(x)\in\R^{m+k+1}$ is such that $\big(\varphi'(x)\big)_i = \varphi_i'(x)$ for $i=0,\ldots,m+k$.
+
+We recall that $\varphi_0' \equiv 0$. For $i=1,\ldots,m$,
+\begin{equation*}
+    \varphi_i'(x) = i\,x^{i-1}.
+\end{equation*}
+For $j=1,\ldots,k$,
+\begin{equation*}
+    \varphi_{m+j}'(x)
+    = m(x-t_j)_+^{m-1}.
+\end{equation*}
+
+For fixed $\theta$, we calculate the gradient and the Hessian of $\mathcal L$ at $\theta$.
+
+For the gradient, we have
+\begin{equation*}
+    \big(\S(\theta)\big)_i = \frac{\partial}{\partial\theta_i} \mathcal L(\theta) = \frac{1}{n}\sum_{v=1}^n \bigg(\!- \varphi_i'(\mathbf X_v) - \varphi_i(\mathbf X_v)\big(\theta^\tr \varphi(\mathbf X_v)\big)\bigg) - 2\lambda_n\big(G_q \theta\big)_i
+\end{equation*}
+for $i=0,\ldots,m+k$.
+
+For the Hessian, we have
+\begin{gather*}
+    \big(\H(\theta)\big)_{i,j} = \frac{\partial^2}{\partial\theta_i\partial\theta_j} \mathcal L(\theta) = \frac{1}{n}\sum_{v=1}^n \big(\!- \varphi_i(\mathbf X_v)\varphi_j(\mathbf X_v)\big) - 2\lambda_n\big(G_q\big)_{i,j},
+\end{gather*}
+for $i=0,\ldots,m+k$ and $j=0,\ldots,m+k$.
+
+\begin{algorithm}[H]
+\caption{Newton-Raphson algorithm for the Simple Score Matching method}
+\label{alg:simple_ML_newton}
+\begin{algorithmic}[1]
+\REQUIRE Data $\mathbf X_1,\ldots,\mathbf X_n$, initial value $\theta^{(0)}\in\R^{m+k+1}$, step size $\zeta\in(0,1]$, tolerance $\varepsilon>0$, maximum number of iterations $I_{\max}$.
+\STATE Set $i\gets 0$.
+\STATE Set $L_{\text{new}}\gets -\infty$.
+\WHILE{$i<I_{\max}$}
+    \STATE Set $L_{\text{old}} \gets L_{\text{new}}$.
+    \STATE Compute $\mathcal L(\theta^{(i)})$.
+    \STATE Set $L_{\text{new}} \gets \mathcal L(\theta^{(i)})$.
+    \IF{i>0}
+        \STATE Set $\displaystyle r \gets \frac{L_{\text{new}} - L_{\text{old}}}{\max\{|L_{\text{old}}|,\,1\}}$
+        \IF{$r<\varepsilon$}
+            \STATE \textbf{break}
+        \ENDIF
+    \ENDIF
+    \STATE Compute the gradient $\S(\theta^{(i)})$.
+    \STATE Compute the Hessian $\H(\theta^{(i)})$.
+    \STATE Solve the linear system $\H(\theta^{(i)})\,d^{(i)} = \S(\theta^{(i)})$ for $d^{(i)}\in\R^{m+k+1}$.
+    \STATE Set $\theta^{(i+1)} \gets \theta^{(i)} + \zeta\, d^{(i)}$.
+    \STATE Set $i\gets i+1$.
+\ENDWHILE
+\RETURN $\theta^{(i)}$
+\end{algorithmic}
+\end{algorithm}

@@ -1,4 +1,34 @@
-\subsection{Checking the master theorems' hypoteses}
+\subsection{Checking the probabilistic bounds' hypotheses}
+
+Theorems \ref{thm:approx_error} and \ref{thm:est_error} have quite technical hypotheses. In this section, we give one proposition and three lemmas that provide simple sufficient conditions to check these assumptions in practice. The lemmas and their proofs are originally taken and integrated from \cite{huang2021}. While \autoref{prop:thm_512} is also presented in \cite{huang2021}, we show how it can be used to derive sufficient conditions for condition 3 of \autoref{thm:approx_error} and condition 4 of \autoref{thm:est_error}. Finally, we present a variation of \autoref{lem:cond_2}, \autoref{lem:cond_2_bis}, that is strictly better in most cases.
+
+We start considering condition 3 of \autoref{thm:approx_error} and condition 4 of \autoref{thm:est_error}. These are conditions on the sequence of spline spaces $(\mathbb G_n)_{n\in\N}$ and the sequence of penalty parameters $(\lambda_n)_{n\in\N}$. We use the following result from \cite{constructive_approximation}.
+
+\begin{proposition}[Theorem 5.1.2 of \cite{constructive_approximation}]\label{prop:thm_512}
+    Take $A_n$ as in \autoref{def:An}. Under bounded mesh ratio condition, we have that $A_n \lesssim \delta_n^{-1/2}$. In other words, there exists a constants $C>0$ such that $A_n\leq C\delta_n^{-1/2}$ for $n$ large enough.
+\end{proposition}
+
+Since
+\begin{equation*}
+    0 \leq A_n^2 \{\delta_n^{2p'} \vee (\lambda_n \delta_n^{2(p'-q)\wedge 0})\} \leq C^2\delta_n^{-1}\{\delta_n^{2p'} \vee (\lambda_n \delta_n^{2(p'-q)\wedge 0})\}
+\end{equation*}
+and
+\begin{equation*}
+    0 \leq A_n^2 \bigg(\frac{1}{n \lambda_n^{1/(2q)}} \wedge \frac{1}{n \delta_n}\bigg) \leq C^2\delta_n^{-1}\bigg(\frac{1}{n \lambda_n^{1/(2q)}} \wedge \frac{1}{n \delta_n}\bigg),
+\end{equation*}
+using the squeeze theorem, we find that sufficient conditions for condition 3 of \autoref{thm:approx_error} and condition 4 of \autoref{thm:est_error} are
+\begin{equation*}
+    \lim_{n\rightarrow\infty} \delta_n^{-1}\{\delta_n^{2p'} \vee (\lambda_n \delta_n^{2(p'-q)\wedge 0})\} = 0
+\end{equation*}
+and
+\begin{equation*}
+    \lim_{n\rightarrow\infty} \delta_n^{-1}\bigg(\frac{1}{n \lambda_n^{1/(2q)}} \wedge \frac{1}{n \delta_n}\bigg) = 0.
+\end{equation*}
+
+Since these are conditions on the sequence of spline spaces $(\mathbb G_n)_{n\in\N}$ and the sequence of penalty parameters $(\lambda_n)_{n\in\N}$, they can be verified once and for all. In particular, after fixing the sequences the same conditions apply regardless of the utility function used to define the estimator. For this reason, in \autoref{sec:chapter2}, we will not check these conditions.
+
+We now provide three lemmas for verifying condition 1 of \autoref{thm:approx_error} and conditions 1 and 2 of \autoref{thm:est_error}. These lemmas correspond, in order, to lemmas 5.1, 5.3, and 5.2 of \cite{huang2021}.
+
 \begin{lemma}\label{lem:cond_1}
     
 Suppose $\|h_1\|_{\infty} \leq C$ for some constant $C > 0$. 
@@ -78,7 +108,7 @@ by hypothesis, for $g \in\mathbb G$.
     \end{equation*}
     with $\displaystyle \dot l[\bar\eta_n; g] = \frac{\de}{\de\alpha}l(\bar\eta_n+\alpha g)\bigg|_{\alpha=0^+}$.
 \end{lemma}
-\autoref{lem:cond_2} imposes a condition that needs to hold for all $h\in L^2$ with $\|h\|_2=1$. However, this can be militating is some settings. For this reason, we modified the lemma so that the condition only needs to hold for all $h\in\mathbb G$ with $\|h\|_2\leq 1$. Although this is not as strictly better version of the lemma, it is much easier to apply in practice, as we will see in \autoref{sec:score_matching}.
+\autoref{lem:cond_2} imposes a condition that needs to hold for all $h\in L^2$ with $\|h\|_2=1$. However, this can be militating is some settings. For this reason, we modified the lemma so that the condition only needs to hold for all $h\in\mathbb G$ with $\|h\|_2\leq 1$. Although this is not as strictly better version of the lemma, it is much easier to apply in practice.
 
 \begin{lemma}[Variation of \autoref{lem:cond_2}]\label{lem:cond_2_bis}
     If there exists a constant $M$ such that $\var\big(\dot l[\bar\eta_n;h]\big)\leq M$ for all $h\in\mathbb G$ with $\|h\|_2\leq 1$ then Condition 1 of \autoref{thm:est_error} holds, that is we have that
@@ -99,7 +129,7 @@ A quadratic functional $B(h,h)$ is said to be completely continuous with respect
 
 We use the following result from Section 3 of \cite{utreras}, in particular we use inequality 3.17.
 
-\begin{proposition}[Result from \cite{utreras}]\label{prop:utreras}
+\begin{proposition}[Result from Section 3 of \cite{utreras}]\label{prop:utreras}
 Consider the two bilinear functionals
 \begin{equation*}
     V(h_1, h_2) = \int_a^b h_1(x)h_2(x)\de x
@@ -110,7 +140,7 @@ Consider the two bilinear functionals
 We have that $V(h,h)$ is completely continuous with respect to $J_q(h,h)$. In addition, $\rho_i\geq 0$ for all $i=1,2,\dots$ and $\rho_i \asymp i^{2q}$.
 \end{proposition}
 
-By Theorem 3.3.1 of \cite{weinberger}, since $V(h,h)$ is completely continuous with respect to $J_q(h,h)$, $V$ and $J_q$ can be simultaneously diagonalized. This means that there exists a sequence of eigenfunctions $\phi_i$, for $i=1,2,\dots$, and a sequence of eigenvalues $\rho_i$,  for $i=1,2,\dots$, such that
+By Theorem 3.3.1 of \cite{weinberger}, since $V(h,h)$ is completely continuous with respect to $J_q(h,h)$, $V$ and $J_q$ can be simultaneously diagonalized. This means that there exists a sequence of eigenfunctions $\phi_i\in L^2$, for $i=1,2,\dots$, and a sequence of eigenvalues $\rho_i$,  for $i=1,2,\dots$, such that
 \begin{equation*}
     V(\phi_i, \phi_j) = \delta_{ij}\qquad\text{and}\qquad J_q(\phi_i, \phi_j) = \rho_i\delta_{ij}.
 \end{equation*}

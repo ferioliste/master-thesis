@@ -1,0 +1,29 @@
+\subsection{The impact of the penalty parameter}
+In the previous two subsections, we selected $\lambda_n$ as robustly as possible in order to compare the different methods under ideal conditions. In this subsection, we study instead the effect of the penalty parameter on the fitted density. As before, for simplicity, we focus only on the Simple Maximum Likelihood estimator and the Simple Score Matching estimator.
+
+In order to highlight more clearly the impact of $\lambda_n$, we fix a small sample size, $n=100$, where the bias-variance trade-off induced by the penalty is most visible. We fit the Simple Maximum Likelihood estimator on samples generated from $f_1$, and the Simple Score Matching estimator on samples generated from $f_2$. For each method, we consider the values
+\begin{equation*}
+    \lambda_n \in \{10^{-6},10^{-5},10^{-4},10^{-3},10^{-2},10^{-1}\}.
+\end{equation*}
+The results are shown in \autoref{fig:lambda_MLE} and \autoref{fig:lambda_SM}, where the estimated densities are compared to the empirical histogram of the sample (30 bins), in order to highlight under- and over-regularization.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.9\linewidth]{plots/lambda_MLE.pdf}
+\caption{Effect of the penalty parameter $\lambda_n$ on the Simple Maximum Likelihood estimator for $n=100$. For $\lambda_n\in\{10^{-6},10^{-5},10^{-4},10^{-3},10^{-2},10^{-1}\}$, the fitted density (red) is compared to the empirical histogram of the sample (30 bins). Using k-fold crossvalidation, we select $\lambda_n = 10^{-2}$.}
+\label{fig:lambda_MLE}
+\end{figure}
+\vspace{2\baselineskip}
+\begin{figure}[H]
+\centering
+\includegraphics[width=.9\linewidth]{plots/lambda_SM.pdf}
+\caption{Effect of the penalty parameter $\lambda_n$ on the Simple Score Matching estimator for $n=100$. For $\lambda_n\in\{10^{-6},10^{-5},10^{-4},10^{-3},10^{-2},10^{-1}\}$, the fitted density (red) is compared to the empirical histogram of the sample (30 bins). Using k-fold crossvalidation, we select $\lambda_n = 10^{-3}$.}
+\label{fig:lambda_SM}
+\end{figure}
+\newpage
+
+As $\lambda_n$ increases, the estimated density becomes smoother, since the penalty induces additional regularity on the fitted function.
+
+Looking at \autoref{fig:lambda_MLE}, for the Simple Maximum Likelihood estimator a good value for $\lambda_n$ seems to be $10^{-3}$, however, using k-fold cross validation we select $10^{-2}$. In this synthetic setting, one should always keep in mind that we know the exact target distribution in advance, and so choosing $\lambda_n$ "visually" might result to be "unfair compared to a real-data situation. In practice, when the true distribution is unknown, the choice of $\lambda_n$ must be based on data-driven procedures such as cross-validation.
+
+Similarly, for the Simple Score Matching estimator, \autoref{fig:lambda_SM} suggests that a smaller penalty would be better, as we need enough flexibility in order to recover the three modes. However, using k-fold cross validation we select $10^{-3}$, that is not small enough to fit a distribution with three modes. In practice, we would not know that the distribution has three modes, so the estimated distribution with $\lambda_n = 10^{-3}$ would be perfectly reasonable.

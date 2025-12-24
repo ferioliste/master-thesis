@@ -1,0 +1,43 @@
+\subsection{Penalty term}
+In this section, we show how we can compute the penalty term of the penalized utility functions, as it is the same in every method. We recall that
+\begin{equation*}
+    J_q(g) = \int_a^b \big(g^{(q)}(x)\big)^2 \de x = \|g^{(q)}\|_2^2
+\end{equation*}
+
+Let $\theta$ be the coefficient vector of $g$. Then we have
+\begin{equation*}
+    J_q(g) = \int_a^b \Big(\sum_{i=0}^{m+k} \theta_i\varphi_i^{(q)}(x)\Big)^2 \de x = \sum_{i=0}^{m+k}\sum_{j=0}^{m+k} \theta_i \theta_j \int_a^b\varphi_i^{(q)}(x)\varphi_j^{(q)}(x) \de x = \theta^\tr G_q \theta
+\end{equation*}
+where $G_q\in\R^{(k+m+1)\times(k+m+1)}$ is the symmetric positive semi-definite matrix with entries
+\begin{equation}
+    (G_q)_{i,j} = \int_a^b \varphi_i^{(q)}(x)\varphi_j^{(q)}(x)\,\de x,
+    \qquad\substack{\displaystyle i=0,\ldots,m+k,\\ \displaystyle j=0,\ldots,m+k.}
+\end{equation}
+
+In the truncated power basis, $q$ derivatives are identically zero. More precisely, for $0\leq i<q$,
+\begin{equation*}
+    \varphi_i^{(q)}\equiv0
+\end{equation*}
+For $q\leq i \leq m$,
+\begin{equation*}
+    \varphi_i^{(q)}(x) = \frac{i!}{(i-q)!}\,x^{i-q}.
+\end{equation*}
+For $j=1,\ldots,k$,
+\begin{equation*}
+    \varphi_{m+j}^{(q)}(x)
+    = \frac{m!}{(m-q)!}(x-t_j)_+^{m-q},
+\end{equation*}
+with the convention that $(x-t_j)_+^{0}=\I\{x>t_j\}$.
+
+It follows that the first $q$ rows and columns of $G_q$ are filled $0$. In addition, each entry of $G_q$ can be calculated exactly by integrating polynomials. For example, take $i\in\{q,\ldots,m\}$ and $j\in\{1,\ldots,k\}$, then
+\begin{gather*}
+    (G_q)_{i,m+j} = \frac{i!}{(i-q)!}\frac{m!}{(m-q)!} \int_a^b x^{i-q} (x-t_j)_+^{m-q} \de x \\
+    = \frac{i!}{(i-q)!}\frac{m!}{(m-q)!} \int_{t_j}^b x^{i-q} (x-t_j)^{m-q} \de x \\
+    = \frac{i!}{(i-q)!}\frac{m!}{(m-q)!} \int_{t_j}^b \sum_{v=0}^{m-q} \tbinom{m-q}{v} x^{i+m-2q-v} (-t_j)^v \de x \\
+    = \frac{i!}{(i-q)!}\frac{m!}{(m-q)!}\sum_{v=0}^{m-q} \tbinom{m-q}{v}(-t_j)^v\int_{t_j}^b x^{i+m-2q-v} \de x \\
+    = \frac{i!}{(i-q)!}\frac{m!}{(m-q)!}\sum_{v=0}^{m-q} \tbinom{m-q}{v}(-t_j)^v \frac{b^{i+m-2q-v+1} - t_j^{i+m-2q-v+1}}{i+m-2q-v+1}.
+\end{gather*}
+
+With a bit more work one can calculate also $(G_q)_{i,j}$ for $i,j\in\{q,\ldots,m\}$ and $(G_q)_{m+i,m+j}$ for $i,j\in\{1,\ldots,k\}$. 
+
+It's important to notice that $G_q$ depends only on the basis and does not change between iterations. Therefore, it can be computed once and stored, so that the penalty evaluation reduces to evaluating the quadratic form $\theta^\tr G_q \theta$.

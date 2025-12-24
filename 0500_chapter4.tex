@@ -1,0 +1,37 @@
+\section{Numerical Experiments}
+In this last chapter, we present the results of the numerical experiments we conducted to compare the five methods for probability density estimation.
+
+We first study the methods on synthetic data, where the ground-truth density is known, and then we consider two real-world applications.
+
+We introduce two unnormalized densities $f_1$ and $f_2$, defined on $[a,b]=[-2,2]$ by
+\begin{equation*}
+    f_1(x) = e^{-(x-2)^4} + \tfrac{1}{2}e^{-(x+2)^4} + 0.05
+\end{equation*}
+and
+\begin{equation*}
+    f_2(x) =
+    \Big(
+        e^{-\sqrt{16(x - 0.5)^2 + 1}}
+        + 2\,e^{-\sqrt{16(x + 0.5)^2 + 1}}
+        + 4\,e^{-\sqrt{128(x - 1.25)^2 + 1}}
+    \Big)(4 - x^2).
+\end{equation*}
+We chose on purpose $f_1$ and $f_2$ to be non-polynomial $C^\infty$ functions. This is important since otherwise estimating then would be a trivial task and a not so useful benchmark for the methods considered in this thesis.
+
+\begin{figure}[hbt]
+\centering
+\includegraphics[width=.8\linewidth]{plots/distributions.pdf}
+\caption{Normalized target densities $f_1$ and $f_2$ on $[a,b]=[-2,2]$, used in the synthetic experiments.}
+\label{fig:distributions}
+\end{figure}
+
+We have that $f_1$ is bounded away from $0$ and infinity, while $f_2$ satisfies the boundary condition $f_2(a)=f_2(b)=0$. These properties determine which estimation algorithms can be applied. In particular, $f_1$ can be used with the Simple Maximum Likelihood, Shifted Maximum Likelihood, and Generalized Score Matching methods, while $f_2$ can be used with the Shifted Maximum Likelihood, Simple Score Matching, Shifted Score Matching, and Generalized Score Matching methods.
+
+In order to generate samples from $f_1$ and $f_2$, we use the acceptance-rejection method, which only requires knowledge of the unnormalized density. This allows us to compare the estimated densities with the normalized ground-truth.
+
+Throughout this chapter, we fix the spline degree to $m=3$, as in \cite{kooperberg1992}, and we use the penalty order $q=2$. In our experiments, provided that $1/2<q\leq m$, we did not observe substantial differences in the qualitative behavior of the estimators when varying $(m,q)$. For this reason, we keep these choices fixed in all the numerical results reported below.
+
+\input{0501_n_vs_k}
+\input{0502_alg_vs_n}
+\input{0503_lambda_n}
+\input{0504_real_test_cases}

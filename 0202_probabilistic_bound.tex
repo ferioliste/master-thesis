@@ -1,5 +1,5 @@
 \subsection{Probabilistic bound}
-In this section, we construct a probabilistic bound of the quantity $\|\hat\eta_n-\eta_0\|_2^2 + \lambda_n J(\hat\eta_n)$. This gives both the $L_2$ convergence rate of $\hat\eta_n$ to $\eta_0$ and a bound on $J_q(\hat\eta_n)$.
+In this section, we present the probabilistic bound of the quantity $\|\hat\eta_n-\eta_0\|_2^2 + \lambda_n J(\hat\eta_n)$ introduced by Huang and Su in \cite{huang2021}. This gives both the $L_2$ convergence rate of $\hat\eta_n$ to $\eta_0$ and a bound on $J_q(\hat\eta_n)$.
 
 We define
 \begin{equation*}
@@ -13,29 +13,15 @@ so that we can decompose the error as
 + 
 \underbrace{(\bar\eta_n - \eta_0)}_{\mathclap{\text{approximation error}}}
 \end{equation*}
-with the first and the second term referred as estimation error and approximation error, respectively.
+with the first and the second terms referred as estimation error and approximation error, respectively.
 
-\begin{definition}
+\begin{definition}\label{def:An}
     We define the quantity
     \begin{equation*}
         A_n = \sup_{g \in\mathbb G,\, \|g\|_2 \neq 0} \frac{\|g\|_\infty}{\|g\|_2}
         = \sup_{g \in \mathbb G, \|g\|_2 = 1} \|g\|_\infty,
     \end{equation*}
     that measures the irregularity of the approximating space $\mathbb G$.
-\end{definition}
-
-\begin{definition}[Empirical and theoretical norms]
-    We define the empirical and theoretical inner products, respectively, as
-    \begin{gather*}
-        \langle g_1, g_2 \rangle_{\E_n} = \E_n[g_1(\mathbf X) g_2(\mathbf X)] 
-        = \frac{1}{n} \sum_{i=1}^{n} g_1(\mathbf X_i) g_2(\mathbf X_i)\quad\text{and} \\
-        \langle g_1, g_2 \rangle_\E = \E[g_1(\mathbf X) g_2(\mathbf X)].
-    \end{gather*}
-    These two inner products induce the norms
-    \begin{equation*}
-        \| g \|_{\E_n}^2 = \E_n[g(\mathbf X)^2] 
-        = \frac{1}{n} \sum_{i=1}^{n} g(\mathbf X_i)^2\quad\text{and}\quad \| g \|_\E^2 = \E[g(\mathbf X)^2].
-    \end{equation*}
 \end{definition}
 
 \begin{definition}[Big-O and small-o in probability]
@@ -60,7 +46,9 @@ with the first and the second term referred as estimation error and approximatio
     \end{equation*}
 \end{definition}
 
-We are now ready to state the so-called master theorems from \cite{huang2021}. We will prove them in \autoref{sec:proofs}.
+Intuitively, if $X_n = O_P(a_n)$, then the random variables $X_n$ do not grow faster than $a_n$ with probability tending to $1$ as $n\rightarrow\infty$. In other words, $a_n$ describes the typical scale of $X_n$. On the other hand, if $X_n=o_P(a_n)$, then $X_n$ is of smaller order than $a_n$ in probability.
+
+We are now ready to state Theorems 3.1 and 3.2 from \cite{huang2021}. We will prove them in \autoref{sec:proofs}.
 
 \begin{theorem}[Bound on the approximation error]\label{thm:approx_error}
 Assume the following conditions are satisfied
@@ -71,7 +59,7 @@ Assume the following conditions are satisfied
     \end{equation*}
     for all $h \in\mathbb G$ with $\|h\|_\infty \leq B$;
     \item $\displaystyle \lim_{n\to\infty} \delta_n\vee\lambda_n = 0$;
-    \item $\displaystyle \lim_{n\to\infty} A_n^2 \{\delta_n^{2p'} \vee (\lambda_n \delta_n^{2(p'-q)\wedge 0})\} = 0$.
+    \item $\displaystyle \lim_{n\to\infty} A_n^2 \{\delta_n^{2p'} \vee (\lambda_n \delta_n^{2(p'-q)\wedge 0})\} = 0$, with $p' = p \wedge (m+1)$.
 \end{enumerate}
 Then
 \begin{enumerate}[label=\alph*., leftmargin=2.5em]

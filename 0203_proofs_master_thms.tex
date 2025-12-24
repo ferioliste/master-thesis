@@ -1,5 +1,8 @@
-\subsection{Proofs of the master theorems}\label{sec:proofs}
-We start by stating and proving \autoref{lem:convexity}, that is used in the proofs of both theorems.
+\subsection{Proofs of the probabilistic bounds}\label{sec:proofs}
+The aim of this section is to prove Theorems \ref{thm:approx_error} and \ref{thm:est_error}. The main proofs are given in \cite{huang2021}. Here, we describe in detail all the steps and fill in the parts that are only sketched or omitted.
+In particular, in addition to what is contained in \cite{huang2021}, we show how \autoref{prop:2.1} follows from Theorem 6.25 of \cite{schumaker_2007}, and we prove conclusions a and b of Theorem \ref{thm:approx_error} and conclusion a of Theorem \ref{thm:est_error}.
+
+We start by stating and proving an important lemma that is used in the proofs of both bounds. The lemma and the proof are originally taken from \cite{huang2021}.
 
 \begin{lemma}[Convexity lemma]\label{lem:convexity}
     Take $C(\cdot)$ convex functional and $L(\cdot)$ a continuous functional on a convex set $\mathcal C$ of functions. If there exists a function $\eta^\dagger\in\mathcal C$ and a real number $s > L(\eta^\dagger)$ such that for all $\eta\in\mathcal C$ such that $L(\eta)=s$, we have either
@@ -128,7 +131,7 @@ $x_{\min}, x_{\max} \in K$ such that
 \end{equation*}
 \end{theorem}
 
-We are now ready to prove \autoref{thm:approx_error}.
+We are now ready to prove \autoref{thm:approx_error}. The proof of conclusion c is taken and integrated from \cite{huang2021}. The proofs of conclusions a and b are omitted in \cite{huang2021}, but we derived them below.
 
 \begin{proof}[Proof of \autoref{thm:approx_error}]\mbox{}
 
@@ -165,7 +168,7 @@ Let $g$ such that $L(g)=s$, where both $g$ and $s$ depend on $a$ and $n$. By def
 \begin{equation*}
     \|g-\eta_n^*\|_\infty \leq A_n\|g-\eta_n^*\|_2 \leq A_n L(g) = A_n s = A_n a (\delta_n^p + \lambda_n^{1/2}\delta_n^{(p-q)\wedge 0}).
 \end{equation*}
-Then
+Then, since $p>1/2$,
 \begin{equation*}
     \|g-\eta_0\|_\infty \leq \|g-\eta_n^*\|_\infty + \|\eta_n^*-\eta_0\|_\infty\leq A_n a (\delta_n^p + \lambda_n^{1/2}\delta_n^{(p-q)\wedge 0}) + C_2\delta_n^{p-1/2} = o(1),
 \end{equation*}
@@ -255,7 +258,7 @@ We now prove that $\|\bar\eta_n - \eta_0\|_\infty = o(1)$. Since $L(\bar\eta_n)\
 \begin{equation*}
     \|\bar\eta_n-\eta_n^*\|_\infty \leq A_n\|\bar\eta_n-\eta_n^*\|_2 \leq A_n L(\bar\eta_n) \leq A_n a (\delta_n^p + \lambda_n^{1/2}\delta_n^{(p-q)\wedge 0}).
 \end{equation*}
-Then
+Then, since $p>1/2$,
 \begin{equation*}
     \|\bar\eta_n-\eta_0\|_\infty \leq \|\bar\eta_n-\eta_n^*\|_\infty + \|\eta_n^*-\eta_0\|_\infty\leq A_n a (\delta_n^p + \lambda_n^{1/2}\delta_n^{(p-q)\wedge 0}) + C_2\delta_n^{p-1/2} = o(1).
 \end{equation*}
@@ -276,7 +279,8 @@ from which, using the inequality $u^2+v^2 \leq (u+v)^2$ for $u$ and $v$ non-nega
 
 
 \subsubsection{Proof of the bound on the approximation error}\label{sec:proof_approx}
-Using again \autoref{lem:convexity}, we prove \autoref{thm:est_error}.
+Using again \autoref{lem:convexity}, we prove \autoref{thm:est_error}. The proof of conclusion b is taken and integrated from \cite{huang2021}. The proof of conclusions a is omitted in \cite{huang2021}, but we derived it below.
+
 \begin{proof}[Proof of \autoref{thm:est_error}]\mbox{}
 
 First, assuming we can exchange differentiation and expectation, we have that
