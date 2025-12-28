@@ -1,0 +1,83 @@
+\subsection{Hyperparameter selection}
+The algorithms presented rely heavily on the choice of the regularization parameter $\lambda_n$, which determines the strength of the regularization induced by the penalty term $J_q(h)$.
+
+While we have requirements on the asymptotic behavior of $\lambda_n$ as $n\rightarrow\infty$, for a fixed sample size $n$ the value of $\lambda_n$ must be chosen from the observed sample. In this section, we present two classical methods to select $\lambda_n$: simple validation and $K$-fold cross-validation. In both cases, we compare candidate values of $\lambda_n$ by evaluating how well the estimated density performs on unseen data. Since all the methods ultimately produce density estimates, we use the average log-likelihood on the validation set to compare the different values of $\lambda_n$.
+
+Unlike the standard simple validation and $K$-fold cross-validation procedures, we choose to resample the splits of the original dataset for each candidate value of $\lambda_n$. We do this in order to make the algorithms more robust against potentially "unlucky" splits.
+
+In general, we expect $\lambda_n$ to decrease as $n$ increases. Since both procedures select $\lambda_n$ by fitting the estimator on training samples of size less than $n$, we expect the selected value to be larger than the one that would be optimal when using all $n$ observations. Nevertheless, we use the selected $\lambda_n$ unchanged on the full dataset. Using a slightly stronger regularization reduces the risk of overfitting and leads to more stable estimates and it is thus a more conservative choice.
+
+We assume to have available $n$ iid realizations of $\mathbf X$, denoted as $\mathbf X_1,\dots,\mathbf X_n$.
+
+\paragraph{Simple validation.}
+For a given method for probability density estimation, we consider a grid of candidates for $\lambda_n$. For each candidate value $\lambda_n$, we split the original sample randomly into a training set $\mathcal D_{\mathrm{tr}}$ and a validation set $\mathcal D_{\mathrm{val}}$. We use a fixed split ratio, for example $80\%/20\%$. We fit the estimator on the training set and then evaluate its performance on the validation set through the average log-likelihood
+\begin{equation*}
+    U_{\mathrm{val}}(\lambda_n)
+    = \frac{1}{|\mathcal D_{\mathrm{val}}|}\sum_{\mathbf X^{\mathrm{val}}\in\mathcal D_{\mathrm{val}}}\log \hat f_{\lambda_n,\mathrm{tr}}(\mathbf X^{\mathrm{val}}),
+\end{equation*}
+where $\hat f_{\lambda_n,\mathrm{tr}}$ denotes the density estimate obtained using the considered method on the training sample using penalty parameter $\lambda_n$. We then select the value $\hat\lambda_n$ that maximizes $U_{\mathrm{val}}(\lambda_n)$ over the grid. After selecting $\hat\lambda_n$, we refit the estimator on the full sample using $\hat\lambda_n$, and we take the resulting density as the final estimate.
+
+We summarize the procedure in \autoref{alg:simple_validation}.
+
+\begin{algorithm}[H]
+\caption{Simple validation for selecting $\lambda_n$}
+\label{alg:simple_validation}
+\begin{algorithmic}[1]
+\REQUIRE Method for density estimation, sample $\mathbf X_1,\ldots,\mathbf X_n$, grid of candidates $\Lambda =\{\lambda_n^{(1)},\ldots,\lambda_n^{(M)}\}$, split ratio $\rho\in(0,1)$.
+\FOR{$j=1,\ldots,M$}
+    \STATE Randomly split the sample into a training set $\mathcal D_{\mathrm{tr}}^{(j)}$ of size $\lfloor \rho n\rfloor$ and a validation set $\mathcal D_{\mathrm{val}}^{(j)}$ of size $n-\lfloor \rho n\rfloor$.
+    \STATE Use the method for density estimation on $\mathcal D_{\mathrm{tr}}^{(j)}$ using penalty $\lambda_n^{(j)}$ and obtain the density estimate $\hat f_{\lambda_n^{(j)},\mathrm{tr}}$.
+    \STATE Compute the validation utility
+    \begin{equation*}
+        U_{\mathrm{val}}(\lambda_n^{(j)})
+        = \frac{1}{|\mathcal D_{\mathrm{val}}^{(j)}|}\sum_{\mathbf X^{\mathrm{val}}\in\mathcal D_{\mathrm{val}}^{(j)}}\log \hat f_{\lambda_n^{(j)},\mathrm{tr}}(\mathbf X^{\mathrm{val}}).
+    \end{equation*}
+\ENDFOR
+\STATE Set $\displaystyle \hat\lambda_n \gets \argmax_{\lambda_n\in\Lambda} U_{\mathrm{val}}(\lambda_n)$.
+\RETURN $\hat\lambda_n$.
+\end{algorithmic}
+\end{algorithm}
+
+\paragraph{$K$-fold cross-validation.}
+Simple validation depends on a single split between training and validation data, and the resulting choice of $\lambda_n$ can be noisy, especially if $n$ is small. A way to reduce the variability is to use $K$-fold cross-validation.
+
+For a given method for probability density estimation, we consider a grid of candidates for $\lambda_n$. We fix an integer $K\geq 2$. For each candidate value $\lambda_n$, we partition the original sample randomly into $K$ disjoint subsets (folds) $\mathcal D_1,\ldots,\mathcal D_K$ of approximately equal size. For each fold $r\in\{1,\ldots,K\}$, we fit the estimator on the training set obtained by removing the $r$-th fold,
+\begin{equation*}
+    \mathcal D_{\mathrm{tr}}^{(r)}=\bigcup_{\substack{s=1\\ s\neq r}}^{K}\mathcal D_s,
+\end{equation*}
+and then evaluate its performance on the validation fold $\mathcal D_{\mathrm{val}}^{(r)}=\mathcal D_r$ through the average log-likelihood
+\begin{equation*}
+    U_{\mathrm{val}}^{(r)}(\lambda_n)
+    = \frac{1}{|\mathcal D_{\mathrm{val}}^{(r)}|}\sum_{\mathbf X^{\mathrm{val}}\in\mathcal D_{\mathrm{val}}^{(r)}}\log \hat f_{\lambda_n,\mathrm{tr}}^{(r)}(\mathbf X^{\mathrm{val}}),
+\end{equation*}
+where $\hat f_{\lambda_n,\mathrm{tr}}^{(r)}$ denotes the density estimate obtained using the considered method on $\mathcal D_{\mathrm{tr}}^{(r)}$ using penalty parameter $\lambda_n$. We then average the utilities over the $K$ folds and define
+\begin{equation*}
+    U_{\mathrm{CV}}(\lambda_n) = \frac{1}{K}\sum_{r=1}^{K} U_{\mathrm{val}}^{(r)}(\lambda_n).
+\end{equation*}
+We select the value $\hat\lambda_n$ that maximizes $U_{\mathrm{CV}}(\lambda_n)$ over the grid. After selecting $\hat\lambda_n$, we refit the estimator on the full sample using $\hat\lambda_n$, and we take the resulting density as the final estimate.
+ 
+We summarize the procedure in \autoref{alg:kfold_cv}.
+
+\begin{algorithm}[H]
+\caption{$K$-fold cross-validation for selecting $\lambda_n$}
+\label{alg:kfold_cv}
+\begin{algorithmic}[1]
+\REQUIRE Method for density estimation, sample $\mathbf X_1,\ldots,\mathbf X_n$, grid of candidates $\Lambda =\{\lambda_n^{(1)},\ldots,\lambda_n^{(M)}\}$, number of folds $K$.
+\FOR{$j=1,\ldots,M$}
+    \STATE Randomly partition the sample into $K$ folds $\mathcal D^{(j)}_1,\ldots,\mathcal D^{(j)}_K$ of approximately equal size. \\[-1\baselineskip]
+    \STATE Set $U_{\mathrm{CV}}(\lambda_n^{(j)}) \gets 0$.
+    \FOR{$r=1,\ldots,K$}
+        \STATE Set $\mathcal D_{\mathrm{tr}}^{(j,r)} \gets \bigcup_{s\neq r}\mathcal D^{(j)}_s$ and $\mathcal D_{\mathrm{val}}^{(j,r)}\gets \mathcal D^{(j)}_r$.
+        \STATE Use the method for density estimation on $\mathcal D_{\mathrm{tr}}^{(j,r)}$ using penalty $\lambda_n^{(j)}$ and obtain the density estimate $\hat f_{\lambda_n^{(j)},\mathrm{tr}}^{(r)}$.
+        \STATE Compute
+        \begin{equation*}
+            U_{\mathrm{val}}^{(r)}(\lambda_n^{(j)})
+            = \frac{1}{|\mathcal D_{\mathrm{val}}^{(j,r)}|}\sum_{\mathbf X^{\mathrm{val}}\in\mathcal D_{\mathrm{val}}^{(j,r)}}\log \hat f_{\lambda_n^{(j)},\mathrm{tr}}^{(r)}(\mathbf X^{\mathrm{val}}).
+        \end{equation*}
+        \STATE Update $U_{\mathrm{CV}}(\lambda_n^{(j)}) \gets U_{\mathrm{CV}}(\lambda_n^{(j)}) + \frac{1}{K}U_{\mathrm{val}}^{(r)}(\lambda_n^{(j)})$.
+    \ENDFOR
+\ENDFOR
+\STATE Set $\displaystyle \hat\lambda_n \gets \argmax_{\lambda_n\in\Lambda} U_{\mathrm{CV}}(\lambda_n)$.
+\RETURN $\hat\lambda_n$.
+\end{algorithmic}
+\end{algorithm}

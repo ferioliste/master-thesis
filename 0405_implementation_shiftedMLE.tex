@@ -1,0 +1,28 @@
+\subsection{Implementation of Shifted Maximum Likelihood}
+In order to implement the Shifted Maximum Likelihood method, we follow a very similar procedure to the Simple Maximum Likelihood method. We highlight only the main steps.
+
+We recall that
+\begin{equation*}
+    \ell(\eta; \mathbf X_1 , \ldots, \mathbf X_n)
+    = \frac{1}{n}\sum_{v=1}^n \bigg((1-\gamma)\eta(\mathbf X_v) + \frac{\gamma}{b-a}\int_a^b\eta(x)\de x - \ln \int_a^b \exp \eta(x)\de x\bigg),
+\end{equation*}
+so that
+\begin{equation*}
+    \mathcal L(\theta) = \frac{1-\gamma}{n}\sum_{v=1}^n \theta^\tr \varphi(\mathbf X_v) - \ln \int_a^b \exp\!\big(\theta^\tr \varphi(x)\big)\de x + \frac{\gamma}{b-a}\, e_0^\tr G_0 \theta - \lambda_n\,\theta^\tr G_q \theta.
+\end{equation*}
+
+We use again the condition $\theta_0 = 0$.
+
+For fixed $\theta$, we calculate $\mathcal L(\theta)$ and the gradient and the Hessian of $\mathcal L$ at $\theta$. 
+We define and approximate $I^{(0)}\in\R$, $I^{(1)}\in\R^{m+k+1}$, and $I^{(2)}\in\R^{(m+k+1)\times(m+k+1)}$, as in the implementation of the Simple Maximum Likelihood method. Then we have
+\begin{gather*}
+    \mathcal L(\theta) = \frac{1-\gamma}{n}\sum_{v=1}^n \theta^\tr \varphi(\mathbf X_v) - \ln I^{(0)} + \frac{\gamma}{b-a}\, e_0^\tr G_0 \theta - \lambda_n\,\theta^\tr G_q \theta, \\
+    \big(\S(\theta)\big)_i = \frac{\partial}{\partial\theta_i} \mathcal L(\theta) = \frac{1-\gamma}{n}\sum_{v=1}^n \varphi_i(\mathbf X_v) - \frac{I^{(1)}_i}{I^{(0)}} + \frac{\gamma}{b-a}\big(G_0\big)_{0,i} - 2\lambda_n\big(G_q \theta\big)_i,
+\end{gather*}
+for $i=0,\ldots,m+k$, and
+\begin{equation*}
+    \big(\H(\theta)\big)_{i,j} = \frac{\partial^2}{\partial\theta_i\partial\theta_j} \mathcal L(\theta) = \frac{I^{(1)}_i I^{(1)}_j -I^{(2)}_{i,j}}{\big(I^{(0)}\big)^2} - 2\lambda_n\big(G_q\big)_{i,j}
+\end{equation*}
+for $i=0,\ldots,m+k$ and $j=0,\ldots,m+k$.
+
+Also in this case, we have that $\mathcal L$ verifies the hypotheses of \autoref{prop:newton_global_max}. First, we showed that $\mathcal L$ is twice differentiable at every $\theta\in\R^{m+k+1}$. In addition, for $\theta\in\R^{m+k+1}$, $\H(\theta)$ is the same as for the Simple Maximum Likelihood method and therefore it is negative semi-definite.

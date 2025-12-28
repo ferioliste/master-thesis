@@ -29,7 +29,7 @@ For $j=1,\ldots,k$,
 \end{equation*}
 with the convention that $(x-t_j)_+^{0}=\I\{x>t_j\}$.
 
-It follows that the first $q$ rows and columns of $G_q$ are filled $0$. In addition, each entry of $G_q$ can be calculated exactly by integrating polynomials. For example, take $i\in\{q,\ldots,m\}$ and $j\in\{1,\ldots,k\}$, then
+It follows that the first $q$ rows and columns of $G_q$ are filled $0$. In addition, every entry of $G_q$ can be calculated exactly by integrating polynomials. For example, take $i\in\{q,\ldots,m\}$ and $j\in\{1,\ldots,k\}$, then
 \begin{gather*}
     (G_q)_{i,m+j} = \frac{i!}{(i-q)!}\frac{m!}{(m-q)!} \int_a^b x^{i-q} (x-t_j)_+^{m-q} \de x \\
     = \frac{i!}{(i-q)!}\frac{m!}{(m-q)!} \int_{t_j}^b x^{i-q} (x-t_j)^{m-q} \de x \\
@@ -41,3 +41,21 @@ It follows that the first $q$ rows and columns of $G_q$ are filled $0$. In addit
 With a bit more work one can calculate also $(G_q)_{i,j}$ for $i,j\in\{q,\ldots,m\}$ and $(G_q)_{m+i,m+j}$ for $i,j\in\{1,\ldots,k\}$. 
 
 It's important to notice that $G_q$ depends only on the basis and does not change between iterations. Therefore, it can be computed once and stored, so that the penalty evaluation reduces to evaluating the quadratic form $\theta^\tr G_q \theta$.
+
+The matrix $G_q$ can be used to evaluate all integrals of the form
+\begin{equation*}
+    \int_a^b g^{(q)}(x)h^{(q)}(x)\de x.
+\end{equation*}
+Let $\theta$ and $\theta^*$ be the coefficient vectors of $g$ and $h$, respectively. Then
+\begin{equation*}
+    \int_a^b g^{(q)}(x)h^{(q)}(x)\de x = \theta^\tr G_q \theta^*.
+\end{equation*}
+
+In particular, we have that
+\begin{equation*}
+    \int_a^b g(x)\de x = \int_a^b 1\cdot g(x)\de x = e_0^\tr G_0 \theta,
+\end{equation*}
+where $e_0=(1,0,\ldots,0)^\tr\in\R^{m+k+1}$ is the first canonical basis vector, and
+\begin{equation*}
+    \int_a^b g(x)^2\de x = \theta^\tr G_0 \theta,
+\end{equation*}

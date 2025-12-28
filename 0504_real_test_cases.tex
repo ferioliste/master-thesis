@@ -1,20 +1,43 @@
-\subsection{Real-world testcase}
-In this last section, we present two real-world test cases. We use the \emph{NYC Yellow Taxi Trip} datase from Kaggle\footnote{Dataset available at \href{https://www.kaggle.com/datasets/elemento/nyc-yellow-taxi-trip-data}{\underline{https://www.kaggle.com/datasets/elemento/nyc-yellow-taxi-trip-data}}}. We consider two variables: the taxi pick-up time and the trip distance. For the pick-up times, we restrict the analysis to the daytime interval from $06{:}00$ to $22{:}00$ and we extract a random subsample of $n=1000$ observations. We make the working assumption that the observations are independent and identically distributed.
+\subsection{Real-world test cases}
+In this section, we present two real-world test cases. We use the \emph{NYC Yellow Taxi Trip} dataset from Kaggle\footnote{Dataset available at \href{https://www.kaggle.com/datasets/elemento/nyc-yellow-taxi-trip-data}{\underline{https://www.kaggle.com/datasets/elemento/nyc-yellow-taxi-trip-data}}}. We consider two variables: the taxi pick-up time and the trip distance.
 
-Since there are no times during the day in which the demand for taxis is exactly zero, it is reasonable to assume that the corresponding density is bounded away from $0$ and infinity on the considered interval. For this reason, we estimate the pick-up time density using the Simple Maximum Likelihood estimator. We select $\lambda_n=10^{-7}$ using k-fold crossvalidation. The resulting estimate is shown in \autoref{fig:arrival_time_distr}. The fitted density is trimodal: the first peak occurs around $08{:}30$, which coincides with the morning commute; the second peak appears around $14{:}00$, shortly after lunch; and the third peak is around $18{:}30$, when many people return home from work. The density increases again as $22{:}00$ approaches. A distribution of this type can be useful, for instance, to inform decisions on how many taxis should be operating at different times of the day.
+For the pick-up times, we restrict the analysis to the daytime interval from $06{:}00$ to $22{:}00$ and we extract a random subsample of $n=1000$ observations. We make the working assumption that the observations are independent and identically distributed.
 
-We also estimate the distribution of trip distances. We remove trips with distance equal to $0$ and we discard trips longer than $13$ km, since they represent only a small fraction of the data and would dominate the scale of the plot. We select $\lambda_n=10^{-6}$ again using k-fold crossvalidation. The estimated density, shown in \autoref{fig:distance_distr}, is unimodal, with mode around $1$ km.
+For the trip distance, we remove trips with distance equal to $0$ and we discard trips longer than $13$ km, since they represent only a small fraction of the data and would dominate the scale of the plot. We consider a random subsample of $n=1000$ observations. Again, we the working assumption that the observations are independent and identically distributed.
+
+Studying the distribution of pick-up times can be useful, for example, to inform decisions on how many taxis should be operating at different times of the day, or to identify periods of higher congestion and demand. Studying the distribution of trip distances can also be useful, for instance, to characterize typical ride lengths, to support pricing policies, and to quantify the proportion of short versus long trips.
+
+First, we study the distribution of the pick-up times. Since there are no times during the day in which the demand for taxis is exactly zero, it is reasonable to assume that the corresponding density is bounded away from $0$ and infinity on the considered interval.
+
+We estimate the pick-up time density using two methods: Simple Maximum Likelihood and Generalized Score Matching. Using $K$-fold cross-validation, we select $\lambda_n=10^{-7}$ for both estimators. As a baseline, we also report a Gaussian kernel density estimator (KDE). 
+
+Given a sample $\mathbf X_1,\ldots,\mathbf X_n$, the KDE with bandwidth $h>0$ is
+\begin{equation*}
+    \hat f_h(x) = \frac{1}{nh}\sum_{i=1}^n \mathrm K\!\bigg(\frac{x-\mathbf X_i}{h}\bigg),
+\end{equation*}
+where we take $\mathrm K$ to be the standard Gaussian kernel,
+\begin{equation*}
+    \mathrm K(u) = \frac{1}{\sqrt{2\pi}}\exp\!\Big(\!-\frac{u^2}{2}\Big).
+\end{equation*}
+We choose the bandwidth using Scott's rule,
+\begin{equation*}
+    h = \hat\sigma\, n^{-1/5},
+\end{equation*}
+where $\hat\sigma$ denotes the sample standard deviation of $\mathbf X_1,\ldots,\mathbf X_n$.
+
+The resulting estimates are shown in \autoref{fig:realworld}. The three methods produce comparable results and all exhibit a trimodal structure: the first peak occurs around $08{:}30$, which coincides with the morning commute; the second peak appears around $14{:}00$, shortly after lunch; and the third peak is around $18{:}30$, when many people return home from work.
+
+One noticeable difference between the Simple Maximum Likelihood estimate and the Generalized Score Matching estimate is that, in the first, the density increases again as $22{:}00$ approaches. As in the synthetic experiments, the Generalized Score Matching estimate shows a poorer behavior close to the boundary of the support. Both spline-based methods appear to perform better than the KDE, especially near the boundaries. They also have the practical advantage of being much faster to evaluate, since the cost of evaluating the KDE at a point grows linearly with $n$.
+
+Now, we study the distribution of the trip distances. It is reasonable to assume that the corresponding density $f$ satisfies the boundary condition $f(a)=f(b)=0$. 
+
+We estimate the trip distance density using two methods: Shifted Maximum Likelihood and Simple Score Matching. For the Shifted Maximum Likelihood, we make the estimator asymptotically unbiased using the procedure outlined at the end of \autoref{sec:shifted_MLE}. Using $K$-fold cross-validation, we select $\lambda_n=10^{-6}$ for both estimators. As before, we report a Gaussian kernel density estimator (KDE). 
+
+The resulting estimates are shown in \autoref{fig:realworld}. The three algorithms give comparable results, with a single mode around $1$ km. The score matching estimate displays a slightly more pronounced peak, while the Simple Maximum Likelihood estimate is smoother around the mode. The KDE appears to approximate the central peak less accurately.
 
 \begin{figure}[hbt]
 \centering
-\includegraphics[width=.7\linewidth]{plots/arrival_time_distr.pdf}
-\caption{Estimated density of taxi pick-up times between $06{:}00$ and $22{:}00$ using the Simple Maximum Likelihood estimator on a subsample of $n=1000$ observations.}
-\label{fig:arrival_time_distr}
-\end{figure}
-
-\begin{figure}[hbt]
-\centering
-\includegraphics[width=.7\linewidth]{plots/distance_distr.pdf}
-\caption{Estimated density of taxi trip distances using the Simple Maximum Likelihood estimator on a subsample of $n=1000$ observations.}
-\label{fig:distance_distr}
+\includegraphics[width=.99\linewidth]{plots/realworld.pdf}
+\caption{Estimations of the densities of the pick-up times (left) and the trip distances (right).}
+\label{fig:realworld}
 \end{figure}

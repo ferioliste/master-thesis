@@ -16,7 +16,7 @@ and
         + 4\,e^{-\sqrt{128(x - 1.25)^2 + 1}}
     \Big)(4 - x^2).
 \end{equation*}
-We chose on purpose $f_1$ and $f_2$ to be non-polynomial $C^\infty$ functions. This is important since otherwise estimating then would be a trivial task and a not so useful benchmark for the methods considered in this thesis.
+We choose $f_1$ and $f_2$ on purpose to be non-polynomial $C^\infty$ functions. This is important since otherwise estimating them would be a trivial task and a not so useful benchmark for the considered methods.
 
 \begin{figure}[hbt]
 \centering
@@ -31,7 +31,13 @@ In order to generate samples from $f_1$ and $f_2$, we use the acceptance-rejecti
 
 Throughout this chapter, we fix the spline degree to $m=3$, as in \cite{kooperberg1992}, and we use the penalty order $q=2$. In our experiments, provided that $1/2<q\leq m$, we did not observe substantial differences in the qualitative behavior of the estimators when varying $(m,q)$. For this reason, we keep these choices fixed in all the numerical results reported below.
 
+In addition, in all experiments we use uniformly spaced knots on $[a,b]$. For a given number of interior knots $k$, we take 
+\begin{equation*}
+    t_i = a+i\,\frac{b-a}{k+1}\qquad\text{for }i=0,\ldots,k+1.
+\end{equation*}
+
 \input{0501_n_vs_k}
 \input{0502_alg_vs_n}
 \input{0503_lambda_n}
 \input{0504_real_test_cases}
+\input{0505_runtime}

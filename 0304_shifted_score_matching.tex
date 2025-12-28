@@ -2,7 +2,7 @@
 In this section, we present a modified version of the simple score matching estimator of the density. This will allow us to satisfy the hypothesis of \autoref{thm:approx_error}, at the cost of having a (slightly) biased estimator.
 
 As for the simple score matching estimator, we assume $f_0(a) = f_0(b) = 0$. In addition, we assume that $f_0$ is bounded away from infinity. This means that there exists $C_2^*$ such that
-\begin{equation}\label{eq:f_bounded_shifted_MLE}
+\begin{equation}
     f_0\leq C_2^*\ \ \mu\text{-a.e.}\ .
 \end{equation}
 
@@ -57,7 +57,7 @@ Then, we define $\Lambda$ as
 \end{gather}
 so that $\ell$ can be defined as
 \begin{gather}
-    \ell(\eta; \mathbf X_1 , \ldots, \mathbf X_n) = \frac{1}{n}\sum_{i=1}^n l(\eta; \mathbf X_i) \notag \\
+    \ell(\psi; \mathbf X_1 , \ldots, \mathbf X_n) = \frac{1}{n}\sum_{i=1}^n l(\psi; \mathbf X_i) \notag \\
     = \frac{1}{n}\sum_{i=1}^n \bigg(\!- (1-\gamma)\psi'(\mathbf X_i) - \frac{1}{2}(1-\gamma)\psi(\mathbf X_i)^2 - \frac{1}{2}\frac{\gamma}{b-a}\int_a^b \psi(x)^2 \de x\bigg). \label{eq:ell_shifted_SM}
 \end{gather}
 
@@ -150,4 +150,4 @@ However, thanks to \autoref{thm:approx_error}, we know that $f_0$ can be approxi
 \end{equation*}
 Therefore, although we have not been able to verify the validity of \autoref{thm:est_error}, we expect the estimator to still perform well in practice. In general, however, we don't have guarantees on how quickly $\ell(\psi)$ converges to $\Lambda(\psi)$, as finer spline spaces may lead the variance of $\ell(\psi)$ to increase.
 
-CAN BE MADE ASYMPTOTICALLY UNBIASED
+Finally, the estimator can be made asymptotically unbiased by following the exact same process as for the Shifted Maximum Likelihood method.

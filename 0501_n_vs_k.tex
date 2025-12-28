@@ -11,6 +11,8 @@ For each pair $(n,k)$, we perform $5$ pilot runs in order to select the penalty 
 \end{enumerate}
 At the end of the $5$ pilot runs, we set $\lambda_n$ equal to the largest of the selected values, as we prefer a conservative penalty.
 
+We determine $\lambda_n$ through pilot runs for two reasons. First, since the goal of this section is to study the interaction between $k$ and $n$, we want the choice of $\lambda_n$ to be as stable as possible and not derived from a single realization of the sample. Second, once $\lambda_n$ is fixed for a given pair $(n,k)$, we are able to compare directly the subsequent estimated densities. In this way, the differences between the resulting densities can be attributed to sampling variability, rather than to additional variability coming from re-selecting $\lambda_n$ for every run.
+
 After fixing $\lambda_n$ for each configuration $(n,k)$, we generate three additional independent samples and fit the estimator on each of them. The resulting estimated densities are then plotted and compared among all combinations of $n$ and $k$. The outcomes for the Simple Maximum Likelihood estimator and the Simple Score Matching estimator are shown in \autoref{fig:n_vs_k_MLE} and \autoref{fig:n_vs_k_SM}, respectively.
 
 From these experiments, we make the following observations. As expected, the quality of the estimates improves as the sample size $n$ increases. We see that the variability across the three fitted curves decreases and the estimated densities become closer to the ground-truth. Moreover, increasing the number of interior knots $k$ generally improves the approximation by enlarging the spline space, but only up to a point. In particular, if $k$ is too small the estimator may not be flexible enough to capture local features of the target distribution. This is clearly visible for Simple Score Matching (\autoref{fig:n_vs_k_SM}), where for $k=5$ the fitted density fails to capture the smallest mode of the ground-truth. For this reason, in all subsequent experiments we fix $k=10$. More generally, we expect that relatively small values of $k$ are sufficient for smooth and simple targets, while larger values are needed when the distribution presents sharper features, multiple modes, or other local irregularities.
@@ -18,14 +20,14 @@ From these experiments, we make the following observations. As expected, the qua
 \begin{figure}[H]
 \centering
 \includegraphics[width=.89\linewidth]{plots/n_vs_k_MLE.pdf}
-\caption{Effect of the sample size $n$ and the number of interior knots $k$ on the Simple Maximum Likelihood estimator. The ground-truth density (black) is compared to three estimated densities (colored), obtained from three independent samples.}
+\caption{Interaction between the sample size $n$ and the number of interior knots $k$ on the Simple Maximum Likelihood estimator. The ground-truth density (black) is compared to three estimated densities (colored), obtained from three independent samples.}
 \label{fig:n_vs_k_MLE}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=.89\linewidth]{plots/n_vs_k_SM.pdf}
-\caption{Effect of the sample size $n$ and the number of interior knots $k$ on the Simple Score Matching estimator. The ground-truth density (black) is compared to three estimated densities (colored), obtained from three independent samples.}
+\caption{Interaction between the sample size $n$ and the number of interior knots $k$ on the Simple Score Matching estimator. The ground-truth density (black) is compared to three estimated densities (colored), obtained from three independent samples.}
 \label{fig:n_vs_k_SM}
 \end{figure}
 

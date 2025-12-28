@@ -1,9 +1,17 @@
 \section{Implementation}
-In this chapter, we outline how the five methods for probability density estimation can be implemented on a computer. The main ideas of this chapter were taken, generalized and expanded from \cite{kooperberg1992}. All algorithms were implemented in Python. IN PARTICULAR M NOW CAN BE ANY NUMBER
+In this chapter, we outline how the five methods for probability density estimation can be implemented on a computer. The implementation builds on the work of Kooperberg and Stone \cite{kooperberg1992}, who describe an algorithm for the Simple Maximum Likelihood estimator in the case $m=3$ and without a penalty term. Here, we extend their approach to arbitrary spline degree $m$, include a penalty term, and follow the same general strategy to implement the other four methods.
+
+For simplicity, we use uniformly spaced knots on $[a,b]$, although \cite{kooperberg1992} also presents some interesting heuristics to place the knots more optimally. After describing the implementation of the algorithms, we present two cross-validation routines to select the penalty parameter $\lambda_n$. Finally, we comment on the time complexity of the various algorithms.
+
+All algorithms were implemented in Python and collected into a library. In Appendix A, we discuss some technical details related to the implementation.
 
 \input{0401_representing_splines}
 \input{0402_newton_method}
 \input{0403_penalty_term}
 \input{0404_implementation_MLE}
-\input{0405_implementation_SM}
-\input{0406_hyperparameters}
+\input{0405_implementation_shiftedMLE}
+\input{0406_implementation_SM}
+\input{0407_implementation_shiftedSM}
+\input{0408_implementation_genSM}
+\input{0409_hyperparameters}
+\input{0410_complexity_analysis}

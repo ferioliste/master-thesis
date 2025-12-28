@@ -19,23 +19,29 @@ For $j=1,\ldots,k$,
     = m(x-t_j)_+^{m-1}.
 \end{equation*}
 
-For fixed $\theta$, we calculate the gradient and the Hessian of $\mathcal L$ at $\theta$.
-
-For the gradient, we have
+For fixed $\theta$, we calculate the gradient and the Hessian of $\mathcal L$ at $\theta$. We have
 \begin{equation*}
     \big(\S(\theta)\big)_i = \frac{\partial}{\partial\theta_i} \mathcal L(\theta) = \frac{1}{n}\sum_{v=1}^n \bigg(\!- \varphi_i'(\mathbf X_v) - \varphi_i(\mathbf X_v)\big(\theta^\tr \varphi(\mathbf X_v)\big)\bigg) - 2\lambda_n\big(G_q \theta\big)_i
 \end{equation*}
-for $i=0,\ldots,m+k$.
-
-For the Hessian, we have
+for $i=0,\ldots,m+k$, and
 \begin{gather*}
     \big(\H(\theta)\big)_{i,j} = \frac{\partial^2}{\partial\theta_i\partial\theta_j} \mathcal L(\theta) = \frac{1}{n}\sum_{v=1}^n \big(\!- \varphi_i(\mathbf X_v)\varphi_j(\mathbf X_v)\big) - 2\lambda_n\big(G_q\big)_{i,j},
 \end{gather*}
 for $i=0,\ldots,m+k$ and $j=0,\ldots,m+k$.
 
+Now, we verify that $\mathcal L$ verifies the hypotheses of \autoref{prop:newton_global_max}. First, we showed that $\mathcal L$ is twice differentiable at every $\theta\in\R^{m+k+1}$.
+
+Let $\theta\in\R^{m+k+1}$. We rewrite the Hessian $\H(\theta)$ as
+\begin{equation*}
+    \H(\theta) = -\bigg(\frac{1}{n}\sum_{v=1}^n \varphi(\mathbf X_v)\varphi(\mathbf X_v)^\tr + 2\lambda_n\,G_q\bigg).
+\end{equation*}
+Since $\varphi(\mathbf X_v)\varphi(\mathbf X_v)^\tr$ is positive semi-definite for all $v\in{1,\ldots,n}$ and $G_q$ is positive semi-definite, $\H(\theta)$ is negative semi-definite for all $\theta\in\R^{m+k+1}$.
+
+We summarize the complete procedure in \autoref{alg:simple_SM_newton}.
+
 \begin{algorithm}[H]
-\caption{Newton-Raphson algorithm for the Simple Score Matching method}
-\label{alg:simple_ML_newton}
+\caption{Algorithm for Simple Score Matching}
+\label{alg:simple_SM_newton}
 \begin{algorithmic}[1]
 \REQUIRE Data $\mathbf X_1,\ldots,\mathbf X_n$, initial value $\theta^{(0)}\in\R^{m+k+1}$, step size $\zeta\in(0,1]$, tolerance $\varepsilon>0$, maximum number of iterations $I_{\max}$.
 \STATE Set $i\gets 0$.

@@ -41,7 +41,7 @@ for $i=0,\ldots,m+k$.
 For the Hessian, we have
 \begin{gather*}
     \big(\H(\theta)\big)_{i,j} = \frac{\partial^2}{\partial\theta_i\partial\theta_j} \mathcal L(\theta) = \frac{\int_a^b \varphi_i(x)\exp\!\big(\theta^\tr \varphi(x)\big)\de x \int_a^b \varphi_j(x)\exp\!\big(\theta^\tr \varphi(x)\big)\de x}{\Big(\int_a^b\exp\!\big(\theta^\tr \varphi(x)\big)\de x\Big)^2} \\
-    - \frac{\int_a^b \varphi_i(x)\varphi_j(x)\exp\!\big(\theta^\tr \varphi(x)\big)\de x}{\Big(\int_a^b\exp\!\big(\theta^\tr \varphi(x)\big)\de x\Big)^2} - 2\lambda_n\big(G_q\big)_{i,j} = \frac{I^{(1)}_i I^{(1)}_j -I^{(2)}_{i,j}}{\big(I^{(0)}\big)^2}- 2\lambda_n\big(G_q\big)_{i,j},
+    - \frac{\int_a^b \varphi_i(x)\varphi_j(x)\exp\!\big(\theta^\tr \varphi(x)\big)\de x}{\Big(\int_a^b\exp\!\big(\theta^\tr \varphi(x)\big)\de x\Big)^2} - 2\lambda_n\big(G_q\big)_{i,j} = \frac{I^{(1)}_i I^{(1)}_j -I^{(2)}_{i,j}}{\big(I^{(0)}\big)^2} - 2\lambda_n\big(G_q\big)_{i,j},
 \end{gather*}
 for $i=0,\ldots,m+k$ and $j=0,\ldots,m+k$.
 
@@ -68,25 +68,50 @@ The entries of $A$ can be used to calculate $I^{(0)}$, $I^{(1)}$, and $I^{(2)}$.
     I^{(0)} = \int_a^b\exp\!\big(\theta^\tr \varphi(x)\big)\de x = \sum_{i=0}^k \int_{t_i}^{t_{i+1}}\exp\!\big(\theta^\tr \varphi(x)\big)\de x = \sum_{i=0}^k A_{i,0}.
 \end{equation*}
 
-For $j\in\{0,\ldots,m\}$,
-\begin{equation*}
-    I^{(1)}_j = \int_a^b x^j\exp\!\big(\theta^\tr \varphi(x)\big)\de x = \sum_{i=0}^k \int_{t_i}^{t_{i+1}}x^j\exp\!\big(\theta^\tr \varphi(x)\big)\de x = \sum_{i=0}^k A_{i,j}.
-\end{equation*}
-
-For $i\in\{0,\ldots,m\}$ and $j\in\{1,\ldots,k\}$,
+For $j\in\{1,\ldots,k\}$,
 \begin{gather*}
-    I^{(2)}_{i,m+j} = \int_a^b x^i(x-t_j)_+^m\exp\!\big(\theta^\tr \varphi(x)\big)\de x = \int_{t_j}^b x^i(x-t_j)^m\exp\!\big(\theta^\tr \varphi(x)\big)\de x = \\
-    \sum_{v=i}^k \int_{t_v}^{t_{v+1}} x^i(x-t_j)^m\exp\!\big(\theta^\tr \varphi(x)\big)\de x = \sum_{v=i}^k \int_{t_v}^{t_{v+1}} \sum_{z=0}^{m} \tbinom{m}{z} x^{i+m-z} (-t_j)^z \exp\!\big(\theta^\tr \varphi(x)\big)\de x = \\
-    \sum_{v=i}^k \sum_{z=0}^{m} \tbinom{m}{z}(-t_j)^z \int_{t_v}^{t_{v+1}} x^{i+m-z} \exp\!\big(\theta^\tr \varphi(x)\big)\de x = \sum_{v=i}^k \sum_{z=0}^{m} \tbinom{m}{z}(-t_j)^z A_{v,(i+m-z)}.
+    I^{(1)}_{m+j} = \int_a^b (x-t_j)_+^m\exp\!\big(\theta^\tr \varphi(x)\big)\de x = \int_{t_j}^b (x-t_j)^m\exp\!\big(\theta^\tr \varphi(x)\big)\de x \\
+    = \sum_{v=j}^k \int_{t_v}^{t_{v+1}} (x-t_j)^m\exp\!\big(\theta^\tr \varphi(x)\big)\de x = \sum_{v=j}^k \int_{t_v}^{t_{v+1}} \sum_{z=0}^{m} \tbinom{m}{z} x^{m-z} (-t_j)^z \exp\!\big(\theta^\tr \varphi(x)\big)\de x \\
+    = \sum_{v=j}^k \sum_{z=0}^{m} \tbinom{m}{z}(-t_j)^z \int_{t_v}^{t_{v+1}} x^{m-z} \exp\!\big(\theta^\tr \varphi(x)\big)\de x = \sum_{v=j}^k \sum_{z=0}^{m} \tbinom{m}{z}(-t_j)^z A_{v,(m-z)}.
+\end{gather*}
+
+For $i\in\{1,\ldots,k\}$ and $j\in\{1,\ldots,k\}$ with $i\leq j$,
+\begin{gather*}
+    I^{(2)}_{m+i,m+j} = \int_a^b (x-t_i)_+^m(x-t_j)_+^m\exp\!\big(\theta^\tr \varphi(x)\big)\de x = \int_{t_j}^b (x-t_i)^m(x-t_j)^m\exp\!\big(\theta^\tr \varphi(x)\big)\de x \\
+    = \sum_{v=j}^k \int_{t_v}^{t_{v+1}} (x-t_i)^m(x-t_j)^m\exp\!\big(\theta^\tr \varphi(x)\big)\de x \\
+    = \sum_{v=j}^k \int_{t_v}^{t_{v+1}} \sum_{z=0}^{m}\sum_{y=0}^{m} \tbinom{m}{z}\tbinom{m}{y} x^{2m-z-y} (-t_i)^z (-t_j)^y \exp\!\big(\theta^\tr \varphi(x)\big)\de x \\
+    = \sum_{v=j}^k\sum_{z=0}^{m}\sum_{y=0}^{m} \tbinom{m}{z}\tbinom{m}{y} (-t_i)^z (-t_j)^y \int_{t_v}^{t_{v+1}} x^{2m-z-y} \exp\!\big(\theta^\tr \varphi(x)\big)\de x \\
+    = \sum_{v=j}^k\sum_{z=0}^{m}\sum_{y=0}^{m} \tbinom{m}{z}\tbinom{m}{y} (-t_i)^z (-t_j)^y A_{v,(2m-z-y)}.
 \end{gather*}
 
 With a bit more work one can cover all the other cases to calculate all the entries of $I^{(0)}$, $I^{(1)}$, and $I^{(2)}$.
 
+Now, we verify that $\mathcal L$ verifies the hypotheses of \autoref{prop:newton_global_max}. First, we showed that $\mathcal L$ is twice differentiable at every $\theta\in\R^{m+k+1}$.
+
+Let $\theta\in\R^{m+k+1}$. We consider a random variable $\mathbf Y$ on $[a,b]$ with density
+\begin{equation*}
+    f(x) = \exp\!\big(\theta^\tr \varphi(x)\big) \Big/ \int_a^b\exp\!\big(\theta^\tr \varphi(x)\big)\de x,\qquad\text{for }x\in[a,b].
+\end{equation*}
+Then, one can show that the covariance matrix of $\varphi(\mathbf Y)$ is equal to
+\begin{equation*}
+    \Cov\big(\varphi(\mathbf Y)\big)_{i,j} = \frac{I^{(2)}_{i,j} - I^{(1)}_i I^{(1)}_j}{\big(I^{(0)}\big)^2}
+\end{equation*}
+for $i=0,\ldots,m+k$ and $j=0,\ldots,m+k$.
+
+Using this, the Hessian $\H(\theta)$ can be rewritten as
+\begin{equation*}
+    \H(\theta) = -\Cov\big(\varphi(\mathbf Y)\big) - 2\lambda_n G_q,
+\end{equation*}
+and therefore $\H(\theta)$ is negative semi-definite for all $\theta\in\R^{m+k+1}$, since both $\Cov\big(\varphi(\mathbf Y)\big)$ and $G_q$ are positive semi-definite.
+
+We summarize the complete procedure in \autoref{alg:simple_ML_newton}.
+
 \begin{algorithm}[H]
-\caption{Newton-Raphson algorithm for the Simple Maximum Likelihood method}
+\caption{Algorithm for Simple Maximum Likelihood}
 \label{alg:simple_ML_newton}
 \begin{algorithmic}[1]
 \REQUIRE Data $\mathbf X_1,\ldots,\mathbf X_n$, initial value $\theta^{(0)}\in\R^{m+k+1}$ such that $\theta^{(0)}_0=0$, step size $\zeta\in(0,1]$, tolerance $\varepsilon>0$, maximum number of iterations $I_{\max}$, quadrature order $\alpha$.
+\STATE Compute $G_q$
 \STATE Set $i\gets 0$.
 \STATE Set $L_{\text{new}}\gets -\infty$.
 \WHILE{$i<I_{\max}$}
