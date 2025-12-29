@@ -1,4 +1,33 @@
 \subsection{Runtime analysis}
-In this last section, 
-- we analyze the runtime when varying n and k.
-- for n, se sub sample from the same dataset of the previous section and analyze the sam four algorithms, shifted schore matching has the same runtime of simple scorematching
+In this last section, we study the runtime of the estimation algorithms and how it changes as a function of the sample size $n$ and of the number of interior knots $k$. Here, we do not analyze the Shifted Score Matching method separately, since its implementation has exactly the same structure as the Simple Score Matching algorithm and the observed runtimes would be essentially the same. 
+
+To analyze the dependence on $n$, we subsample from the same dataset used in the previous section and we consider
+\begin{equation*}
+    n\in\{100,\ 300,\ 1000,\ 3000,\ 10000,\ 30000,\ 100000\}.
+\end{equation*}
+For each sample size, we run the same four algorithms with $k=10$. For each combination between algorithm and sample size we perform $9$ repetitions. We randomize the order in which the configurations are executed in order to reduce dependence on external factors, such as background processes and CPU heating.
+
+Since the Newton-Raphson method can take a variable number of iterations across configurations, a direct comparison of the total runtime would mix together computational cost and convergence speed. To separate these two effects, we record the execution times and normalize them over $1000$ iterations. Finally, we aggregate the $9$ repetitions using the median rather than the mean, since runtimes can occasionally be affected by outliers due to background processes and other sources of variability. The results are reported in \autoref{fig:runtimes} in logarithmic scale on both axes, together with the reference line $n/100$. For sufficiently large $n$, all curves become approximately parallel to this reference, suggesting that the runtime per iteration eventually grows linearly in $n$. For approximately $n < 10^4$, the two maximum likelihood based algorithms display an almost constant runtime per iteration, which indicates that for moderate sample sizes the cost is dominated by operations that do not scale with $n$, while the linear dependence becomes visible only when $n$ is larger.
+
+We then study the dependence on the number of interior knots $k$. For this experiments we use two independent datasets of fixed size $n=1000$, and we consider
+\begin{equation*}
+    k\in\{4,\ 7,\ 11,\ 18,\ 30,\ 50\}.
+\end{equation*}
+As before, for each combination between algorithm and number of inner knots we perform $9$ repetitions, we randomize the order in which the configurations are executed, we normalize runtimes over $1000$ iterations, and we aggregate using the median. The results are reported in \autoref{fig:runtimes} in logarithmic scale on both axes, together with the reference line $n/3$. In this setting, the score matching based algorithms have consistently smaller runtimes for all values of $k$. Their runtime increases approximately linearly with $k$, while the maximum likelihood based algorithms grow much faster as $k$ increases. In practice, this makes large values of $k$ quickly impractical for the maximum likelihood methods on a normal computer. Overall, these results indicate that the score matching approach leads to a substantial reduction in runtime and allows one to work with richer spline spaces.
+
+\begin{figure}[hbt]
+\centering
+\begin{subfigure}{.49\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{plots/runtimes_n.pdf}
+    \label{fig:runtimes_n}
+\end{subfigure}
+\hfill
+\begin{subfigure}{.49\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{plots/runtimes_k.pdf}
+    \label{fig:runtimes_k}
+\end{subfigure}
+\caption{Median runtime per $1000$ Newton-Raphson iterations (9 repetitions per configuration). Left: varying the sample size $n$. Right: varying the number of interior knots $k$.}
+\label{fig:runtimes}
+\end{figure}

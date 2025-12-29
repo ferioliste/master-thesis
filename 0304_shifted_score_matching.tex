@@ -61,6 +61,11 @@ so that $\ell$ can be defined as
     = \frac{1}{n}\sum_{i=1}^n \bigg(\!- (1-\gamma)\psi'(\mathbf X_i) - \frac{1}{2}(1-\gamma)\psi(\mathbf X_i)^2 - \frac{1}{2}\frac{\gamma}{b-a}\int_a^b \psi(x)^2 \de x\bigg). \label{eq:ell_shifted_SM}
 \end{gather}
 
+We notice that, in practice, the integral $\int_a^b \psi(x)^2\de x$ does not need to be approximated numerically. Indeed, for $\psi\in\mathbb G$, $\psi^2$ is a polynomial on each interval $[t_i,t_{i+1}]$. Therefore, the integral can be computed exactly as
+\begin{equation*}
+    \int_a^b \psi(x)^2\de x = \sum_{i=1}^k \int_{t_i}^{t_{i+1}} \psi(x)^2\de x.
+\end{equation*}
+
 We will show that $\Lambda$ satisfies the hypothesis of \autoref{lem:cond_1}, so that we are able to apply \autoref{thm:approx_error}.
 
 \begin{proposition}
