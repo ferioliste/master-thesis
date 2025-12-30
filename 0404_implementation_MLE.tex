@@ -1,5 +1,5 @@
 \subsection{Implementation of Simple Maximum Likelihood}
-We recall that for the Simple Maximum Likelihood estimator, we have
+In this section, we show how the Simple Maximum Likelihood estimator can be implemented. We recall that
 \begin{equation*}
      \ell(\eta; \mathbf X_1 , \ldots, \mathbf X_n) = \frac{1}{n}\sum_{v=1}^n \bigg(\eta(\mathbf X_v) - \ln \int_a^b \exp \eta(x)\de x\bigg),
 \end{equation*}
@@ -16,7 +16,7 @@ we use the condition
 \begin{equation*}
     \theta_0 = 0,
 \end{equation*}
-that also guarantees a one-to-one correspondence between $\theta^\tr \varphi(x)$ and density.
+that also guarantees a one-to-one correspondence between $\eta=\theta^\tr \varphi(x)$ and the estimated density $f$.
 
 For fixed $\theta$, we calculate $\mathcal L(\theta)$ and the gradient and the Hessian of $\mathcal L$ at $\theta$. 
 First, we define $I^{(0)}\in\R$, $I^{(1)}\in\R^{m+k+1}$, and $I^{(2)}\in\R^{(m+k+1)\times(m+k+1)}$, as
@@ -61,7 +61,7 @@ where the nodes $x_1,\ldots,x_\alpha$ are the roots of the Legendre polynomial o
 \end{equation*}
 for $i=1,\ldots,\alpha$. 
 
-The $\alpha$-point Gauss-Legendre quadrature rule is exact for all polynomials of degree at most $2\alpha-1$ and is very precise with all $f$ that can be well-approximated by polynomials. We can approximate integrals on any interval using a simple change of variable.
+The $\alpha$-point Gauss-Legendre quadrature rule is exact for all polynomials of degree at most $2\alpha-1$ and is very precise with all sufficiently smooth functions. We can approximate integrals on any interval using a simple change of variable.
 
 The entries of $A$ can be used to calculate $I^{(0)}$, $I^{(1)}$, and $I^{(2)}$. We give a few examples of calculations. First, we have
 \begin{equation*}

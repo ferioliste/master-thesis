@@ -1,4 +1,4 @@
-\subsection{Penalty term}
+\subsection{Penalty term}\label{sec:penalty}
 In this section, we show how we can compute the penalty term of the penalized utility functions, as it is the same in every method. We recall that
 \begin{equation*}
     J_q(g) = \int_a^b \big(g^{(q)}(x)\big)^2 \de x = \|g^{(q)}\|_2^2
@@ -29,7 +29,7 @@ For $j=1,\ldots,k$,
 \end{equation*}
 with the convention that $(x-t_j)_+^{0}=\I\{x>t_j\}$.
 
-It follows that the first $q$ rows and columns of $G_q$ are filled $0$. In addition, every entry of $G_q$ can be calculated exactly by integrating polynomials. For example, take $i\in\{q,\ldots,m\}$ and $j\in\{1,\ldots,k\}$, then
+It follows that the first $q$ rows and columns of $G_q$ are filled with $0$. In addition, every entry of $G_q$ can be calculated exactly by integrating polynomials. For example, take $i\in\{q,\ldots,m\}$ and $j\in\{1,\ldots,k\}$, then
 \begin{gather*}
     (G_q)_{i,m+j} = \frac{i!}{(i-q)!}\frac{m!}{(m-q)!} \int_a^b x^{i-q} (x-t_j)_+^{m-q} \de x \\
     = \frac{i!}{(i-q)!}\frac{m!}{(m-q)!} \int_{t_j}^b x^{i-q} (x-t_j)^{m-q} \de x \\
@@ -52,10 +52,10 @@ Let $\theta$ and $\theta^*$ be the coefficient vectors of $g$ and $h$, respectiv
 \end{equation*}
 
 In particular, we have that
-\begin{equation*}
+\begin{equation}\label{eq:normal_integral}
     \int_a^b g(x)\de x = \int_a^b 1\cdot g(x)\de x = e_0^\tr G_0 \theta,
-\end{equation*}
+\end{equation}
 where $e_0=(1,0,\ldots,0)^\tr\in\R^{m+k+1}$ is the first canonical basis vector, and
-\begin{equation*}
+\begin{equation}\label{eq:squared_integral}
     \int_a^b g(x)^2\de x = \theta^\tr G_0 \theta,
-\end{equation*}
+\end{equation}

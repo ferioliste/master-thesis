@@ -1,10 +1,10 @@
 \subsection{Implementation of Shifted Score Matching}
-The implementation proceeds very similarly to the Simple Score Matching method. We recall that for the Shifted Score Matching estimator, we have
+The implementation of the Shifted Score Matching proceeds very similarly to the Simple Score Matching method. We recall that
 \begin{equation*}
      \ell(\psi; \mathbf X_1 , \ldots, \mathbf X_n)
     = \frac{1}{n}\sum_{v=1}^n \bigg(\!- (1-\gamma)\psi'(\mathbf X_v) - \frac{1}{2}(1-\gamma)\psi(\mathbf X_v)^2 - \frac{1}{2}\frac{\gamma}{b-a}\int_a^b \psi(x)^2 \de x\bigg)
 \end{equation*}
-so that
+so that, using \autoref{eq:squared_integral},
 \begin{equation*}
     \mathcal L(\theta) = \frac{1}{n}\sum_{v=1}^n \bigg(\!- (1-\gamma)\theta^\tr \varphi'(\mathbf X_v) - \frac{1}{2}(1-\gamma)\big(\theta^\tr \varphi(\mathbf X_v)\big)^2\bigg) - \frac{1}{2}\frac{\gamma}{b-a}\,\theta^\tr G_0 \theta - \lambda_n\,\theta^\tr G_q \theta.
 \end{equation*}
@@ -12,11 +12,11 @@ so that
 For fixed $\theta$, we calculate the gradient and the Hessian of $\mathcal L$ at $\theta$. We have
 \begin{gather*}
     \big(\S(\theta)\big)_i = \frac{\partial}{\partial\theta_i} \mathcal L(\theta) \\
-    = \frac{1}{n}\sum_{v=1}^n \bigg(\!- (1-\gamma)\varphi_i'(\mathbf X_v) - (1-\gamma)\varphi_i(\mathbf X_v)\big(\theta^\tr \varphi(\mathbf X_v)\big)\bigg) - \frac{1}{2}\frac{\gamma}{b-a}\big(G_0 \theta\big)_i - 2\lambda_n\big(G_q \theta\big)_i
+    = \frac{1}{n}\sum_{v=1}^n \bigg(\!- (1-\gamma)\varphi_i'(\mathbf X_v) - (1-\gamma)\varphi_i(\mathbf X_v)\big(\theta^\tr \varphi(\mathbf X_v)\big)\bigg) - \frac{\gamma}{b-a}\big(G_0 \theta\big)_i - 2\lambda_n\big(G_q \theta\big)_i
 \end{gather*}
 for $i=0,\ldots,m+k$, and
 \begin{gather*}
-    \big(\H(\theta)\big)_{i,j} = \frac{\partial^2}{\partial\theta_i\partial\theta_j} \mathcal L(\theta) = \frac{1}{n}\sum_{v=1}^n \big(\!- (1-\gamma)\varphi_i(\mathbf X_v)\varphi_j(\mathbf X_v)\big) - \frac{1}{2}\frac{\gamma}{b-a}\big(G_0\big)_{i,j} - 2\lambda_n\big(G_q\big)_{i,j},
+    \big(\H(\theta)\big)_{i,j} = \frac{\partial^2}{\partial\theta_i\partial\theta_j} \mathcal L(\theta) = \frac{1}{n}\sum_{v=1}^n \big(\!- (1-\gamma)\varphi_i(\mathbf X_v)\varphi_j(\mathbf X_v)\big) - \frac{\gamma}{b-a}\big(G_0\big)_{i,j} - 2\lambda_n\big(G_q\big)_{i,j},
 \end{gather*}
 for $i=0,\ldots,m+k$ and $j=0,\ldots,m+k$.
 
@@ -24,6 +24,6 @@ Now, we verify that $\mathcal L$ verifies the hypotheses of \autoref{prop:newton
 
 Let $\theta\in\R^{m+k+1}$. We rewrite the Hessian $\H(\theta)$ as
 \begin{equation*}
-    \H(\theta) = -\bigg(\frac{1}{n}\sum_{v=1}^n (1-\gamma)\varphi(\mathbf X_v)\varphi(\mathbf X_v)^\tr + \frac{1}{2}\frac{\gamma}{b-a}\,G_0 + 2\lambda_n\,G_q\bigg).
+    \H(\theta) = -\bigg(\frac{1}{n}\sum_{v=1}^n (1-\gamma)\varphi(\mathbf X_v)\varphi(\mathbf X_v)^\tr + \frac{\gamma}{b-a}\,G_0 + 2\lambda_n\,G_q\bigg).
 \end{equation*}
 Since $\varphi(\mathbf X_v)\varphi(\mathbf X_v)^\tr$ is positive semi-definite for all $v\in{1,\ldots,n}$ and $G_0$ and $G_q$ are positive semi-definite, $\H(\theta)$ is negative semi-definite for all $\theta\in\R^{m+k+1}$.

@@ -1,7 +1,7 @@
 \subsection{Hyperparameter selection}
 The algorithms presented rely heavily on the choice of the regularization parameter $\lambda_n$, which determines the strength of the regularization induced by the penalty term $J_q(h)$.
 
-While we have requirements on the asymptotic behavior of $\lambda_n$ as $n\rightarrow\infty$, for a fixed sample size $n$ the value of $\lambda_n$ must be chosen from the observed sample. In this section, we present two classical methods to select $\lambda_n$: simple validation and $K$-fold cross-validation. In both cases, we compare candidate values of $\lambda_n$ by evaluating how well the estimated density performs on unseen data. Since all the methods ultimately produce density estimates, we use the average log-likelihood on the validation set to compare the different values of $\lambda_n$.
+While we have requirements on the asymptotic behavior of $\lambda_n$ as $n\rightarrow\infty$, for a fixed sample size $n$ the value of $\lambda_n$ must be chosen from the observed data. In this section, we present two classical methods to select $\lambda_n$: simple validation and $K$-fold cross-validation. In both cases, we compare candidate values of $\lambda_n$ by evaluating how well the estimated density performs on unseen data. Since all the methods ultimately produce density estimates, we use the average log-likelihood on the validation sets to compare the different values of $\lambda_n$.
 
 Unlike the standard simple validation and $K$-fold cross-validation procedures, we choose to resample the splits of the original dataset for each candidate value of $\lambda_n$. We do this in order to make the algorithms more robust against potentially "unlucky" splits.
 

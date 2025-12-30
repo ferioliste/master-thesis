@@ -6,7 +6,7 @@ We recall that
     \ell(\eta; \mathbf X_1 , \ldots, \mathbf X_n)
     = \frac{1}{n}\sum_{v=1}^n \bigg((1-\gamma)\eta(\mathbf X_v) + \frac{\gamma}{b-a}\int_a^b\eta(x)\de x - \ln \int_a^b \exp \eta(x)\de x\bigg),
 \end{equation*}
-so that
+so that, using \autoref{eq:normal_integral},
 \begin{equation*}
     \mathcal L(\theta) = \frac{1-\gamma}{n}\sum_{v=1}^n \theta^\tr \varphi(\mathbf X_v) - \ln \int_a^b \exp\!\big(\theta^\tr \varphi(x)\big)\de x + \frac{\gamma}{b-a}\, e_0^\tr G_0 \theta - \lambda_n\,\theta^\tr G_q \theta.
 \end{equation*}
@@ -25,4 +25,4 @@ for $i=0,\ldots,m+k$, and
 \end{equation*}
 for $i=0,\ldots,m+k$ and $j=0,\ldots,m+k$.
 
-Also in this case, we have that $\mathcal L$ verifies the hypotheses of \autoref{prop:newton_global_max}. First, we showed that $\mathcal L$ is twice differentiable at every $\theta\in\R^{m+k+1}$. In addition, for $\theta\in\R^{m+k+1}$, $\H(\theta)$ is the same as for the Simple Maximum Likelihood method and therefore it is negative semi-definite.
+Also in this case, $\mathcal L$ verifies the hypotheses of \autoref{prop:newton_global_max}. First, we showed that $\mathcal L$ is twice differentiable at every $\theta\in\R^{m+k+1}$. In addition, for $\theta\in\R^{m+k+1}$, $\H(\theta)$ is the same as for the Simple Maximum Likelihood method and therefore it is negative semi-definite.

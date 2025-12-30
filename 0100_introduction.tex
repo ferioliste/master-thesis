@@ -1,1 +1,31 @@
 \section{Introduction}
+Probability density estimation is a classical problem in statistics. Given independent observations $\mathbf X_1,\ldots,\mathbf X_n$ drawn from an unknown distribution on an interval $[a,b]\subset\R$, the goal is to construct an estimator $f$ of the underlying density $f_0$. Accurate density estimates are useful both as a descriptive tool and as (change it here)
+
+
+A classical approach to density estimation is to restrict the estimator to a finite-dimensional function space and to select the best element in that space by optimizing some utility function.
+
+In this thesis we focus on spline-based estimators. Splines are a structured but very flexible class of functions. They are a well studied class of functions and have strong theoretical results. they are easy to represente and fast to evaluate on a computer.
+However, increasing flexibility typically increases variance of the estimator making the estimated density noisy. We consider the utility with a regularization term in order to avoid overfitting. We therefore consider penalized spline estimators, where roughness is controlled by a penalty on derivatives.
+
+\section{Introduction}
+Probability density estimation is a classical problem in statistics. Given independent observations $\mathbf X_1,\ldots,\mathbf X_n$ drawn from an unknown distribution on an interval $[a,b]\subset\R$, the goal is to construct an estimator $\hat f_n$ of the underlying density $f_0$. Accurate density estimates are useful both as a descriptive tool and as an intermediate step in more complex procedures, for example when computing tail probabilities, generating synthetic samples, detecting anomalies, or supporting subsequent inference tasks that require a fully specified distribution.
+
+A classical approach to density estimation is to restrict the estimator to a finite-dimensional function space and to select the best element in that space by optimizing a suitable utility function.
+
+In this thesis we focus on spline-based estimators. Splines are a structured but flexible class of functions, with a large literature and well-established approximation properties. They admit simple finite-dimensional representations, which makes them convenient to implement, and they can be evaluated efficiently on a computer. However, increasing flexibility typically increases the variance of the estimator, producing noisy fitted densities. For this reason, we consider utilities augmented with a regularization term in order to control overfitting. In particular, we study penalized spline estimators, where roughness is controlled by a penalty on derivatives.
+
+
+
+
+The first chapter of the thesis presents and expands the results of \cite{huang2021}, that develops the main statistical framework utilized in this thesis for the analysis of penalized spline estimators defined through the maximization of an empirical utility. 
+We present asymptotic probabilistic bounds that give both the L2 convergence of the estimator that allow to bound both the error and the penalization term. We then discuss practical 
+
+conditions on the spline spaces and on the regularization sequence $(\lambda_n)_{n\in\N}$ that ensure that these bounds apply.
+
+The second part of the thesis specializes this framework to five concrete methods for density estimation. Two methods are based on maximum likelihood: a simple version, which requires the target density to be bounded away from $0$, and a shifted version, which relaxes this constraint. Three methods are based on score matching: the simple score matching estimator, its shifted variant, and a generalized score matching estimator that removes boundary assumptions by introducing a weight function. For each method we derive the corresponding empirical objective and show how it fits within the common penalized spline setting.
+
+The third part of the thesis concerns computation. We describe how splines are represented in a truncated power basis, how the penalty term can be expressed in matrix form, and how the resulting finite-dimensional optimization problem can be solved using Newton--Raphson iterations. We also present two validation routines to select the penalty parameter $\lambda_n$ in practice and we discuss the time complexity of the different algorithms.
+
+Finally, we compare the methods empirically. We first study synthetic examples where the ground-truth density is known, in order to investigate the effect of the sample size and of the number of knots, and to compare the five estimators under controlled conditions. We then consider real-world data and illustrate how the methods behave in practice, including a runtime analysis.
+
+The thesis is organized as follows. In \autoref{sec:main_framework} we introduce the main statistical framework and state the probabilistic bounds. In \autoref{sec:methods} we present the five density estimation methods. \autoref{sec:implementation} describes the implementation details, including optimization and hyperparameter selection. Numerical experiments are reported in \autoref{sec:numerical}. We conclude in \autoref{sec:conclusion}.

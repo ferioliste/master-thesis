@@ -1,1 +1,39 @@
-\subsection{Complexity analysis}
+\subsection{Complexity analysis}\label{sec:complexity}
+In this section, we analyze the time complexity of the algorithms. For simplicity, we treat $m$, $\alpha$, and $q$ as constants. In addition, since the Newton-Raphson method can take a variable number of iterations to converge, we study the cost of a single iteration.
+
+We discuss only the Simple Maximum Likelihood and the Simple Score Matching methods. The shifted versions have the same time complexity as their simple counterparts, and Generalized Score Matching has the same time complexity as Simple Score Matching.
+
+The penalty matrix $G_q$ is computed only once before the first iteration. The construction of the matrix $G_q$ is executed as explained in \autoref{sec:penalty} and has a cost of $O(m^2k^2) = O(k^2)$, since $m$ is constant.
+
+In addition, we recall that evaluating $\theta^\tr\varphi(x)$ requires computing all basis functions at $x$, and therefore it has time complexity $O(m+k)=O(k)$, since $m$ is constant.
+
+\paragraph{Simple Maximum Likelihood.} We first consider the cost of Gauss-Legendre quadrature. Using an $\alpha$-point Gauss-Legendre quadrature rule on an interval has a cost of $O(\alpha^2+\alpha\,\mathrm{cost}(f))$, where $O(\alpha^2)$ is the cost of computing the roots of the Legendre polynomial of order $\alpha$ and $\mathrm{cost}(f)$ is the cost of evaluating the integrand $f$.
+
+In order to calculate the entries of $A$, we use the Gauss-Legendre quadrature on integrands that contain the term $\exp(\theta^\tr\varphi(x))$. Then, since $A$ has $O(mk)$ entries, the cost of calculating $A$ is $O(mk(\alpha^2+\alpha k)) = O(k^2)$, since $m$ and $\alpha$ are constants.
+
+Once $A$ is available, computing $I^{(0)}$ has cost $O(k)$, computing $I^{(1)}$ has cost $O(k^2)$, and computing $I^{(2)}$ has cost $O(k^3)$.
+
+Evaluating the objective function $\mathcal L(\theta)$ has a cost of $O(nk+ k^2)$ as it requires computing $\frac{1}{n}\sum_{v=1}^n \theta^\tr\varphi(\mathbf X_v)$ and evaluating the quadratic penalty $\theta^\tr G_q\theta$. Computing the gradient has the same complexity $O(nk+k^2)$, while assembling the Hessian costs $O(k^2)$.
+
+The final step of the iteration is solving the linear system to find the update direction, which costs $O(k^3)$. Therefore, the overall cost per iteration for Simple Maximum Likelihood is
+\begin{equation*}
+    O\big(k^3 + nk\big).
+\end{equation*}
+In particular, for fixed $k$ the complexity grows linearly in $n$, whereas for fixed $n$ the dependence on $k$ is dominated by the cubic cost of computing $I^{(2)}$ and solving the linear system.
+
+\paragraph{Simple Score Matching.}
+First, we consider the cost of evaluating $\mathcal L(\theta)$. This requires computing $\frac{1}{n}\sum_{v=1}^n \theta^\tr\varphi'(\mathbf X_v)$, $\frac{1}{n}\sum_{v=1}^n \big(\theta^\tr\varphi(\mathbf X_v)\big)^2$ and the quadratic penalty $\theta^\tr G_q\theta$, that, respectively, have cost $O(kn)$, $O(kn)$, and $O(k^2)$. Computing the gradient has the same complexity. In order to compute the Hessian, we have to evaluate
+\begin{equation*}
+    \frac{1}{n}\sum_{v=1}^n \varphi(\mathbf X_v)\varphi(\mathbf X_v)^\tr,
+\end{equation*}
+which is a sum of $n$ rank-one matrices of size $k\times k$, and therefore it has cost $O(nk^2)$.
+
+The final step of the iteration is solving the linear system to find the update direction, which costs $O(k^3)$. Therefore, the overall cost per iteration for Simple Score Matching is
+\begin{equation*}
+    O\big(k^3 + nk^2\big).
+\end{equation*}
+In particular, for fixed $k$ the complexity grows linearly in $n$, whereas for fixed $n$ the dependence on $k$ is dominated by the cubic cost of solving the linear system.
+
+Even though this bound is worse than the corresponding bound for Simple Maximum Likelihood, we expect Simple Score Matching to run faster in practice for small $k$, since the iterations require less steps and do not require numerical integration.
+
+A possible way to reduce the time complexity of both methods is to replace Newton-Raphson with a first-order optimizer such as gradient descent or Adam optimizer. This would avoid computing the Hessian and solving a linear system, at the price of potentially requiring more iterations to converge.
