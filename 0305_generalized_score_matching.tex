@@ -94,7 +94,7 @@ Take $u\in\R^{m+k+1}$. Then
 \begin{equation*}
     u^\tr \big(\nabla^2_{\theta} \tilde\Lambda(\theta)\big)u = \E\big[\kappa\big(\phi(\mathbf X)\big)\big(u^\tr\varphi(\mathbf X)\big)^2\big] \geq 0.
 \end{equation*}
-If $\E\big[\kappa\big(\phi(\mathbf X)\big)\big(u^\tr\varphi(\mathbf X)\big)^2\big]=0$, then $u^\tr\varphi(\mathbf X) = 0$ almost surely, since $\kappa\big(\phi(x)\big)$ is strictly positive for $x\in(a,b)$. Finally, we can use the same argument as in the proof of \autoref{prop:simple_sm_valid} to prove that $u=0$.
+If $\E\big[\kappa\big(\phi(\mathbf X)\big)\big(u^\tr\varphi(\mathbf X)\big)^2\big]=0$, then $u^\tr\varphi(\mathbf X) = 0$ almost surely, since $\kappa\big(\phi(x)\big)$ is strictly positive for $x\in(a,b)$. Since $\mathrm{supp}(\mathbf X) = [a,b]$ by hypothesis, using \autoref{lem:support}, we have $u^\tr\tilde\varphi(x)=0$ for all $x\in[a,b]$ and so $u=0$.
 \end{proof}
 
 Unfortunately, similarly to the simple score matching method, $\Lambda$ does not satisfy the hypotheses of the probabilistic bounds. For example, if we try again to apply \autoref{lem:cond_1}, we obtain

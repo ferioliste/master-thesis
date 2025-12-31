@@ -127,15 +127,7 @@ Take $u\in\R^{m+k+1}$. Then
 \begin{equation*}
     u^\tr \big(\nabla^2_{\theta} \tilde\Lambda(\theta)\big)u = \E\big[\big(u^\tr\varphi(\mathbf X)\big)^2\big] \geq 0.
 \end{equation*}
-If $\E\big[\big(u^\tr\varphi(\mathbf X)\big)^2\big]=0$, then $u^\tr\varphi(\mathbf X) = 0$ almost surely. For $i\in\{0,\ldots,k\}$, using the hypothesis, we have
-\begin{equation*}
-    \Pr(\mathbf X\in[t_i,t_{i+1}],\, u^\tr\varphi(\mathbf X) = 0) = \Pr(\mathbf X\in[t_i,t_{i+1}]) > 0.
-\end{equation*}
-Then the set
-\begin{equation*}
-    A_i = \{x\in[t_i,t_{i+1}]: u^\tr\varphi(\mathbf X)=0\}
-\end{equation*}
-has positive Lebesgue measure. Since $u^\tr\varphi(\mathbf X)$ is a polynomial on $[t_i,t_{i+1}]$ we must have $u^\tr\varphi(x)=0$ for all $x\in[t_i,t_{i+1}]$. It follows that $u^\tr\varphi(x)=0$ for all $x\in[a,b]$ and so $u=0$.
+If $\E\big[\big(u^\tr\varphi(\mathbf X)\big)^2\big]=0$, then $u^\tr\varphi(\mathbf X) = 0$ almost surely. Since $\mathrm{supp}(\mathbf X) = [a,b]$ by hypothesis, using \autoref{lem:support}, we have $u^\tr\tilde\varphi(x)=0$ for all $x\in[a,b]$ and so $u=0$.
 \end{proof}
 
 

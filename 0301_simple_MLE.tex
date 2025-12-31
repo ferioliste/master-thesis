@@ -133,12 +133,12 @@ so that $\H(\theta)$ is negative semi-definite. We conclude showing that $u^\tr 
 \begin{equation*}
     0=u^\tr H(\theta)u= - u^\tr \Cov\big(\tilde\varphi(\mathbf Y)\big)u=\var(u^\tr\tilde\varphi(\mathbf Y))
 \end{equation*}
-then $u^\tr\tilde\varphi(\mathbf Y)=c$ almost surely for some constant $c$. This implies that $u^\tr\tilde\varphi(x)=c$ for all $x\in[a,b]$. Since $0$ is the only constant in $\mathbb G^\times$, we have $u^\tr\tilde\varphi(x)=0$ for all $x\in[a,b]$ and so $u=0$.
+then $u^\tr\tilde\varphi(\mathbf Y)=c$ almost surely for some constant $c$. Since $\mathrm{supp}(\mathbf Y) = [a,b]$, using \autoref{lem:support}, we have $u^\tr\tilde\varphi(x)=c$ for all $x\in[a,b]$. Since $0$ is the only constant in $\mathbb G^\times$, we have $u^\tr\tilde\varphi(x)=0$ for all $x\in[a,b]$ and so $u=0$.
 \end{proof}
 
 
 \begin{proposition}\label{prop:simple_MLE_cond_1}
-    The functional $\Lambda$ as in \autoref{eq:Lambda_simple_MLE} satisfies the hypothesis of \autoref{lem:cond_1}, and so Condition 1 of \autoref{thm:approx_error} is satisfied.
+    The functional $\Lambda$ as in \autoref{eq:Lambda_simple_MLE} satisfies the hypothesis of \autoref{lem:cond_1}, and so condition (1) of \autoref{thm:approx_error} is satisfied.
 \end{proposition}
 
 \begin{proof}\mbox{}
@@ -200,11 +200,11 @@ or, equivalently,
      -\frac{M_1}{b-a}\|h_2\|_2^2 \leq \frac{\de^2}{\de\alpha^2}\Lambda(h_1 + \alpha h_2) \leq -\frac{M_2}{b-a}\|h_2\|_2^2.
 \end{equation*}
 
-Since the hypothesis is satisfied, we can use \autoref{lem:cond_1} and conclude that in this setting Condition 1 of \autoref{thm:approx_error} is satisfied.
+Since the hypothesis is satisfied, we can use \autoref{lem:cond_1} and conclude that in this setting condition (1) of \autoref{thm:approx_error} is satisfied.
 \end{proof}
 
 \begin{proposition}
-    The function $l$ as in \autoref{eq:ell_simple_MLE} satisfies the hypothesis of \autoref{lem:cond_2}, and so Condition 1 of \autoref{thm:est_error} is satisfied.
+    The function $l$ as in \autoref{eq:ell_simple_MLE} satisfies the hypothesis of \autoref{lem:cond_2}, and so condition (1) of \autoref{thm:est_error} is satisfied.
 \end{proposition}
 
 \begin{proof}\mbox{}
@@ -230,16 +230,16 @@ It follows that
 \end{equation*}
 since $f_0$ is bounded away from infinity.
 
-Since the hypothesis is satisfied, we can use \autoref{lem:cond_2} and conclude that in this setting Condition 1 of \autoref{thm:est_error} is satisfied.
+Since the hypothesis is satisfied, we can use \autoref{lem:cond_2} and conclude that in this setting condition (1) of \autoref{thm:est_error} is satisfied.
 \end{proof}
 
 \begin{proposition}\label{prop:simple_MLE_cond_3}
-    The function $\ell$ as in \autoref{eq:ell_simple_MLE} satisfies the hypotheses of \autoref{lem:cond_3}, and so Condition 2 of \autoref{thm:est_error} is satisfied.
+    The function $\ell$ as in \autoref{eq:ell_simple_MLE} satisfies the hypotheses of \autoref{lem:cond_3}, and so condition (2) of \autoref{thm:est_error} is satisfied.
 \end{proposition}
 
 \begin{proof}\mbox{}
 
-Since Condition 1 of \autoref{thm:approx_error} is satisfied we can apply \autoref{thm:approx_error} and obtain that $\|\bar\eta_n\|_\infty$ is bounded and so Condition (i) of \autoref{lem:cond_3} is satisfied.
+Since condition (1) of \autoref{thm:approx_error} is satisfied we can apply \autoref{thm:approx_error} and obtain that $\|\bar\eta_n\|_\infty$ is bounded and so condition (i) of \autoref{lem:cond_3} is satisfied.
 
 We have that
 \begin{gather*}
@@ -256,5 +256,5 @@ It follows that $\ell(\bar\eta_n + \alpha g)$ is twice differentiable. In additi
 \end{equation*}
 since, by \autoref{prop:simple_MLE_cond_1}, $\Lambda$ satisfies the hypothesis of \autoref{lem:cond_1}.
 
-Since the hypotheses are satisfied, we can use \autoref{lem:cond_3} and conclude that in this setting Condition 2 of \autoref{thm:est_error} is satisfied.
+Since the hypotheses are satisfied, we can use \autoref{lem:cond_3} and conclude that in this setting condition (2) of \autoref{thm:est_error} is satisfied.
 \end{proof}

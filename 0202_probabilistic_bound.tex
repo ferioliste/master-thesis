@@ -1,4 +1,4 @@
-\subsection{Probabilistic bound}
+\subsection{Probabilistic bounds}
 In this section, we present the probabilistic bound of the quantity $\|\hat\eta_n-\eta_0\|_2^2 + \lambda_n J(\hat\eta_n)$ introduced by Huang and Su in \cite{huang2021}. This gives both the $L_2$ convergence rate of $\hat\eta_n$ to $\eta_0$ and a bound on $J_q(\hat\eta_n)$.
 
 We define
@@ -59,13 +59,13 @@ Assume the following conditions are satisfied
     \end{equation*}
     for all $h \in\mathbb G$ with $\|h\|_\infty \leq B$;
     \item $\displaystyle \lim_{n\to\infty} \delta_n\vee\lambda_n = 0$;
-    \item $\displaystyle \lim_{n\to\infty} A_n^2 \{\delta_n^{2p'} \vee (\lambda_n \delta_n^{2(p'-q)\wedge 0})\} = 0$, with $p' = p \wedge (m+1)$.
+    \item $\displaystyle \lim_{n\to\infty} A_n^2 \big(\delta_n^{2p'} \vee (\lambda_n \delta_n^{2(p'-q)\wedge 0})\big) = 0$, with $p' = p \wedge (m+1)$.
 \end{enumerate}
 Then
 \begin{enumerate}[label=\alph*., leftmargin=2.5em]
     \item Then $\bar\eta_n$ exists and is bounded;
     \item $\|\bar\eta_n - \eta_0\|_\infty = o(1)$;
-    \item $\|\bar\eta_n - \eta_0\|_2^2 + \lambda_n J_q(\bar\eta_n) = O\{\delta_n^{2p'} \vee \lambda_n \delta_n^{2(p'-q)\wedge 0}\}$, with $p' = p \wedge (m+1)$.
+    \item $\|\bar\eta_n - \eta_0\|_2^2 + \lambda_n J_q(\bar\eta_n) = O\big(\delta_n^{2p'} \vee \lambda_n \delta_n^{2(p'-q)\wedge 0}\big)$, with $p' = p \wedge (m+1)$.
 \end{enumerate}
 \end{theorem}
 
@@ -77,7 +77,7 @@ Assume the following conditions are satisfied
 {\|g\|_2^2 + \lambda_n J_q(g)} 
 = O_P\!\bigg( \frac{1}{n \lambda_n^{1/(2q)}} \wedge \frac{1}{n \delta_n} \bigg)$ \\
 with $\displaystyle \dot l[\bar\eta_n, g] = \frac{\de}{\de\alpha}l(\bar\eta_n+\alpha g)\bigg|_{\alpha=0^+}$;
-    \item There are constants $B > 0$ and $M > 0$ such that, with probability tending to one as $n \to \infty$, we have that
+    \item There are constants $B > 0$ and $M > 0$ such that, with probability tending to $1$ as $n \to \infty$, we have that
 \begin{equation*}
     \frac{\de}{\de\alpha} \ell(\bar\eta_n + \alpha g) \bigg|_{\alpha = 1^+}
 - \frac{\de}{\de\alpha} \ell(\bar\eta_n + \alpha g) \bigg|_{\alpha = 0^+} \leq - M \|g\|_2^2

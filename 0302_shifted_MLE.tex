@@ -80,7 +80,7 @@ We notice that $\H(\theta)$ is the exactly the same as in the proof of \autoref{
 \end{proof}
 
 \begin{proposition}\label{prop:shifted_MLE_cond_1}
-    The functional $\Lambda$ as in \autoref{eq:Lambda_shifted_MLE} satisfies the hypothesis of \autoref{lem:cond_1}, and so Condition 1 of \autoref{thm:approx_error} is satisfied.
+    The functional $\Lambda$ as in \autoref{eq:Lambda_shifted_MLE} satisfies the hypothesis of \autoref{lem:cond_1}, and so condition (1) of \autoref{thm:approx_error} is satisfied.
 \end{proposition}
 
 \begin{proof}\mbox{}
@@ -89,7 +89,7 @@ In order to prove this proposition, we only need to notice that $\Lambda$ in \au
 \end{proof}
 
 \begin{proposition}
-    The function $l$ as in \autoref{eq:ell_shifted_MLE} satisfies the hypothesis of \autoref{lem:cond_2}, and so Condition 1 of \autoref{thm:est_error} is satisfied.
+    The function $l$ as in \autoref{eq:ell_shifted_MLE} satisfies the hypothesis of \autoref{lem:cond_2}, and so condition (1) of \autoref{thm:est_error} is satisfied.
 \end{proposition}
 
 \begin{proof}\mbox{}
@@ -117,16 +117,16 @@ It follows that
 \end{gather*}
 since $f_0$ is bounded away from infinity.
 
-Since the hypothesis is satisfied, we can use \autoref{lem:cond_2} and conclude that in this setting Condition 1 of \autoref{thm:est_error} is satisfied.
+Since the hypothesis is satisfied, we can use \autoref{lem:cond_2} and conclude that in this setting condition (1) of \autoref{thm:est_error} is satisfied.
 \end{proof}
 
 \begin{proposition}
-    The function $\ell$ as in \autoref{eq:ell_shifted_MLE} satisfies the hypotheses of \autoref{lem:cond_3}, and so Condition 2 of \autoref{thm:est_error} is satisfied.
+    The function $\ell$ as in \autoref{eq:ell_shifted_MLE} satisfies the hypotheses of \autoref{lem:cond_3}, and so condition (2) of \autoref{thm:est_error} is satisfied.
 \end{proposition}
 
 \begin{proof}\mbox{}
 
-Since Condition 1 of \autoref{thm:approx_error} is satisfied we can apply \autoref{thm:approx_error} and obtain that $\|\bar\eta_n\|_\infty$ is bounded and so Condition (i) of \autoref{lem:cond_3} is satisfied.
+Since condition (1) of \autoref{thm:approx_error} is satisfied we can apply \autoref{thm:approx_error} and obtain that $\|\bar\eta_n\|_\infty$ is bounded and so condition (i) of \autoref{lem:cond_3} is satisfied.
 
 Following a similar procedure as in the proof of \autoref{prop:simple_MLE_cond_3}, we can show that
 \begin{equation*}
@@ -139,7 +139,7 @@ In addition, since, by \autoref{prop:simple_MLE_cond_1}, $\Lambda$ satisfies the
     \frac{\de^2}{\de\alpha^2}\ell(\bar\eta_n + \alpha g) = \frac{\de^2}{\de\alpha^2}\Lambda(\bar\eta_n + \alpha g) \leq -M_2 \|g\|_2^2,\qquad\text{ for }0\leq\alpha\leq1.
 \end{equation*}
 
-Since the hypotheses are satisfied, we can use \autoref{lem:cond_3} and conclude that in this setting Condition 2 of \autoref{thm:est_error} is satisfied.
+Since the hypotheses are satisfied, we can use \autoref{lem:cond_3} and conclude that in this setting condition (2) of \autoref{thm:est_error} is satisfied.
 \end{proof}
 
 We conclude this section by showing how the estimator can be made asymptotically unbiased. We consider the penalized spline estimator
@@ -163,4 +163,4 @@ Unfortunately, this ruins completely the regularity of $f_2$ since it introduces
 \begin{equation*}
     f_4(x) = f_2(x) + 0 \wedge\min_{y\in[a,b]} f_2(y) \Big/ \Big(1+(b-a)\big(0 \wedge\min_{y\in[a,b]} f_2(y)\big)\Big),
 \end{equation*}
-where the minimum of $f_2$ over $[a,b]$ always exists since $f_2$ is continuous. Intuitively, the estimator $f_4$ is $f_2$ shifted up by the bare minimum to make $f_2$ positive for all $x\in[a,b]$. In addition, by conclusion a of \autoref{thm:overall_error}, we have that $f_4$ is an asymptotically unbiased estimator.
+where the minimum of $f_2$ over $[a,b]$ always exists since $f_2$ is continuous. Intuitively, the estimator $f_4$ is $f_2$ shifted up by the bare minimum to make $f_2$ positive for all $x\in[a,b]$. In addition, by conclusion (a) of \autoref{thm:overall_error}, we have that $f_4$ is an asymptotically unbiased estimator.

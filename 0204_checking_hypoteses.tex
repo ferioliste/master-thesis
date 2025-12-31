@@ -1,8 +1,8 @@
 \subsection{Checking the probabilistic bounds' hypotheses}
 
-Theorems \ref{thm:approx_error} and \ref{thm:est_error} have quite technical hypotheses. In this section, we give one proposition and three lemmas that provide simple sufficient conditions to check these assumptions in practice. The lemmas and their proofs are originally taken and integrated from \cite{huang2021}. While \autoref{prop:thm_512} is also presented in \cite{huang2021}, we show how it can be used to derive sufficient conditions for condition 3 of \autoref{thm:approx_error} and condition 4 of \autoref{thm:est_error}. Finally, we present a variation of \autoref{lem:cond_2}, \autoref{lem:cond_2_bis}, that is strictly better in most cases.
+Theorems \ref{thm:approx_error} and \ref{thm:est_error} have quite technical hypotheses. In this section, we give one proposition and three lemmas that provide simple sufficient conditions to check these assumptions in practice. The lemmas and their proofs are originally taken and integrated from \cite{huang2021}. While \autoref{prop:thm_512} is also presented in \cite{huang2021}, we show how it can be used to derive sufficient conditions for condition (3) of \autoref{thm:approx_error} and condition (4) of \autoref{thm:est_error}. Finally, we present and prove a variation of \autoref{lem:cond_2}, \autoref{lem:cond_2_bis}, that is strictly better in most cases.
 
-We start considering condition 3 of \autoref{thm:approx_error} and condition 4 of \autoref{thm:est_error}. These are conditions on the sequence of spline spaces $(\mathbb G_n)_{n\in\N}$ and the sequence of penalty parameters $(\lambda_n)_{n\in\N}$. We use the following result from \cite{constructive_approximation}.
+We start considering condition (3) of \autoref{thm:approx_error} and condition (4) of \autoref{thm:est_error}. These are conditions on the sequence of spline spaces $(\mathbb G_n)_{n\in\N}$ and the sequence of penalty parameters $(\lambda_n)_{n\in\N}$. We use the following result from \cite{constructive_approximation}.
 
 \begin{proposition}[Theorem 5.1.2 of \cite{constructive_approximation}]\label{prop:thm_512}
     Take $A_n$ as in \autoref{def:An}. Under bounded mesh ratio condition, we have that $A_n \lesssim \delta_n^{-1/2}$. In other words, there exists a constants $C>0$ such that $A_n\leq C\delta_n^{-1/2}$ for $n$ large enough.
@@ -10,15 +10,15 @@ We start considering condition 3 of \autoref{thm:approx_error} and condition 4 o
 
 Since
 \begin{equation*}
-    0 \leq A_n^2 \{\delta_n^{2p'} \vee (\lambda_n \delta_n^{2(p'-q)\wedge 0})\} \leq C^2\delta_n^{-1}\{\delta_n^{2p'} \vee (\lambda_n \delta_n^{2(p'-q)\wedge 0})\}
+    0 \leq A_n^2 \big(\delta_n^{2p'} \vee (\lambda_n \delta_n^{2(p'-q)\wedge 0})\big) \leq C^2\delta_n^{-1}\big(\delta_n^{2p'} \vee (\lambda_n \delta_n^{2(p'-q)\wedge 0})\big)
 \end{equation*}
 and
 \begin{equation*}
     0 \leq A_n^2 \bigg(\frac{1}{n \lambda_n^{1/(2q)}} \wedge \frac{1}{n \delta_n}\bigg) \leq C^2\delta_n^{-1}\bigg(\frac{1}{n \lambda_n^{1/(2q)}} \wedge \frac{1}{n \delta_n}\bigg),
 \end{equation*}
-using the squeeze theorem, we find that sufficient conditions for condition 3 of \autoref{thm:approx_error} and condition 4 of \autoref{thm:est_error} are
+using the squeeze theorem, we find that sufficient conditions for condition (3) of \autoref{thm:approx_error} and condition (4) of \autoref{thm:est_error} are
 \begin{equation*}
-    \lim_{n\rightarrow\infty} \delta_n^{-1}\{\delta_n^{2p'} \vee (\lambda_n \delta_n^{2(p'-q)\wedge 0})\} = 0
+    \lim_{n\rightarrow\infty} \delta_n^{-1}\big(\delta_n^{2p'} \vee (\lambda_n \delta_n^{2(p'-q)\wedge 0})\big) = 0
 \end{equation*}
 and
 \begin{equation*}
@@ -27,7 +27,7 @@ and
 
 Since these are conditions on the sequence of spline spaces $(\mathbb G_n)_{n\in\N}$ and the sequence of penalty parameters $(\lambda_n)_{n\in\N}$, they can be verified once and for all. In particular, after fixing the sequences the same conditions apply regardless of the utility function used to define the estimator. For this reason, in \autoref{sec:chapter2}, we will not check these conditions.
 
-We now provide three lemmas for verifying condition 1 of \autoref{thm:approx_error} and conditions 1 and 2 of \autoref{thm:est_error}. These lemmas correspond, in order, to lemmas 5.1, 5.3, and 5.2 of \cite{huang2021}.
+We now provide three lemmas for verifying condition (1) of \autoref{thm:approx_error} and conditions (1) and (2) of \autoref{thm:est_error}. These lemmas correspond, in order, to lemmas 5.1, 5.3, and 5.2 of \cite{huang2021}.
 
 \begin{lemma}\label{lem:cond_1}
     
@@ -37,7 +37,7 @@ If there are constants $B > 0$ and constants $M_1, M_2 > 0$ such that
     -M_1 \|h_2\|_2^2 \leq \frac{\de^2}{\de\alpha^2} \Lambda(h_1 + \alpha h_2) \leq -M_2 \|h_2\|_2^2, 
     \quad 0 \leq \alpha \leq 1,
 \end{equation*}
-whenever $\|h_2\|_{\infty} \leq B$, then, if $\|\eta_0\| \leq C$, Condition 1 of \autoref{thm:approx_error} holds, that is there exist constants $B^*, M_1^*, M_2^* > 0$ such that
+whenever $\|h_2\|_{\infty} \leq B$, then, if $\|\eta_0\| \leq C$, condition (1) of \autoref{thm:approx_error} holds, that is there exist constants $B^*, M_1^*, M_2^* > 0$ such that
 \begin{equation*}
     -M_1^* \|h\|_2^2 \leq \Lambda(\eta_0 + h) - \Lambda(\eta_0) \leq -M_2^* \|h\|_2^2
 \end{equation*}
@@ -64,7 +64,7 @@ and so, using the hypotesis,
 and
 \begin{gather*}
     \Lambda(\eta_0 + h) - \Lambda(\eta_0) = \int_0^1(1-\alpha)\frac{\de^2}{\de\alpha^2} \Lambda(\eta_0+\alpha h)\de\alpha \leq \\
-    -M_2 \|h\|_2^2\int_0^1(1-\alpha)\de\alpha = -\frac{1}{2}M_2 \|h\|_2^2
+    -M_2 \|h\|_2^2\int_0^1(1-\alpha)\de\alpha = -\frac{1}{2}M_2 \|h\|_2^2.
 \end{gather*}
 \end{proof}
 
@@ -77,9 +77,9 @@ Assume the following two conditions are satisfied.
     \begin{equation*}
         \frac{\de^2}{\de\alpha^2} \ell(\bar\eta_n + \alpha g) \leq -M \|g\|_2^2, \qquad\text{ for }0\leq\alpha\leq1,
     \end{equation*}
-    holds for $g \in\mathbb G$ with $\|g\|_\infty \leq B$, with probability tending to one as $n \rightarrow \infty$.
+    holds for $g \in\mathbb G$ with $\|g\|_\infty \leq B$, with probability tending to $1$ as $n \rightarrow \infty$.
 \end{enumerate}
-Then, Condition 2 of \autoref{thm:est_error} is also satisfied, that is there are constants $B^* > 0$ and $M^* > 0$ such that, with probability tending to one as $n \to \infty$, we have that
+Then, condition (2) of \autoref{thm:est_error} is also satisfied, that is there are constants $B^* > 0$ and $M^* > 0$ such that, with probability tending to $1$ as $n \to \infty$, we have that
 \begin{equation*}
     \frac{\de}{\de\alpha} \ell(\bar\eta_n + \alpha g) \Bigg|_{\alpha = 1^+}
 - \frac{\de}{\de\alpha} \ell(\bar\eta_n + \alpha g) \Bigg|_{\alpha = 0^+} \leq - M^* \|g\|_2^2
@@ -98,8 +98,10 @@ We use the Fundamental Theorem of Calculus. We have
 by hypothesis, for $g \in\mathbb G$.
 \end{proof}
 
+About \autoref{lem:cond_3}, we notice that in practice we do not need to check for condition (i) as it is a result of \autoref{thm:approx_error}.
+
 \begin{lemma}\label{lem:cond_2}
-    If there exists a constant $M$ such that $\var\big(\dot l[\bar\eta_n;h]\big)\leq M$ for all $h\in L^2$ with $\|h\|_2=1$ then Condition 1 of \autoref{thm:est_error} holds, that is we have that
+    If there exists a constant $M$ such that $\var\big(\dot l[\bar\eta_n;h]\big)\leq M$ for all $h\in L^2$ with $\|h\|_2=1$ then condition (1) of \autoref{thm:est_error} holds, that is we have that
     \begin{equation*}
         \sup_{g \in \mathbb G} 
         \frac{|(\E_n - \E)\dot l[\bar\eta_n; g]|^2}
@@ -108,10 +110,10 @@ by hypothesis, for $g \in\mathbb G$.
     \end{equation*}
     with $\displaystyle \dot l[\bar\eta_n; g] = \frac{\de}{\de\alpha}l(\bar\eta_n+\alpha g)\bigg|_{\alpha=0^+}$.
 \end{lemma}
-\autoref{lem:cond_2} imposes a condition that needs to hold for all $h\in L^2$ with $\|h\|_2=1$. However, this can be militating is some settings. For this reason, we modified the lemma so that the condition only needs to hold for all $h\in\mathbb G$ with $\|h\|_2\leq 1$. Although this is not as strictly better version of the lemma, it is much easier to apply in practice.
+\autoref{lem:cond_2} imposes a condition that needs to hold for all $h\in L^2$ with $\|h\|_2=1$. However, this can be militating is some settings. For this reason, we modified the lemma so that the condition only needs to hold for all $h\in\mathbb G$ with $\|h\|_2\leq 1$. Although this is not as strictly better version of the lemma, we expect it to be much easier to apply in practice.
 
 \begin{lemma}[Variation of \autoref{lem:cond_2}]\label{lem:cond_2_bis}
-    If there exists a constant $M$ such that $\var\big(\dot l[\bar\eta_n;h]\big)\leq M$ for all $h\in\mathbb G$ with $\|h\|_2\leq 1$ then Condition 1 of \autoref{thm:est_error} holds, that is we have that
+    If there exists a constant $M$ such that $\var\big(\dot l[\bar\eta_n;h]\big)\leq M$ for all $h\in\mathbb G$ with $\|h\|_2\leq 1$ then condition (1) of \autoref{thm:est_error} holds, that is we have that
     \begin{equation*}
         \sup_{g \in \mathbb G} 
         \frac{|(\E_n - \E)\dot l[\bar\eta_n; g]|^2}

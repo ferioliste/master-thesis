@@ -1,6 +1,6 @@
 \subsection{Proofs of the probabilistic bounds}\label{sec:proofs}
-The aim of this section is to prove Theorems \ref{thm:approx_error} and \ref{thm:est_error}. The main proofs are given in \cite{huang2021}. Here, we describe in detail all the steps and fill in the parts that are only sketched or omitted.
-In particular, in addition to what is contained in \cite{huang2021}, we show how \autoref{prop:2.1} follows from Theorem 6.25 of \cite{schumaker_2007}, and we prove conclusions a and b of Theorem \ref{thm:approx_error} and conclusion a of Theorem \ref{thm:est_error}.
+The aim of this section is to prove Theorems \ref{thm:approx_error} and \ref{thm:est_error}. The proofs of the main points are given in \cite{huang2021}. Here, we describe in detail all the steps and fill in the parts that are only sketched or omitted.
+In particular, in addition to what is contained in \cite{huang2021}, we show how \autoref{prop:2.1} follows from Theorem 6.25 of \cite{schumaker_2007}, and we prove conclusions (a) and (b) of Theorem \ref{thm:approx_error} and conclusion (a) of Theorem \ref{thm:est_error}.
 
 We start by stating and proving an important lemma that is used in the proofs of both bounds. The lemma and the proof are originally taken from \cite{huang2021}.
 
@@ -131,7 +131,7 @@ $x_{\min}, x_{\max} \in K$ such that
 \end{equation*}
 \end{theorem}
 
-We are now ready to prove \autoref{thm:approx_error}. The proof of conclusion c is taken and integrated from \cite{huang2021}. The proofs of conclusions a and b are omitted in \cite{huang2021}, but we derived them below.
+We are now ready to prove \autoref{thm:approx_error}. The proof of conclusion (c) is taken and integrated from \cite{huang2021}. The proofs of conclusions (a) and (b) are omitted in \cite{huang2021}, but we derive them below.
 
 \begin{proof}[Proof of \autoref{thm:approx_error}]\mbox{}
 
@@ -174,7 +174,7 @@ Then, since $p>1/2$,
 \end{equation*}
 from which follows that, for $n$ large enough, $\|g-\eta_0\|_\infty \leq B$.
 
-Using Condition 1,
+Using condition (1),
 \begin{equation}\label{eq:chain1}
 \begin{aligned}
     C(g) + \Lambda(\eta_0) &= - \Lambda(g) + \Lambda(\eta_0) + \lambda_n J_q(g) \\
@@ -200,7 +200,7 @@ In addition,
     &\leq \|g - \eta_0\|_2 + \lambda_n^{1/2} J_q^{1/2}(g) + \|\eta_n^* - \eta_0\|_2 
        + \lambda_n^{1/2} J_q^{1/2}(\eta_n^*) \\
     &\leq \|g - \eta_0\|_2 + \lambda_n^{1/2} J_q^{1/2}(g) 
-       + C_1 \delta_n^p + C_3^{1/2} \lambda_n^{1/2} \delta_n^{(p-q)\wedge 0}.
+       + C_1 \delta_n^p + C_3^{1/2} \lambda_n^{1/2} \delta_n^{(p-q)\wedge 0}
 \end{align*}
 where the last inequality uses \autoref{eq:star_vs_0}. It follows that
 \begin{equation} \label{eq:a_minus}
@@ -249,7 +249,7 @@ So,
 \begin{equation*}
     \|\bar\eta_n\|_\infty \leq \|\eta_0\|_\infty + C_2 \delta_n^{p - 1/2} + A_n s.
 \end{equation*}
-By condition 3, $A_n s\rightarrow 0$ as $n\rightarrow\infty$. Since $p>1/2$, also $C_2 \delta_n^{p - 1/2}\rightarrow 0$ as $n\rightarrow\infty$. Then, for $n$ large enough,
+By condition (3), $A_n s\rightarrow 0$ as $n\rightarrow\infty$. Since $p>1/2$, also $C_2 \delta_n^{p - 1/2}\rightarrow 0$ as $n\rightarrow\infty$. Then, for $n$ large enough,
 \begin{equation*}
     \|\bar\eta_n\|_\infty \leq \|\eta_0\|_\infty + 1.
 \end{equation*}
@@ -263,13 +263,13 @@ Then, since $p>1/2$,
     \|\bar\eta_n-\eta_0\|_\infty \leq \|\bar\eta_n-\eta_n^*\|_\infty + \|\eta_n^*-\eta_0\|_\infty\leq A_n a (\delta_n^p + \lambda_n^{1/2}\delta_n^{(p-q)\wedge 0}) + C_2\delta_n^{p-1/2} = o(1).
 \end{equation*}
 
-Finally, we show conclusion c. We have that the minimizer $\bar\eta_n$ of $C(\cdot)$ in $\mathbb G$ satisfies $L(\bar\eta_n)<s$. Then using \autoref{eq:star_vs_0},
+Finally, we show conclusion (c). We have that the minimizer $\bar\eta_n$ of $C(\cdot)$ in $\mathbb G$ satisfies $L(\bar\eta_n)<s$. Then using \autoref{eq:star_vs_0},
 \begin{align*}
 \|\bar{\eta}_n - \eta_0\| 
 + \lambda_n^{1/2} J_q^{1/2}(\bar{\eta}_n) 
 &\leq L(\bar{\eta}_n) + \|\eta_n^* - \eta_0\|_2 + \lambda_n^{1/2} J_q^{1/2}(\eta_n^*) \\
 &\leq a \bigl(\delta_n^p + \lambda_n^{1/2}\delta_n^{(p-q)\wedge 0}\bigr) 
-+ C_1 \delta_n^p + C_3^{1/2}\lambda_n^{1/2}\delta_n^{(p-q)\wedge 0}.
++ C_1 \delta_n^p + C_3^{1/2}\lambda_n^{1/2}\delta_n^{(p-q)\wedge 0},
 \end{align*}
 from which, using the inequality $u^2+v^2 \leq (u+v)^2$ for $u$ and $v$ non-negative, we have
 \begin{equation*}
@@ -279,7 +279,7 @@ from which, using the inequality $u^2+v^2 \leq (u+v)^2$ for $u$ and $v$ non-nega
 
 
 \subsubsection{Proof of the bound on the approximation error}\label{sec:proof_approx}
-Using again \autoref{lem:convexity}, we prove \autoref{thm:est_error}. The proof of conclusion b is taken and integrated from \cite{huang2021}. The proof of conclusions a is omitted in \cite{huang2021}, but we derived it below.
+Using again \autoref{lem:convexity}, we prove \autoref{thm:est_error}. The proof of conclusion (b) is taken and integrated from \cite{huang2021}. The proof of conclusion (a) is omitted in \cite{huang2021}, but we derive it below.
 
 \begin{proof}[Proof of \autoref{thm:est_error}]\mbox{}
 
@@ -355,7 +355,7 @@ Using \autoref{eq:E_difference},
     \mathrm{II} = \frac{\partial}{\partial\alpha}\ell(\bar\eta_n + \alpha(g-\bar\eta_n))\Bigg|_{\alpha=0^+} - \frac{\partial}{\partial\alpha}\ell(\bar\eta_n + \alpha(g-\bar\eta_n))\Bigg|_{\alpha=1^+} + 2\lambda_n J_q(g-\bar\eta_n).
 \end{gather*}
 
-Let $g\in\mathbb G$ such that $L(g)=s$, where both $g$ and $s$ depend on $a$ and $n$. By Condition 1, we have
+Let $g\in\mathbb G$ such that $L(g)=s$, where both $g$ and $s$ depend on $a$ and $n$. By condition (1), we have
 \begin{equation*}
 \begin{aligned}
     |\mathrm{I}| 
@@ -368,7 +368,7 @@ Let $g\in\mathbb G$ such that $L(g)=s$, where both $g$ and $s$ depend on $a$ and
 \end{aligned}
 \end{equation*}
 
-By Condition 5, we have
+By condition (5), we have
 \begin{equation*}
     \|g - \bar\eta_n\|_\infty 
     \leq A_n \|g - \bar\eta_n\|_2 
@@ -377,12 +377,12 @@ By Condition 5, we have
 \end{equation*}
 from which follows that, for $n$ large enough, $\|g - \bar\eta_n\|_\infty \leq B$.
 
-Using Condition 2,
+Using condition (2),
 \begin{align*}
 \mathrm{II} &\geq M \|g - \bar\eta_n\|_2^2 + 2\lambda_n J_q(g - \bar\eta_n) \\
 &\geq \frac{1}{2}(M \wedge 2) \big(\|g - \bar\eta_n\|_2 
    + \lambda_n^{1/2} J_q^{1/2}(g - \bar\eta_n)\bigr)^2 \\
-&= \frac{1}{2}(M \wedge 2) s^2.
+&= \frac{1}{2}(M \wedge 2) s^2,
 \end{align*}
 using $u^2+v^2\geq\frac{1}{2}(u+v)^2$ with $u$ and $v$ non-negative.
 
@@ -400,7 +400,7 @@ Then, if $|\mathrm{I}| \leq M' \frac{s^2}{a}$, we have
 \end{equation*}
 so that
 \begin{equation*}
-    \Pr(\mathrm{I} + \mathrm{II} >0) \geq \Pr\Big(|\mathrm{I}| \leq M' \frac{s^2}{a}\Big)\geq 1-\varepsilon.
+    \Pr(\mathrm{I} + \mathrm{II} >0) \geq \Pr\Big(|\mathrm{I}| \leq M' \frac{s^2}{a}\Big)\geq 1-\varepsilon
 \end{equation*}
 and then
 \begin{equation*}
@@ -417,11 +417,11 @@ that is the same as
 = O_P\!\bigg( \frac{1}{n \lambda_n^{1/(2q)}} \wedge \frac{1}{n \delta_n} \bigg).
 \end{equation*}
 
-Finally, we prove a. If $L(\hat\eta_n)\leq s$, then, using condition 5, we have
+Finally, we prove a. If $L(\hat\eta_n)\leq s$, then, using condition (5), we have
 \begin{equation*}
     \|\hat\eta_n - \bar\eta_n\|_\infty 
     \leq A_n \|\hat\eta_n - \bar\eta_n\|_2 
-    \leq A_n L(\hat\eta_n) = A_n a \Big( \frac{1}{n \lambda_n^{1/(2q)}} \wedge \frac{1}{n \delta_n} \Big)^{1/2} 
+    \leq A_n L(\hat\eta_n) = A_n a \bigg( \frac{1}{n \lambda_n^{1/(2q)}} \wedge \frac{1}{n \delta_n} \bigg)^{1/2} 
     = o(1).
 \end{equation*}
 Then

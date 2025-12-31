@@ -93,6 +93,34 @@ that is the same as
 for $h_1\neq h_2$.
 \end{proof}
 
+We also present and prove a lemma that will be useful later to verify the hypotheses of \autoref{prop:validity}.
+\begin{lemma}\label{lem:support}
+    We consider a continuous random variable $\mathbf X$ that takes values in $[a,b]$. Let $g\in\mathbb G$ such that $g(\mathbf X) = c$ almost surely for some constant $c\in\R$. If
+    \begin{equation*}
+        \Pr(\mathbf X \in [t_i, t_{i+1}]) > 0\qquad\text{for all}\ \ i=0,\ldots,k,
+    \end{equation*}
+    then $g(x) = c$ for all $x\in[a,b]$.
+
+    In particular, this is true if $\mathrm{supp}(\mathbf X) = [a,b]$, where $\mathrm{supp}(\mathbf X)$ is the support of $\mathbf X$.
+\end{lemma}
+
+\begin{proof}\mbox{}
+
+Define $\tilde g(x) := g(x)-c$, then $\tilde g\in\mathbb G$ and $\tilde g(\mathbf X) = 0$ almost surely.
+
+For $i\in\{0,\ldots,k\}$, using the hypothesis, we have
+\begin{equation*}
+    \Pr(\mathbf X\in[t_i,t_{i+1}],\, \tilde g(\mathbf X) = 0) = \Pr(\mathbf X\in[t_i,t_{i+1}]) > 0.
+\end{equation*}
+Then, since $\mathbf X$ is continuous, the set
+\begin{equation*}
+    A_i = \{x\in[t_i,t_{i+1}]: \tilde g(\mathbf X)=0\}
+\end{equation*}
+has positive Lebesgue measure. Since $\tilde g$ is a polynomial on $[t_i,t_{i+1}]$ we necessarily have $\tilde g(x)=0$ for all $x\in[t_i,t_{i+1}]$. Repeating the same argument for all $i\in\{0,\ldots,k\}$, it follows that $\tilde g(x)=0$ and $g(x) = c$ for all $x\in[a,b]$.
+
+Finally, if $\mathrm{supp}(\mathbf X) = [a,b]$, then $\Pr(\mathbf X \in [t_i, t_{i+1}]) > 0$ for all $i=0,\ldots,k$, so the above argument applies.
+\end{proof}
+
 \input{0301_simple_MLE}
 \input{0302_shifted_MLE}
 \input{0303_simple_score_matching}
