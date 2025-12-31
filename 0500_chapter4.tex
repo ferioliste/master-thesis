@@ -31,10 +31,15 @@ In order to generate samples from $f_1$ and $f_2$, we use the acceptance-rejecti
 
 Throughout this chapter, we fix the spline degree to $m=3$, as in \cite{kooperberg1992}, and we use the penalty order $q=2$. In our experiments, provided that $1/2<q\leq m$, we did not observe substantial differences in the qualitative behavior of the estimators when varying $(m,q)$. For this reason, we keep these choices fixed in all the numerical results reported below.
 
-In addition, in all experiments we use uniformly spaced knots on $[a,b]$. For a given number of interior knots $k$, we take 
-\begin{equation*}
-    t_i = a+i\,\frac{b-a}{k+1}\qquad\text{for }i=0,\ldots,k+1.
-\end{equation*}
+In all experiments we use uniformly spaced knots on $[a,b]$. For a given number of interior knots $k$, we take $t_i = a+i(b-a)/(k+1)$ for $i=0,\ldots,k+1$. 
+
+In addition, we use the following fixed parameters:
+\begin{itemize}
+    \item We initialize the optimizations at $\theta^{(0)}=0$.
+    \item We use Gauss-Legendre quadrature with $\alpha=6$ nodes.
+    \item In the Newton-Raphson method use a fixed step size $\zeta=0.1$, we perform at most $I_{\max}=1000$ iterations, and we stop the iterations when $r$ falls below $10^{-6}$
+    \item For Generalized Score Matching, we set $\beta=2$, as in \cite{gen_sm}.
+\end{itemize}
 
 \input{0501_n_vs_k}
 \input{0502_alg_vs_n}

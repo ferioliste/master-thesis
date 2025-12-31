@@ -88,11 +88,11 @@ With a bit more work one can cover all the other cases to calculate all the entr
 
 Now, we verify that $\mathcal L$ verifies the hypotheses of \autoref{prop:newton_global_max}. First, we showed that $\mathcal L$ is twice differentiable at every $\theta\in\R^{m+k+1}$.
 
-Let $\theta\in\R^{m+k+1}$. We consider a random variable $\mathbf Y$ on $[a,b]$ with density
+Let $\theta\in\R^{m+k+1}$. Following the same reasoning as in the proof of \autoref{prop:MLE_valid}, we consider a random variable $\mathbf Y$ on $[a,b]$ with density
 \begin{equation*}
     f(x) = \exp\!\big(\theta^\tr \varphi(x)\big) \Big/ \int_a^b\exp\!\big(\theta^\tr \varphi(x)\big)\de x,\qquad\text{for }x\in[a,b].
 \end{equation*}
-Then, one can show that the covariance matrix of $\varphi(\mathbf Y)$ is equal to
+Then, the covariance matrix of $\varphi(\mathbf Y)$ is equal to
 \begin{equation*}
     \Cov\big(\varphi(\mathbf Y)\big)_{i,j} = \frac{I^{(2)}_{i,j} - I^{(1)}_i I^{(1)}_j}{\big(I^{(0)}\big)^2}
 \end{equation*}

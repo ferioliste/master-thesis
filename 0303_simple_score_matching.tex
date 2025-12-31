@@ -80,10 +80,68 @@ so that $\ell$ can be defined as
 
 The advantage of score matching is that the utility function depends only on the score $\psi$ and its derivative evaluated at the data. In particular, we never need to numerically compute any integrals in order to normalize the density.
 
+We show that $\ell$ is a valid utility function under the assumption that $\mathbf X$ has the whole interval $[a,b]$ as support, so that every sub-interval of $[a,b]$ can be observed with positive probability.
+
+\begin{proposition}\label{prop:simple_sm_valid}
+    If $\mathrm{supp}(\mathbf X) = [a,b]$, 
+    then the function $\ell$ as in \autoref{eq:ell_simple_SM} is a valid utility function.
+\end{proposition}
+
+\begin{proof}\mbox{}
+
+We verify the hypotheses of \autoref{prop:validity} so we can conclude that $\ell$ is valid.
+
+Condition (i) is satisfied by construction.
+
+We define $\tilde\ell$ and $\tilde\Lambda$ as in \autoref{prop:validity}. We have
+\begin{equation*}
+    \tilde\ell(\theta; \mathbf X_1 , \ldots, \mathbf X_n)
+    = \frac{1}{n}\sum_{v=1}^n \bigg(\!- \theta^\tr \varphi'(\mathbf X_v) - \frac{1}{2}\big(\theta^\tr \varphi(\mathbf X_v)\big)^2\bigg)
+\end{equation*}
+and
+\begin{equation*}
+    \Lambda(\theta) = \E\bigg[\!- \theta^\tr \varphi'(\mathbf X) - \frac{1}{2}\big(\theta^\tr \varphi(\mathbf X)\big)^2\bigg]
+\end{equation*}
+for $\theta\in\R^{m+k+1}$ and $\{\varphi_0,\ldots, \varphi_{m+k}\}$ basis of $\mathbb G$, where $\varphi'(x)\in\R^{m+k+1}$ is such that $\big(\varphi'(x)\big)_i = \varphi_i'(x)$ for $i=0,\ldots,m+k$.
+
+In order to verify condition (ii), we differentiate $\ell$ twice, we find
+\begin{equation*}
+    \big(\nabla^2_{\theta} \tilde\ell(\theta;\mathbf W_1,\ldots,\mathbf W_n)\big)_{i,j} = - \frac{1}{n}\sum_{v=1}^n \varphi_i(\mathbf X_v)\varphi_j(\mathbf X_v)
+\end{equation*}
+so that
+\begin{equation*}
+    \nabla^2_{\theta} \tilde\ell(\theta;\mathbf W_1,\ldots,\mathbf W_n) = -\frac{1}{n}\sum_{v=1}^n \varphi(\mathbf X_v)\varphi(\mathbf X_v)^\tr.
+\end{equation*}
+Since $\varphi(\mathbf X_v)\varphi(\mathbf X_v)^\tr$ is positive semi-definite for all $v\in{1,\ldots,n}$, $\nabla^2_{\theta} \tilde\ell(\theta;\mathbf W_1,\ldots,\mathbf W_n)$ is negative semi-definite for all $\theta\in\R^{m+k+1}$.
+
+In order to verify condition (iii), we differentiate $\Lambda$ twice, we find
+\begin{equation*}
+    \big(\nabla^2_{\theta} \tilde\Lambda(\theta)\big)_{i,j} = \E\Big[\varphi_i(\mathbf X)\varphi_j(\mathbf X)\Big],
+\end{equation*}
+so that
+\begin{equation*}
+    \nabla^2_{\theta} \tilde\Lambda(\theta) = \E\big[\varphi(\mathbf X)\varphi(\mathbf X)^\tr\big].
+\end{equation*}
+
+Take $u\in\R^{m+k+1}$. Then
+\begin{equation*}
+    u^\tr \big(\nabla^2_{\theta} \tilde\Lambda(\theta)\big)u = \E\big[\big(u^\tr\varphi(\mathbf X)\big)^2\big] \geq 0.
+\end{equation*}
+If $\E\big[\big(u^\tr\varphi(\mathbf X)\big)^2\big]=0$, then $u^\tr\varphi(\mathbf X) = 0$ almost surely. For $i\in\{0,\ldots,k\}$, using the hypothesis, we have
+\begin{equation*}
+    \Pr(\mathbf X\in[t_i,t_{i+1}],\, u^\tr\varphi(\mathbf X) = 0) = \Pr(\mathbf X\in[t_i,t_{i+1}]) > 0.
+\end{equation*}
+Then the set
+\begin{equation*}
+    A_i = \{x\in[t_i,t_{i+1}]: u^\tr\varphi(\mathbf X)=0\}
+\end{equation*}
+has positive Lebesgue measure. Since $u^\tr\varphi(\mathbf X)$ is a polynomial on $[t_i,t_{i+1}]$ we must have $u^\tr\varphi(x)=0$ for all $x\in[t_i,t_{i+1}]$. It follows that $u^\tr\varphi(x)=0$ for all $x\in[a,b]$ and so $u=0$.
+\end{proof}
+
+
 Unfortunately, to our knowledge, $\Lambda$ does not satisfy the hypotheses of the probabilistic bounds. For example, if we try to apply \autoref{lem:cond_1}, we obtain
 \begin{gather*}
-    \Lambda(h_1+\alpha h_2) = -\E[h_1'(\mathbf X)] -\alpha\E[h_2'(\mathbf X)] - \frac{1}{2}\E\big[\big(h_1(\mathbf X) + \alpha h_2(\mathbf X)\big)^2\big], \\
-    \frac{\de}{\de\alpha}\Lambda(h_1+\alpha h_2) = -\E[h_2'(\mathbf X)] - \E\big[h_2(\mathbf X)\big(h_1(\mathbf X) + \alpha h_2(\mathbf X)\big)\big], \text{ and}\\
+    \Lambda(h_1+\alpha h_2) = -\E[h_1'(\mathbf X)] -\alpha\E[h_2'(\mathbf X)] - \frac{1}{2}\E\big[\big(h_1(\mathbf X) + \alpha h_2(\mathbf X)\big)^2\big]\qquad\text{and}\\
     \frac{\de^2}{\de\alpha^2}\Lambda(h_1+\alpha h_2) = -\E\big[h_2(\mathbf X)^2\big] = -\int_a^b h_2(x)^2f_0(x)\de x.
 \end{gather*}
 
@@ -93,4 +151,4 @@ Since $f_0(a) = f_0(b) = 0$, in general we cannot find a constant $M_2>0$ such t
     \quad 0 \leq \alpha \leq 1.
 \end{equation*}
 
-We will partially solve this issue in the next section where we introduce the shifted score matching method.
+We will partially solve this issue in the next section where we introduce the Shifted Score Matching method.

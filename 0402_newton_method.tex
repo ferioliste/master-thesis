@@ -20,7 +20,7 @@ where $0<\zeta\leq 1$, $\S(\theta^{(i)}) = \nabla\mathcal L(\theta^{(i)}) \in\R^
 
 We stop the iterations when
 \begin{equation*}
-    \frac{\mathcal L(\theta^{(i+1)}) - \mathcal L(\theta^{(i)})}{\max\{|\mathcal L(\theta^{(i)}|,\, 1\}} \leq \varepsilon
+    r_i := \frac{\mathcal L(\theta^{(i+1)}) - \mathcal L(\theta^{(i)})}{\max\{|\mathcal L(\theta^{(i)}|,\, 1\}} \leq \varepsilon
 \end{equation*}
 for $\varepsilon > 0$.
 
@@ -35,7 +35,7 @@ We state a simple sufficient condition that guarantees that any limit point of t
     \begin{enumerate}
         \item $\mathcal L$ is twice continuously differentiable on $\R^{m+k+1}$;
         \item $\H(\theta)=\nabla^2\mathcal L(\theta)$ is negative semi-definite for all $\theta\in\R^{m+k+1}$, so that $\mathcal L$ is concave;
-        \item $(\theta^{(i)})_{i\in\N}$ converges to some $\hat\theta\in\R^{m+k+1}$.
+        \item $(\theta^{(i)})_{i\in\N}$ is well-defined and converges to some $\hat\theta\in\R^{m+k+1}$.
     \end{enumerate}
     Then $\hat\theta$ is a global maximizer of $\mathcal L$, that is,
     \begin{equation*}

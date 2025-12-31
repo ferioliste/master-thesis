@@ -3,7 +3,7 @@ In this section, we compare the performance of all five density estimation metho
 
 Each method is tested on every target density for which its assumptions are satisfied. This yields a total of seven configurations, since two of the methods can be applied to both $f_1$ and $f_2$. For the shifted methods we use $\gamma = 0.05$.
 
-For each configuration and each sample size $n$, we first perform $5$ pilot runs in order to select the penalty parameter $\lambda_n$ by k-fold cross-validation, as done in the previous section. After fixing $\lambda_n$, we generate three additional independent samples and fit the estimator on each of them.
+For each configuration and each sample size $n$, we first perform $5$ pilot runs in order to select the penalty parameter $\lambda_n$ by $5$-fold cross-validation, as done in the previous section. After fixing $\lambda_n$, we generate three additional independent samples and fit the estimator on each of them.
 
 The outcomes for the targets $f_1$ and $f_2$ are reported in \autoref{fig:alg_vs_n_f1} and \autoref{fig:alg_vs_n_f2}, respectively.
 

@@ -13,9 +13,9 @@ Equivalently, $\widetilde{\mathbf X}$ is distributed as
         \mathbf U, & \text{with probability } \gamma,
     \end{cases}
 \end{equation*}
-where $\mathbf X$ has density $f_0$ on $[a,b]$ and $\mathbf U$ is independent of $\mathbf X$ and uniformly distributed on $[a,b]$. It is immediate to check that $\tilde f_0$ satisfies the properties of a valid probability density on $[a,b]$. We will construct an estimator of $\tilde f_0$.
+where $\mathbf X$ has density $f_0$ on $[a,b]$ and $\mathbf U$ is independent of $\mathbf X$ and uniformly distributed on $[a,b]$. We will construct an estimator of $\tilde f_0$.
 
-As in \autoref{sec:simple_MLE}, we represent $f \in W_p\cap\mathcal D$ as
+As for Simple Maximum Likelihood, we represent $f \in W_p\cap\mathcal D$ as
 \begin{equation*}
     f(\cdot) = \exp(\eta(\cdot))\Big/ \int_a^b \exp \eta(x)\de x,
 \end{equation*}
@@ -41,7 +41,43 @@ In this case, we do not need to assume $f_0$ is bounded away from $0$. However, 
     f_0\leq C_2^*\ \ \mu\text{-a.e.}\ .
 \end{equation}
 
-We will show that $\Lambda$, $\ell$ and $l$ satisfy the hypotheses of Lemmas $\ref{lem:cond_1}$, \ref{lem:cond_3}, and \ref{lem:cond_2}, so that we are able to apply Theorems \ref{thm:approx_error} and \ref{thm:est_error}.
+First, we show that $\ell$ is a valid utility function. Then, we verify that $\Lambda$, $\ell$ and $l$ satisfy the hypotheses of Lemmas $\ref{lem:cond_1}$, \ref{lem:cond_3}, and \ref{lem:cond_2}, so that we are able to apply Theorems \ref{thm:approx_error} and \ref{thm:est_error}.
+
+\begin{proposition}
+    The function $\ell$ as in \autoref{eq:ell_shifted_MLE} is a valid utility function.
+\end{proposition}
+
+\begin{proof}\mbox{}
+
+We verify the hypotheses of \autoref{prop:validity} so we can conclude that $\ell$ is valid.
+
+Condition (i) is satisfied by construction.
+
+As in the proof of \autoref{prop:MLE_valid}, we consider the restricted spline space 
+\begin{equation*}
+    \mathbb G^\times = \big\{\eta\in\mathbb G:{\textstyle\int_a^b\eta(x)\de x = 0}\big\}.
+\end{equation*}
+
+We define $\tilde\ell$ and $\tilde\Lambda$ as in \autoref{prop:validity}. We have
+\begin{gather*}
+    \tilde\ell(\theta; \mathbf X_1 , \ldots, \mathbf X_n) \\
+    = \frac{1}{n}\sum_{v=1}^n \bigg((1-\gamma)\theta^\tr \tilde\varphi(\mathbf X_v) + \frac{\gamma}{b-a}\int_a^b\theta^\tr \tilde\varphi(x)\de x - \ln \int_a^b \exp\big(\theta^\tr \tilde\varphi(x)\big)\de x\bigg)
+\end{gather*}
+and
+\begin{equation*}
+    \Lambda(\theta) = (1-\gamma)\E\big[\theta^\tr \tilde\varphi(\mathbf X)\big] + \frac{\gamma}{b-a}\int_a^b\theta^\tr \tilde\varphi(x)\de x - \ln \int_a^b \exp\big(\theta^\tr \tilde\varphi(x)\big)\de x,
+\end{equation*}
+for $\theta\in\R^{m+k}$ and $\{\tilde\varphi_1,\ldots, \tilde\varphi_{m+k}\}$ basis of $\mathbb G^\times$.
+
+Differentiating twice, we find
+\begin{gather*}
+    \big(\H(\theta)\big)_{i,j} := \big(\nabla^2_{\theta} \tilde\ell(\theta;\mathbf W_1,\ldots,\mathbf W_n)\big)_{i,j} = \big(\nabla^2_{\theta} \tilde\Lambda(\theta)\big)_{i,j} \\
+    = \frac{\int_a^b \tilde\varphi_i(x)\exp\!\big(\theta^\tr \tilde\varphi(x)\big)\de x \int_a^b \tilde\varphi_j(x)\exp\!\big(\theta^\tr \tilde\varphi(x)\big)\de x}{\Big(\int_a^b\exp\!\big(\theta^\tr \tilde\varphi(x)\big)\de x\Big)^2}
+    - \frac{\int_a^b \tilde\varphi_i(x)\tilde\varphi_j(x)\exp\!\big(\theta^\tr \tilde\varphi(x)\big)\de x}{\Big(\int_a^b\exp\!\big(\theta^\tr \tilde\varphi(x)\big)\de x\Big)^2}.
+\end{gather*}
+
+We notice that $\H(\theta)$ is the exactly the same as in the proof of \autoref{prop:MLE_valid}, so the rest of the proof is identical.
+\end{proof}
 
 \begin{proposition}\label{prop:shifted_MLE_cond_1}
     The functional $\Lambda$ as in \autoref{eq:Lambda_shifted_MLE} satisfies the hypothesis of \autoref{lem:cond_1}, and so Condition 1 of \autoref{thm:approx_error} is satisfied.
@@ -100,7 +136,7 @@ It follows that $\ell(\bar\eta_n + \alpha g)$ is twice differentiable.
 
 In addition, since, by \autoref{prop:simple_MLE_cond_1}, $\Lambda$ satisfies the hypothesis of \autoref{lem:cond_1}, we have
 \begin{equation*}
-    \frac{\de^2}{\de\alpha^2}\ell(\bar\eta_n + \alpha g) = \frac{\de^2}{\de\alpha^2}\Lambda(\bar\eta_n + \alpha g) \leq -M_2 \|g\|_2^2,\qquad\text{ for }0\leq\alpha\leq1,
+    \frac{\de^2}{\de\alpha^2}\ell(\bar\eta_n + \alpha g) = \frac{\de^2}{\de\alpha^2}\Lambda(\bar\eta_n + \alpha g) \leq -M_2 \|g\|_2^2,\qquad\text{ for }0\leq\alpha\leq1.
 \end{equation*}
 
 Since the hypotheses are satisfied, we can use \autoref{lem:cond_3} and conclude that in this setting Condition 2 of \autoref{thm:est_error} is satisfied.
@@ -108,7 +144,7 @@ Since the hypotheses are satisfied, we can use \autoref{lem:cond_3} and conclude
 
 We conclude this section by showing how the estimator can be made asymptotically unbiased. We consider the penalized spline estimator
 \begin{equation*}
-    \hat\eta_n = \argmax_{h\in \mathbb G} \p\ell(h; \mathbf{W}_1 , \ldots, \mathbf{W}_n).
+    \hat\eta_n = \argmax_{h\in \mathbb G} \p\ell(h; \mathbf{W}_1 , \ldots, \mathbf{W}_n),
 \end{equation*}
 so that the estimated density of $\mathbf X$ will be
 \begin{equation*}

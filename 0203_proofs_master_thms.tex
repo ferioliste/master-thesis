@@ -164,7 +164,7 @@ where the last inequality is by reverse triangle inequality.
 We take $s = a(\delta_n^p + \lambda_n^{1/2}\delta_n^{(p-q)\wedge 0})$, with $a>0$.\\
 We take $\eta^\dagger = \eta^*_n$, so that $L(\eta^\dagger)=0$. By \autoref{prop:2.1}, $\|\eta_n^* - \eta_0\|_\infty \leq C_2\delta_n^{p-1/2}$.
 
-Let $g$ such that $L(g)=s$, where both $g$ and $s$ depend on $a$ and $n$. By definition of $A_n$, we have
+Let $g\in\mathbb G$ such that $L(g)=s$, where both $g$ and $s$ depend on $a$ and $n$. By definition of $A_n$, we have
 \begin{equation*}
     \|g-\eta_n^*\|_\infty \leq A_n\|g-\eta_n^*\|_2 \leq A_n L(g) = A_n s = A_n a (\delta_n^p + \lambda_n^{1/2}\delta_n^{(p-q)\wedge 0}).
 \end{equation*}
@@ -283,7 +283,7 @@ Using again \autoref{lem:convexity}, we prove \autoref{thm:est_error}. The proof
 
 \begin{proof}[Proof of \autoref{thm:est_error}]\mbox{}
 
-First, assuming we can exchange differentiation and expectation, we have that
+First, exchanging differentiation and expectation, for $g\in\mathbb G$, we have that
 \begin{equation*}
     \E\big[\dot l[\bar\eta_n, g]\big] = \frac{\de}{\de\alpha}\Lambda(\bar\eta_n+\alpha g)\Bigg|_{\alpha=0^+}.
 \end{equation*}
@@ -305,7 +305,7 @@ with a small abuse of notation.
 
 Since $\bar\eta_n$ is the maximizer of the concave functional $\p\Lambda(\cdot)$ over $\mathbb G$, it satisfies the condition
 \begin{equation*}
-    \frac{\de}{\de\alpha}\Lambda(\bar\eta_n+\alpha g)\Bigg|_{\alpha=0^+} - 2\lambda_nJ_q(\bar\eta_n, g) = 0\qquad\text{for }g\in\mathbb G,
+    \frac{\de}{\de\alpha}\Lambda(\bar\eta_n+\alpha g)\Bigg|_{\alpha=0^+} - 2\lambda_nJ_q(\bar\eta_n, g) = 0,\qquad\text{for }g\in\mathbb G,
 \end{equation*}
 so that
 \begin{equation*}
@@ -313,7 +313,7 @@ so that
 \end{equation*}
 for $g\in\mathbb G$. Then
 \begin{equation}\label{eq:E_difference}
-    \frac{\de}{\de\alpha}\ell(\bar\eta_n+\alpha g)\Bigg|_{\alpha=0^+} - 2\lambda_nJ_q(\bar\eta_n, g) = (\E_n - \E)\dot l[\bar\eta_n, g]\qquad\text{for }g\in\mathbb G.
+    \frac{\de}{\de\alpha}\ell(\bar\eta_n+\alpha g)\Bigg|_{\alpha=0^+} - 2\lambda_nJ_q(\bar\eta_n, g) = (\E_n - \E)\dot l[\bar\eta_n, g],\qquad\text{for }g\in\mathbb G.
 \end{equation}
 
 We apply \autoref{lem:convexity} to the convex functional
@@ -355,7 +355,7 @@ Using \autoref{eq:E_difference},
     \mathrm{II} = \frac{\partial}{\partial\alpha}\ell(\bar\eta_n + \alpha(g-\bar\eta_n))\Bigg|_{\alpha=0^+} - \frac{\partial}{\partial\alpha}\ell(\bar\eta_n + \alpha(g-\bar\eta_n))\Bigg|_{\alpha=1^+} + 2\lambda_n J_q(g-\bar\eta_n).
 \end{gather*}
 
-Let $g$ such that $L(g)=s$, where both $g$ and $s$ depend on $a$ and $n$. By Condition 1, we have
+Let $g\in\mathbb G$ such that $L(g)=s$, where both $g$ and $s$ depend on $a$ and $n$. By Condition 1, we have
 \begin{equation*}
 \begin{aligned}
     |\mathrm{I}| 

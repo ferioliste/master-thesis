@@ -1,15 +1,15 @@
 \subsection{Real-world test cases}
 In this section, we present two real-world test cases. We use the \emph{NYC Yellow Taxi Trip} dataset from Kaggle\footnote{Dataset available at \href{https://www.kaggle.com/datasets/elemento/nyc-yellow-taxi-trip-data}{\underline{https://www.kaggle.com/datasets/elemento/nyc-yellow-taxi-trip-data}}}. We consider two variables: the taxi pick-up time and the trip distance.
 
-For the pick-up times, we restrict the analysis to the daytime interval from $06{:}00$ to $22{:}00$ and we extract a random subsample of $n=1000$ observations. We make the working assumption that the observations are independent and identically distributed.
+For the pick-up times, we restrict the analysis to the daytime interval from $06{:}00$ to $22{:}00$. After filtering, out of a sample of $9\,900\,000$ data points, we extract a random subsample of $n=1000$ observations. We make the working assumption that the observations are independent and identically distributed.
 
-For the trip distance, we remove trips with distance equal to $0$ and we discard trips longer than $13$ km, since they represent only a small fraction of the data and would dominate the scale of the plot. We consider a random subsample of $n=1000$ observations. Again, we make the working assumption that the observations are independent and identically distributed.
+For the trip distance, we remove trips with distance equal to $0$ and we discard trips longer than $13$ km, since they represent only a small fraction of the data and would dominate the scale of the plot. After filtering, out of a sample of $12\,300\,000$ data points, we consider a random subsample of $n=1000$ observations. Again, we make the working assumption that the observations are independent and identically distributed.
 
 Studying the distribution of pick-up times can be useful, for example, to inform decisions on how many taxis should be operating at different times of the day, or to identify periods of higher congestion and demand. Studying the distribution of trip distances can also be useful, for instance, to characterize typical ride lengths, to support pricing policies, and to quantify the proportion of short versus long trips.
 
 First, we study the distribution of the pick-up times. Since there are no times during the day in which the demand for taxis is exactly zero, it is reasonable to assume that the corresponding density is bounded away from $0$ and infinity on the considered interval.
 
-We estimate the pick-up time density using two methods: Simple Maximum Likelihood and Generalized Score Matching. Using $K$-fold cross-validation, we select $\lambda_n=10^{-7}$ for both estimators. As a baseline, we also report a Gaussian kernel density estimator (KDE). 
+We estimate the pick-up time density using two methods: Simple Maximum Likelihood and Generalized Score Matching. Using $5$-fold cross-validation, we select $\lambda_n=10^{-7}$ for both estimators. As a baseline, we also report a Gaussian kernel density estimator (KDE). 
 
 Given a sample $\mathbf X_1,\ldots,\mathbf X_n$, the KDE with bandwidth $h>0$ is
 \begin{equation*}
@@ -27,11 +27,11 @@ where $\hat\sigma$ denotes the sample standard deviation of $\mathbf X_1,\ldots,
 
 The resulting estimates are shown in \autoref{fig:realworld}. The three methods produce comparable results and all exhibit a trimodal structure: the first peak occurs around $08{:}30$, which coincides with the morning commute; the second peak appears around $14{:}00$, shortly after lunch; and the third peak is around $18{:}30$, when many people return home from work.
 
-One noticeable difference between the Simple Maximum Likelihood estimate and the Generalized Score Matching estimate is that, in the first, the density increases again as $22{:}00$ approaches. As in the synthetic experiments, the Generalized Score Matching estimate shows a poorer behavior close to the boundary of the support. However, both spline-based methods appear to perform better than the KDE, especially near the boundaries. They also have the practical advantage of being much faster to evaluate, since the cost of evaluating the KDE at a point grows linearly with $n$.
+One noticeable difference between the Simple Maximum Likelihood estimate and the Generalized Score Matching estimate is that, in the first, the density increases again as $22{:}00$ approaches. This behavior is more consistent with the empirical histogram shown in the plot. The Generalized Score Matching estimate, instead, appears to be less accurate close to the boundary of the support, similarly to what we observed in the synthetic experiments. However, both spline-based methods appear to perform better than the KDE, especially near the boundaries.
 
 Now, we study the distribution of the trip distances. It is reasonable to assume that the corresponding density $f$ satisfies the boundary condition $f(a)=f(b)=0$. 
 
-We estimate the trip distance density using two methods: Shifted Maximum Likelihood and Simple Score Matching. For the Shifted Maximum Likelihood, we make the estimator asymptotically unbiased using the procedure outlined at the end of \autoref{sec:shifted_MLE}. Using $K$-fold cross-validation, we select $\lambda_n=10^{-6}$ for both estimators. As before, we report a Gaussian kernel density estimator (KDE). 
+We estimate the trip distance density using two methods: Shifted Maximum Likelihood and Simple Score Matching. For the Shifted Maximum Likelihood, we make the estimator asymptotically unbiased using the procedure outlined at the end of \autoref{sec:shifted_MLE}. Using $5$-fold cross-validation, we select $\lambda_n=10^{-6}$ for both estimators. As before, we report a Gaussian kernel density estimator (KDE). 
 
 The resulting estimates are shown in \autoref{fig:realworld}. The three algorithms give comparable results, with a single mode around $1$ km. The score matching estimate displays a slightly more pronounced peak, while the Simple Maximum Likelihood estimate is smoother around the mode. The KDE appears to approximate the central peak less accurately.
 

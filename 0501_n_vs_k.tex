@@ -3,10 +3,10 @@ The first question we address is how the number of interior knots $k$ should be 
 
 We consider three values of the number of interior knots, $k\in\{5,10,20\}$, and three sample sizes, $n\in\{100,1000,10000\}$, for a total of nine possible configurations.
 
-For each pair $(n,k)$, we perform $5$ pilot runs in order to select the penalty parameter $\lambda_n$ by k-fold cross-validation. More precisely, at each pilot run we
+For each pair $(n,k)$, we perform $5$ pilot runs in order to select the penalty parameter $\lambda_n$ by $5$-fold cross-validation. More precisely, at each pilot run we
 \begin{enumerate}
     \item generate a new sample of size $n$ from the ground-truth distribution,
-    \item select $\lambda_n$ by k-fold cross-validation,
+    \item select $\lambda_n$ by $5$-fold cross-validation,
     \item store the selected value of $\lambda_n$.
 \end{enumerate}
 At the end of the $5$ pilot runs, we set $\lambda_n$ equal to the largest of the selected values, as we prefer a conservative penalty.

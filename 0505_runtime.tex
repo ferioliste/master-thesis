@@ -1,5 +1,5 @@
 \subsection{Runtime analysis}
-In this last section, we study the runtime of the estimation algorithms and how it changes as a function of the sample size $n$ and of the number of interior knots $k$. Here, we do not analyze the Shifted Score Matching method, since its implementation has exactly the same structure as the Simple Score Matching algorithm and the observed runtimes would be essentially the same. 
+In this last section, we study the runtime of the estimation algorithms and how it changes as a function of the sample size $n$ and of the number of interior knots $k$. Here, we do not analyze the Shifted Score Matching method, since its implementation has exactly the same structure as the Simple Score Matching algorithm and the observed runtimes would be essentially the same. We also do not include the KDE into the runtime study, since it is outside the scope of this thesis. In addition, KDE is not an "iteration-based" procedure, so a comparison in terms of runtime per iteration is not possible.
 
 To analyze the dependence on $n$, we subsample from the same dataset used in the previous section and we consider
 \begin{equation*}

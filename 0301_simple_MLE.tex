@@ -78,7 +78,64 @@ We assume $f_0$ is bounded away from $0$ and infinity. This means that there exi
     C_1^*\leq f_0\leq C_2^*\ \ \mu\text{-a.e.}\ .
 \end{equation}
 
-We will show that $\Lambda$, $\ell$ and $l$ satisfy the hypotheses of Lemmas $\ref{lem:cond_1}$, \ref{lem:cond_3}, and \ref{lem:cond_2}, so that we are able to apply Theorems \ref{thm:approx_error} and \ref{thm:est_error}. The following three propositions and their proofs are originally taken and integrated from \cite{huang2021}.
+First, we show that $\ell$ is a valid utility function. This argument is not included in \cite{huang2021} and we provide it here. Then, we verify that $\Lambda$, $\ell$, and $l$ satisfy the hypotheses of Lemmas \ref{lem:cond_1}, \ref{lem:cond_3}, and \ref{lem:cond_2}, so that we are able to apply Theorems \ref{thm:approx_error} and \ref{thm:est_error}. The three respective propositions and proofs are originally taken and integrated from \cite{huang2021}.
+
+\begin{proposition}\label{prop:MLE_valid}
+    The function $\ell$ as in \autoref{eq:ell_simple_MLE} is a valid utility function.
+\end{proposition}
+
+\begin{proof}\mbox{}
+
+We verify the hypotheses of \autoref{prop:validity} so we can conclude that $\ell$ is valid.
+
+Condition (i) is satisfied by construction.
+
+We consider a basis of $\mathbb G$, $\{\varphi_0,\ldots,\varphi_{m+k}\}$, such that $\varphi_0\equiv1$. For any spline $g\in\mathbb G$ there exists a unique coefficient vector $\theta\in\R^{m+k+1}$ such that
+\begin{equation*}
+    g(x) = \theta^\tr \varphi(x) = \sum_{i=0}^{m+k} \theta_i\varphi_i(x).
+\end{equation*}
+Imposing \autoref{eq:cond_eta}, we have that
+\begin{equation*}
+    \theta_0 = -\frac{1}{b-a}\int_a^b \sum_{i=1}^{m+k}\theta_i\varphi_i(x)\de x,
+\end{equation*}
+so that the restricted spline space
+\begin{equation*}
+    \mathbb G^\times = \big\{\eta\in\mathbb G:{\textstyle\int_a^b\eta(x)\de x = 0}\big\}
+\end{equation*}
+has dimension $m+k$. In addition, we notice that, except for $0$, constants functions do not belong to $\mathbb G^\times$.
+
+We consider a basis of $\mathbb G^\times$, $\{\tilde\varphi_1,\ldots,\tilde\varphi_{m+k}\}$, and we define $\tilde\ell$ and $\tilde\Lambda$ as in \autoref{prop:validity}. We have
+\begin{equation*}
+    \tilde\ell(\theta; \mathbf X_1 , \ldots, \mathbf X_n) = \frac{1}{n}\sum_{v=1}^n \bigg(\theta^\tr \tilde\varphi(\mathbf X_v) - \ln \int_a^b \exp\big(\theta^\tr \tilde\varphi(x)\big)\de x\bigg)
+\end{equation*}
+and
+\begin{equation*}
+    \Lambda(\theta) = \E\big[\theta^\tr \tilde\varphi(\mathbf X)\big] - \ln \int_a^b \exp\big(\theta^\tr \tilde\varphi(x)\big)\de x,
+\end{equation*}
+for $\theta\in\R^{m+k}$.
+
+Differentiating twice, we find
+\begin{gather*}
+    \big(\H(\theta)\big)_{i,j} := \big(\nabla^2_{\theta} \tilde\ell(\theta;\mathbf W_1,\ldots,\mathbf W_n)\big)_{i,j} = \big(\nabla^2_{\theta} \tilde\Lambda(\theta)\big)_{i,j} \\
+    = \frac{\int_a^b \tilde\varphi_i(x)\exp\!\big(\theta^\tr \tilde\varphi(x)\big)\de x \int_a^b \tilde\varphi_j(x)\exp\!\big(\theta^\tr \tilde\varphi(x)\big)\de x}{\Big(\int_a^b\exp\!\big(\theta^\tr \tilde\varphi(x)\big)\de x\Big)^2}
+    - \frac{\int_a^b \tilde\varphi_i(x)\tilde\varphi_j(x)\exp\!\big(\theta^\tr \tilde\varphi(x)\big)\de x}{\Big(\int_a^b\exp\!\big(\theta^\tr \tilde\varphi(x)\big)\de x\Big)^2}.
+\end{gather*}
+
+To satisfy conditions (ii) and (iii), we need to prove that $\H(\theta)$ is strictly negative definite. We consider a random variable $\mathbf Y$ on $[a,b]$ with density
+\begin{equation*}
+    f(x) = \exp\!\big(\theta^\tr \tilde\varphi(x)\big) \Big/ \int_a^b\exp\!\big(\theta^\tr \tilde\varphi(x)\big)\de x,\qquad\text{for }x\in[a,b].
+\end{equation*}
+Then, one can show that the covariance matrix of $\tilde\varphi(\mathbf Y)$ is equal to
+\begin{equation*}
+    \Cov\big(\tilde\varphi(\mathbf Y)\big) = -\H(\theta),
+\end{equation*}
+so that $\H(\theta)$ is negative semi-definite. We conclude showing that $u^\tr H(\theta)u=0$ if and only if $\R^{m+k}\ni u = 0$. If
+\begin{equation*}
+    0=u^\tr H(\theta)u= - u^\tr \Cov\big(\tilde\varphi(\mathbf Y)\big)u=\var(u^\tr\tilde\varphi(\mathbf Y))
+\end{equation*}
+then $u^\tr\tilde\varphi(\mathbf Y)=c$ almost surely for some constant $c$. This implies that $u^\tr\tilde\varphi(x)=c$ for all $x\in[a,b]$. Since $0$ is the only constant in $\mathbb G^\times$, we have $u^\tr\tilde\varphi(x)=0$ for all $x\in[a,b]$ and so $u=0$.
+\end{proof}
+
 
 \begin{proposition}\label{prop:simple_MLE_cond_1}
     The functional $\Lambda$ as in \autoref{eq:Lambda_simple_MLE} satisfies the hypothesis of \autoref{lem:cond_1}, and so Condition 1 of \autoref{thm:approx_error} is satisfied.
@@ -86,10 +143,9 @@ We will show that $\Lambda$, $\ell$ and $l$ satisfy the hypotheses of Lemmas $\r
 
 \begin{proof}\mbox{}
 
-We have that
+We have
 \begin{gather*}
-    \Lambda(h_1 + \alpha h_2) = \E[h_1(\mathbf X)] + \alpha\E[h_2(\mathbf X)] - \log \int_a^b \exp\big(h_1(x) + \alpha h_2(x)\big)\de x, \\
-    \frac{\de}{\de\alpha}\Lambda(h_1 + \alpha h_2) = \E[h_2(\mathbf X)] - \frac{\int_a^b h_2(x)\exp\big(h_1(x) + \alpha h_2(x)\big)\de x}{\int_a^b \exp\big(h_1(x) + \alpha h_2(x)\big)\de x},\text{ and} \\
+    \Lambda(h_1 + \alpha h_2) = \E[h_1(\mathbf X)] + \alpha\E[h_2(\mathbf X)] - \log \int_a^b \exp\big(h_1(x) + \alpha h_2(x)\big)\de x\qquad\text{and} \\
     \frac{\de^2}{\de\alpha^2}\Lambda(h_1 + \alpha h_2) \\
     = \bigg(\frac{\int_a^b h_2(x)\exp\big(h_1(x) + \alpha h_2(x)\big)\de x}{\int_a^b \exp\big(h_1(x) + \alpha h_2(x)\big)\de x}\bigg)^2 - \frac{\int_a^b h_2(x)^2\exp\big(h_1(x) + \alpha h_2(x)\big)\de x}{\int_a^b \exp\big(h_1(x) + \alpha h_2(x)\big)\de x}.
 \end{gather*}
@@ -100,7 +156,7 @@ We define the random variable $\mathbf X_\alpha$ that has density
 \end{equation*}
 Then,
 \begin{equation}\label{eq:second_Lambda}
-    \frac{\de^2}{\de\alpha^2}\Lambda(h_1 + \alpha h_2) = -\var\big(h_2(\mathbf X_\alpha) \big)
+    \frac{\de^2}{\de\alpha^2}\Lambda(h_1 + \alpha h_2) = -\var\big(h_2(\mathbf X_\alpha) \big).
 \end{equation}
 
 Assume $0\leq\alpha\leq1$, $\|h_1\|_\infty\leq C$, and $\|h_2\|_\infty\leq B$, for $B>0$ and $C>0$. Then\linebreak $\|h_1 + \alpha h_2\|_\infty\leq B+C$. It follows that
@@ -187,8 +243,7 @@ Since Condition 1 of \autoref{thm:approx_error} is satisfied we can apply \autor
 
 We have that
 \begin{gather*}
-    \ell(\bar\eta_n + \alpha g) = \frac{1}{n}\sum_{i=1}^n \bigg(\bar\eta_n(\mathbf X_i) + \alpha g(\mathbf X_i) - \ln\int_a^b\exp(\bar\eta_n(x) + \alpha g(x))\de x\bigg), \\
-    \frac{\de}{\de\alpha}\ell(\bar\eta_n + \alpha g) = \frac{1}{n}\sum_{i=1}^n \bigg(g(\mathbf X_i) - \frac{\int_a^bg(x)\exp(\bar\eta_n(x) + \alpha g(x))\de x}{\int_a^b\exp(\bar\eta_n(x) + \alpha g(x))\de x}\bigg), \text{and}\\
+    \ell(\bar\eta_n + \alpha g) = \frac{1}{n}\sum_{i=1}^n \bigg(\bar\eta_n(\mathbf X_i) + \alpha g(\mathbf X_i) - \ln\int_a^b\exp(\bar\eta_n(x) + \alpha g(x))\de x\bigg)\qquad\text{and}\\
     \frac{\de^2}{\de\alpha^2}\ell(\bar\eta_n + \alpha g) = \\
     -\frac{1}{n}\sum_{i=1}^n \bigg(\frac{\int_a^bg(x)^2\exp(\bar\eta_n(x) + \alpha g(x))\de x}{\int_a^b\exp(\bar\eta_n(x) + \alpha g(x))\de x} - \Big(\frac{\int_a^bg(x)\exp(\bar\eta_n(x) + \alpha g(x))\de x}{\int_a^b\exp(\bar\eta_n(x) + \alpha g(x))\de x}\Big)^2\bigg) \\
     = -\var\big(g(\bar{\mathbf X}_\alpha) \big) \overset{\star}= \frac{\de^2}{\de\alpha^2}\Lambda(\bar\eta_n + \alpha g)

@@ -6,7 +6,7 @@ As for the simple score matching estimator, we assume $f_0(a) = f_0(b) = 0$. In 
     f_0\leq C_2^*\ \ \mu\text{-a.e.}\ .
 \end{equation}
 
-Similarly to \autoref{sec:shifted_MLE}, for $0<\gamma<1$, we consider the random variable $\widetilde{\mathbf X}$ with density
+Similarly to Shifted Maximum Likelihood, for $0<\gamma<1$, we consider the random variable $\widetilde{\mathbf X}$ with density
 \begin{equation*}
     \tilde f_0(\cdot) = (1-\gamma)f_0(\cdot) + \frac{\gamma}{b-a}.
 \end{equation*}
@@ -45,7 +45,7 @@ where the first equality uses the fact that
 the second equality is by integration by parts, and the third equality uses the fact that $f_0(a) = f_0(b) = 0$. The first term can be rewritten as
 \begin{gather*}
     \frac{1}{2}\int_a^b \psi(x)^2 \tilde f_0(x)\de x = \frac{1}{2}\int_a^b \psi(x)^2 \bigg((1-\gamma)f_0(x) + \frac{\gamma}{b-a}\bigg)\de x \\
-    = \frac{1}{2}(1-\gamma)\int_a^b \psi(x)^2 f_0(x)\de x + \frac{1}{2} \frac{\gamma}{b-a}\int_a^b \psi(x)^2 \de x
+    = \frac{1}{2}(1-\gamma)\int_a^b \psi(x)^2 f_0(x)\de x + \frac{1}{2} \frac{\gamma}{b-a}\int_a^b \psi(x)^2 \de x.
 \end{gather*}
 
 As before, we multiply $J(\psi)$ by $-1$ in order to turn a loss function into a utility function.
@@ -66,7 +66,59 @@ We notice that, in practice, the integral $\int_a^b \psi(x)^2\de x$ does not nee
     \int_a^b \psi(x)^2\de x = \sum_{i=1}^k \int_{t_i}^{t_{i+1}} \psi(x)^2\de x.
 \end{equation*}
 
-We will show that $\Lambda$ satisfies the hypothesis of \autoref{lem:cond_1}, so that we are able to apply \autoref{thm:approx_error}.
+First we show that $\ell$ is a valid utility function. Then, we verify that $\Lambda$ satisfies the hypothesis of \autoref{lem:cond_1}, so that we are able to apply \autoref{thm:approx_error}.
+
+\begin{proposition}
+    The function $\ell$ as in \autoref{eq:ell_shifted_SM} is a valid utility function.
+\end{proposition}
+
+\begin{proof}\mbox{}
+
+We verify the hypotheses of \autoref{prop:validity} so we can conclude that $\ell$ is valid.
+
+Condition (i) is satisfied by construction.
+
+We define $\tilde\ell$ and $\tilde\Lambda$ as in \autoref{prop:validity}. We have
+\begin{gather*}
+    \tilde\ell(\theta; \mathbf X_1 , \ldots, \mathbf X_n) \\
+    = \frac{1}{n}\sum_{v=1}^n \bigg(\!- (1-\gamma)\theta^\tr \varphi'(\mathbf X_v) - \frac{1}{2}(1-\gamma)\big(\theta^\tr \varphi(\mathbf X_v)\big)^2 - \frac{1}{2}\frac{\gamma}{b-a}\int_a^b \psi(x)^2 \de x\bigg)
+\end{gather*}
+and
+\begin{equation*}
+    \Lambda(\theta) = \E\bigg[\!- (1-\gamma)\theta^\tr \varphi'(\mathbf X) - \frac{1}{2}(1-\gamma)\big(\theta^\tr \varphi(\mathbf X)\big)^2\bigg] - \frac{1}{2}\frac{\gamma}{b-a}\int_a^b \psi(x)^2 \de x,
+\end{equation*}
+for $\theta\in\R^{m+k+1}$ and $\{\varphi_0,\ldots, \varphi_{m+k}\}$ basis of $\mathbb G$.
+
+In order to verify condition (ii), we differentiate $\ell$ twice, we find
+\begin{equation*}
+    \big(\nabla^2_{\theta} \tilde\ell(\theta;\mathbf W_1,\ldots,\mathbf W_n)\big)_{i,j} = -\frac{1}{n}\sum_{v=1}^n (1-\gamma)\varphi_i(\mathbf X_v)\varphi_j(\mathbf X_v) - \frac{\gamma}{b-a}\int_a^b \varphi_i(x)\varphi_j(x)\de x
+\end{equation*}
+so that
+\begin{equation*}
+    \nabla^2_{\theta} \tilde\ell(\theta;\mathbf W_1,\ldots,\mathbf W_n) = -\frac{1}{n}\sum_{v=1}^n (1-\gamma)\varphi(\mathbf X_v)\varphi(\mathbf X_v)^\tr - \frac{\gamma}{b-a}G_0,
+\end{equation*}
+with $(G_0)_{i,j} = \int_a^b \varphi_i(x)\varphi_j(x)\de x$.
+
+Take $u\in\R^{m+k+1}$. Then
+\begin{gather*}
+    u^\tr G_0 u = \sum_{i=0}^{m+k}\sum_{j=0}^{m+k}u_i u_j (G_0)_{i,j} = \sum_{i=0}^{m+k}\sum_{j=0}^{m+k}u_i u_j \int_a^b \varphi_i(x)\varphi_j(x)\de x \\
+    = \int_a^b \bigg(\sum_{i=0}^{m+k} \theta_i\varphi_i(x)\bigg)^2 \de x \geq 0
+\end{gather*}
+where the equality holds if and only if $u=0$. Then, $G_0$ is strictly positive definite.
+
+Since $\varphi(\mathbf X_v)\varphi(\mathbf X_v)^\tr$ is positive semi-definite for all $v\in{1,\ldots,n}$ and $G_0$ is strictly positive definite, $\nabla^2_{\theta} \tilde\ell(\theta;\mathbf W_1,\ldots,\mathbf W_n)$ is strictly negative definite for all $\theta\in\R^{m+k+1}$.
+
+In order to verify condition (iii), we differentiate $\Lambda$ twice, we find
+\begin{equation*}
+    \big(\nabla^2_{\theta} \tilde\Lambda(\theta)\big)_{i,j} = (1-\gamma)\E\Big[\varphi_i(\mathbf X)\varphi_j(\mathbf X)\Big] - \frac{\gamma}{b-a}\int_a^b \varphi_i(x)\varphi_j(x)\de x,
+\end{equation*}
+so that
+\begin{equation*}
+    \nabla^2_{\theta} \tilde\Lambda(\theta) = (1-\gamma)\E\big[\varphi(\mathbf X)\varphi(\mathbf X)^\tr\big] - \frac{\gamma}{b-a}G_0.
+\end{equation*}
+
+Since $\E\big[\varphi(\mathbf X)\varphi(\mathbf X)^\tr\big]$ is positive semi-definite and $G_0$ is strictly positive definite, $\nabla^2_{\theta} \tilde\Lambda(\theta)$ is strictly negative definite for all $\theta\in\R^{m+k+1}$.
+\end{proof}
 
 \begin{proposition}
 The functional $\Lambda$ as in \autoref{eq:Lambda_shifted_SM} satisfies the hypothesis of \autoref{lem:cond_1}, and so Condition 1 of \autoref{thm:approx_error} is satisfied.
@@ -77,9 +129,7 @@ The functional $\Lambda$ as in \autoref{eq:Lambda_shifted_SM} satisfies the hypo
 We have that
 \begin{gather*}
     \Lambda(h_1 + \alpha h_2) = \E\bigg[\!- (1-\gamma)\big(h_1'(\mathbf X) + \alpha h_2'(\mathbf X)\big) -\frac{1}{2}(1-\gamma)\big(h_1(\mathbf X)+ \alpha h_2(\mathbf X)\big)^2\bigg] \\
-    - \frac{1}{2}\frac{\gamma}{b-a}\int_a^b \big(h_1(x)+ \alpha h_2(x)\big)^2 \de x, \\
-    \frac{\de}{\de\alpha}\Lambda(h_1 + \alpha h_2) = \E\big[\!- (1-\gamma)h_2'(\mathbf X) -(1-\gamma)h_2(\mathbf X)\big(h_1(\mathbf X)+ \alpha h_2(\mathbf X)\big)\big] \\
-    - \frac{\gamma}{b-a}\int_a^b h_2(x)\big(h_1(x)+ \alpha h_2(x)\big) \de x,\text{ and} \\
+    - \frac{1}{2}\frac{\gamma}{b-a}\int_a^b \big(h_1(x)+ \alpha h_2(x)\big)^2 \de x\qquad\text{and} \\
     \frac{\de^2}{\de\alpha^2}\Lambda(h_1 + \alpha h_2)
     = \E\big[\!-(1-\gamma)h_2(\mathbf X)^2\big]
     - \frac{\gamma}{b-a}\int_a^b h_2(x)^2 \de x.
@@ -91,7 +141,7 @@ Since $f_0$ is bounded away from infinity,
 \end{equation*}
 Then,
 \begin{equation*}
-    -\Big((1-\gamma)C_2^* + \frac{\gamma}{b-a}\Big)\|h_2\|_2^2 \leq \Lambda(h_1 + \alpha h_2) \leq -\frac{\gamma}{b-a}\|h_2\|_2^2
+    -\Big((1-\gamma)C_2^* + \frac{\gamma}{b-a}\Big)\|h_2\|_2^2 \leq \Lambda(h_1 + \alpha h_2) \leq -\frac{\gamma}{b-a}\|h_2\|_2^2.
 \end{equation*}
 
 Since the hypotheses are satisfied, we can use \autoref{lem:cond_1} and conclude that in this setting Condition 2 of \autoref{thm:approx_error} is satisfied.
@@ -131,7 +181,7 @@ for some constant $M>0$ that depends only on $[a,b]$ and $m$. Unfortunately, thi
 
 For simplicity, take $[a,b]=[0,1]$ and fix the spline degree $m = 2$. We consider the following sequence of knots vectors. For each $n\in\mathbb N$, we take the knots partition $t_{(n)} \in\R^{n+2}$ with
 \begin{equation*}
-    0 = (t_{(n)})_0 < (t_{(n)})_1 < \dots < (t_{(n)})_{n+1} = 1, \qquad (t_{(n)})_i := \frac{i}{n+1},
+    0 = (t_{(n)})_0 < (t_{(n)})_1 < \dots < (t_{(n)})_{n+1} = 1, \qquad (t_{(n)})_i := \frac{i}{n+1},\text{ for }i=0,\ldots,n+1.
 \end{equation*}
 Let $(\mathbb G_n)_{n\in\N}$ the sequence of spline spaces. We consider the spline $g_n\in \mathbb G_n$ defined as
 \begin{equation*}

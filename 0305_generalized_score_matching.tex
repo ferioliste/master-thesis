@@ -9,9 +9,9 @@ where $\psi_0\in W^p$.
 
 We define the functions
 \begin{equation*}
-    \phi(x) = \min\!\big\{x-a;\ b-x;\ 1\big\}\qquad\text{and}\qquad \kappa(x) = x^\alpha
+    \phi(x) = \min\!\big\{x-a;\ b-x;\ 1\big\}\qquad\text{and}\qquad \kappa(x) = x^\beta
 \end{equation*}
-with $\alpha>1$.
+with $\beta>1$.
 
 As in the simple score matching method, we want to estimate $\psi_0$ and then use \autoref{eq:psi_to_f} to obtain an estimate of $f_0$.
 
@@ -46,6 +46,56 @@ so that $\ell$ can be defined as
     \notag \\
     = \frac{1}{n}\sum_{i=1}^n \bigg(\!- \kappa\big(\phi(\mathbf X_i)\big)\psi'(\mathbf X_i) - \phi'(\mathbf X_i)\kappa'\big(\phi(\mathbf X_i)\big)\psi(\mathbf X_i) - \frac{1}{2}\kappa\big(\phi(\mathbf X_i)\big)\psi(\mathbf X_i)^2\bigg).\label{eq:ell_gen_SM}
 \end{gather}
+
+As for the Simple Score Matching method, we show that $\ell$ is a valid utility function under the assumption that $\mathbf X$ has the whole interval $[a,b]$ as support.
+
+\begin{proposition}
+    If $\mathrm{supp}(\mathbf X) = [a,b]$, 
+    then the function $\ell$ as in \autoref{eq:ell_gen_SM} is a valid utility function.
+\end{proposition}
+
+\begin{proof}\mbox{}
+
+We verify the hypotheses of \autoref{prop:validity} so we can conclude that $\ell$ is valid.
+
+Condition (i) is satisfied by construction.
+
+We define $\tilde\ell$ and $\tilde\Lambda$ as in \autoref{prop:validity}. We have
+\begin{gather*}
+    \tilde\ell(\theta; \mathbf X_1 , \ldots, \mathbf X_n) \\
+    = \frac{1}{n}\sum_{v=1}^n \bigg(\!- \kappa\big(\phi(\mathbf X_v)\big)\theta^\tr \varphi'(\mathbf X_v) - \phi'(\mathbf X_v)\kappa'\big(\phi(\mathbf X_v)\big)\theta^\tr \varphi(\mathbf X_v) - \frac{1}{2}\kappa\big(\phi(\mathbf X_v)\big)\big(\theta^\tr \varphi(\mathbf X_v)\big)^2\bigg)
+\end{gather*}
+and
+\begin{equation*}
+    \Lambda(\theta) = \E\bigg[\!- \kappa\big(\phi(\mathbf X)\big)\theta^\tr \varphi'(\mathbf X) - \phi'(\mathbf X)\kappa'\big(\phi(\mathbf X)\big)\theta^\tr \varphi(\mathbf X) - \frac{1}{2}\kappa\big(\phi(\mathbf X)\big)\big(\theta^\tr \varphi(\mathbf X)\big)^2\bigg],
+\end{equation*}
+for $\theta\in\R^{m+k+1}$ and $\{\varphi_0,\ldots, \varphi_{m+k}\}$ basis of $\mathbb G$.
+
+In order to verify condition (ii), we differentiate $\ell$ twice, we find
+\begin{equation*}
+    \big(\nabla^2_{\theta} \tilde\ell(\theta;\mathbf W_1,\ldots,\mathbf W_n)\big)_{i,j} = - \frac{1}{n}\sum_{v=1}^n \kappa\big(\phi(\mathbf X_v)\big)\varphi_i(\mathbf X_v)\varphi_j(\mathbf X_v),
+\end{equation*}
+so that
+\begin{equation*}
+    \nabla^2_{\theta} \tilde\ell(\theta;\mathbf W_1,\ldots,\mathbf W_n) = -\frac{1}{n}\sum_{v=1}^n \kappa\big(\phi(\mathbf X_v)\big)\varphi(\mathbf X_v)\varphi(\mathbf X_v)^\tr.
+\end{equation*}
+Since $\varphi(\mathbf X_v)\varphi(\mathbf X_v)^\tr$ is positive semi-definite for all $v\in{1,\ldots,n}$, $\nabla^2_{\theta} \tilde\ell(\theta;\mathbf W_1,\ldots,\mathbf W_n)$ is negative semi-definite for all $\theta\in\R^{m+k+1}$.
+
+In order to verify condition (iii), we differentiate $\Lambda$ twice, we find
+\begin{equation*}
+    \big(\nabla^2_{\theta} \tilde\Lambda(\theta)\big)_{i,j} = \E\Big[\kappa\big(\phi(\mathbf X)\big)\varphi_i(\mathbf X)\varphi_j(\mathbf X)\Big],
+\end{equation*}
+so that
+\begin{equation*}
+    \nabla^2_{\theta} \tilde\Lambda(\theta) = \E\big[\kappa\big(\phi(\mathbf X)\big)\varphi(\mathbf X)\varphi(\mathbf X)^\tr\big].
+\end{equation*}
+
+Take $u\in\R^{m+k+1}$. Then
+\begin{equation*}
+    u^\tr \big(\nabla^2_{\theta} \tilde\Lambda(\theta)\big)u = \E\big[\kappa\big(\phi(\mathbf X)\big)\big(u^\tr\varphi(\mathbf X)\big)^2\big] \geq 0.
+\end{equation*}
+If $\E\big[\kappa\big(\phi(\mathbf X)\big)\big(u^\tr\varphi(\mathbf X)\big)^2\big]=0$, then $u^\tr\varphi(\mathbf X) = 0$ almost surely, since $\kappa\big(\phi(x)\big)$ is strictly positive for $x\in(a,b)$. Finally, we can use the same argument as in the proof of \autoref{prop:simple_sm_valid} to prove that $u=0$.
+\end{proof}
 
 Unfortunately, similarly to the simple score matching method, $\Lambda$ does not satisfy the hypotheses of the probabilistic bounds. For example, if we try again to apply \autoref{lem:cond_1}, we obtain
 \begin{gather*}
