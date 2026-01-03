@@ -1,4 +1,4 @@
-\section{Implementation}
+\section{Implementation}\label{ch:chapter3}
 In this chapter, we outline how the five methods for probability density estimation can be implemented on a computer. The implementation builds on the work of Kooperberg and Stone \cite{kooperberg1992}, who describe an algorithm for the Simple Maximum Likelihood estimator in the case $m=3$ and without a penalty term. Here, we extend their approach to arbitrary spline degree $m$, include a penalty term, and follow the same general strategy to implement the other four methods.
 
 For simplicity, we use uniformly spaced knots on $[a,b]$, although \cite{kooperberg1992} also presents some interesting heuristics to place the knots more optimally. After describing the implementation of the algorithms, we present two cross-validation routines to select the penalty parameter $\lambda_n$. Finally, we comment on the time complexity of the algorithms.
